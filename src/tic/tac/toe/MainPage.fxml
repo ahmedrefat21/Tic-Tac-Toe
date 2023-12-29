@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="480.0" fitWidth="788.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/images/Splash%20Screen.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="computerRectangle" arcHeight="50.0" arcWidth="50.0" fill="#fcd015" height="176.0" layoutX="56.0" layoutY="163.0" stroke="TRANSPARENT" strokeType="INSIDE" width="190.0" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="494.0" AnchorPane.topAnchor="163.0" />
+      <ImageView fitHeight="90.0" fitWidth="138.0" layoutX="110.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="207.0" AnchorPane.topAnchor="183.0">
+         <image>
+            <Image url="@../../../assets/images/computer.png" />
+         </image>
+      </ImageView>
+      <Text fill="#f22853" layoutX="84.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer" textAlignment="CENTER" wrappingWidth="142.6666899010561" AnchorPane.bottomAnchor="166.2548828125" AnchorPane.topAnchor="271.9384765625">
+         <font>
+            <Font name="Comic Sans MS Bold" size="30.0" />
+         </font>
+      </Text>
+      <Rectangle fx:id="localRectangle" arcHeight="50.0" arcWidth="50.0" fill="#fcd015" height="176.0" layoutX="275.0" layoutY="163.0" stroke="TRANSPARENT" strokeType="INSIDE" width="190.0" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="275.0" AnchorPane.topAnchor="163.0" />
+      <Rectangle fx:id="onlineRectangle" arcHeight="50.0" arcWidth="50.0" fill="#fcd015" height="176.0" layoutX="490.0" layoutY="163.0" stroke="TRANSPARENT" strokeType="INSIDE" width="190.0" AnchorPane.bottomAnchor="141.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="163.0" />
+      <Rectangle fx:id="recordRectangle" arcHeight="50.0" arcWidth="50.0" fill="#fcd015" height="96.0" layoutX="223.0" layoutY="354.0" stroke="TRANSPARENT" strokeType="INSIDE" width="286.0" />
+      <ImageView fitHeight="90.0" fitWidth="138.0" layoutX="326.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="207.0" AnchorPane.topAnchor="183.0">
+         <image>
+            <Image url="@../../../assets/images/local.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="90.0" fitWidth="138.0" layoutX="540.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="207.0" AnchorPane.topAnchor="183.0">
+         <image>
+            <Image url="@../../../assets/images/online-game.png" />
+         </image>
+      </ImageView>
+      <Text fill="#f22853" layoutX="300.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Local" textAlignment="CENTER" wrappingWidth="142.6666899010561" AnchorPane.bottomAnchor="165.2548828125" AnchorPane.topAnchor="272.9384765625">
+         <font>
+            <Font name="Comic Sans MS Bold" size="30.0" />
+         </font>
+      </Text>
+      <Text fill="#f22853" layoutX="514.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Online" textAlignment="CENTER" wrappingWidth="142.6666899010561" AnchorPane.bottomAnchor="165.2548828125" AnchorPane.topAnchor="272.9384765625">
+         <font>
+            <Font name="Comic Sans MS Bold" size="30.0" />
+         </font>
+      </Text>
+      <Text fill="#f22853" layoutX="240.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Records" textAlignment="CENTER" wrappingWidth="142.6666899010561">
+         <font>
+            <Font name="Comic Sans MS Bold" size="30.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="90.0" fitWidth="101.0" layoutX="392.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/images/recording.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
