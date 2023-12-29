@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="tic.tac.toe.ServerScreenFXMLController">
+    <stylesheets>
+        <URL value="@serverscreenfxml.css" />
+    </stylesheets>
+   <children>
+      <ImageView fitHeight="178.0" fitWidth="145.0" layoutX="68.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="182.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="410.4593734741211" AnchorPane.topAnchor="90.0">
+         <image>
+            <Image url="@../../../assets/images/backgroundpink.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="77.0" layoutY="117.0" prefHeight="52.0" prefWidth="103.0" styleClass="element" text="Offline" textFill="#f22853" AnchorPane.bottomAnchor="305.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="420.0" AnchorPane.topAnchor="117.0">
+         <font>
+            <Font name="Lucida Sans Typewriter Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="82.0" layoutY="199.0" prefHeight="52.0" prefWidth="93.0" text="Online" textFill="#69ba6c" AnchorPane.bottomAnchor="223.0" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="199.0">
+         <font>
+            <Font name="Lucida Sans Typewriter Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="98.0" fitWidth="444.0" layoutX="103.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="133.40579223632812" AnchorPane.topAnchor="318.0">
+         <image>
+            <Image url="@../../../assets/images/backgroundpink2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="52.0" fitWidth="68.0" layoutX="7.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="370.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="531.5904769897461" AnchorPane.topAnchor="28.0">
+         <image>
+            <Image url="@../../../assets/images/back.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="110.0" layoutY="108.0" prefHeight="98.0" prefWidth="37.0" text="-" AnchorPane.bottomAnchor="216.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="453.0" AnchorPane.topAnchor="108.0">
+         <font>
+            <Font size="86.0" />
+         </font>
+      </Label>
+      <Label layoutX="123.0" layoutY="341.0" prefHeight="52.0" prefWidth="103.0" styleClass="element" text="Offline" textFill="#f22853" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="374.0" AnchorPane.topAnchor="341.0">
+         <font>
+            <Font name="Lucida Sans Typewriter Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="250.0" layoutY="341.0" prefHeight="52.0" prefWidth="93.0" text="Online" textFill="#69ba6c" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="341.0">
+         <font>
+            <Font name="Lucida Sans Typewriter Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="369.0" layoutY="345.0" prefHeight="45.0" prefWidth="110.0" styleClass="element" text="Busy" textFill="#fbc04f" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="369.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="345.0">
+         <font>
+            <Font name="Lucida Sans Typewriter Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="235.0" fitWidth="304.0" layoutX="302.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="153.0" AnchorPane.leftAnchor="302.0" AnchorPane.rightAnchor="33.306854248046875" AnchorPane.topAnchor="62.0">
+         <image>
+            <Image url="@../../../assets/images/backgroundpink3.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
