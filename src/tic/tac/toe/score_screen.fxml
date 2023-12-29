@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="740.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.Score_screenController">
+    <stylesheets>
+        <URL value="@score_screen.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane layoutX="203.0" layoutY="117.0" prefHeight="341.0" prefWidth="523.0" styleClass="tableframe">
+         <children>
+            <HBox fx:id="record" layoutX="8.0" layoutY="14.0" prefHeight="54.0" prefWidth="510.0" styleClass="record">
+               <children>
+                  <Label fx:id="recordnamelabel" alignment="CENTER" prefHeight="54.0" prefWidth="178.0" stylesheets="@score_screen.css" text="Name" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="recordscorelabel" alignment="CENTER" prefHeight="54.0" prefWidth="179.0" text="Score" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="recordstatuslabel" alignment="CENTER" prefHeight="54.0" prefWidth="140.0" text="Status" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox fx:id="record1" layoutX="8.0" layoutY="123.0" prefHeight="54.0" prefWidth="510.0" styleClass="record">
+               <children>
+                  <Label fx:id="recordnamelabel1" alignment="CENTER" prefHeight="54.0" prefWidth="178.0" stylesheets="@score_screen.css" text="Player1" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="recordscorelabel1" alignment="CENTER" prefHeight="54.0" prefWidth="179.0" text="50" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="recordstatuslabel1" alignment="CENTER" prefHeight="54.0" prefWidth="140.0" text="Online" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox fx:id="record11" layoutX="7.0" layoutY="234.0" prefHeight="54.0" prefWidth="510.0" styleClass="record">
+               <children>
+                  <Label fx:id="recordnamelabel11" alignment="CENTER" prefHeight="54.0" prefWidth="178.0" stylesheets="@score_screen.css" text="Player2" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="recordscorelabel11" alignment="CENTER" prefHeight="54.0" prefWidth="179.0" text="10" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="recordstatuslabel11" alignment="CENTER" prefHeight="54.0" prefWidth="140.0" text="Offline" textFill="#fde8ed">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <Label fx:id="plynamelabel" layoutX="14.0" layoutY="160.0" text="Player Name" textFill="#fcd015">
+         <font>
+            <Font name="Comic Sans MS Bold" size="29.0" />
+         </font>
+      </Label>
+      <Text fill="#fcd015" layoutX="203.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tic">
+         <font>
+            <Font name="Comic Sans MS Bold" size="64.0" />
+         </font>
+      </Text>
+      <Text fill="#f22853" layoutX="314.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tac">
+         <font>
+            <Font name="Comic Sans MS Bold" size="64.0" />
+         </font>
+      </Text>
+      <Text fill="#fcd015" layoutX="436.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Toe" wrappingWidth="133.125">
+         <font>
+            <Font name="Comic Sans MS Bold" size="64.0" />
+         </font>
+      </Text>
+      <Label fx:id="scorelabel" layoutX="62.0" layoutY="306.0" text="Score" textFill="#fcd015">
+         <font>
+            <Font name="Comic Sans MS Bold" size="29.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logout" fitHeight="75.0" fitWidth="90.0" layoutX="636.0" layoutY="24.0">
+         <image>
+            <Image url="@../../../assets/images/logout.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtofplyname" alignment="CENTER" layoutX="36.0" layoutY="225.0" prefHeight="31.0" prefWidth="133.0" style="-fx-background-color: #F22853; -fx-background-radius: 20;" text="X">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtofscore" alignment="CENTER" layoutX="77.0" layoutY="366.0" prefHeight="31.0" prefWidth="51.0" style="-fx-background-color: #F22853; -fx-background-radius: 20;" styleClass="textfield2" stylesheets="@score_screen.css" text="10">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>
