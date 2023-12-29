@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="tic.tac.toe.LoginFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.LoginFXMLController">
     <stylesheets>
         <URL value="@loginfxml.css" />
     </stylesheets>
@@ -21,32 +21,32 @@
       </ImageView>
       <Button layoutX="245.0" layoutY="281.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="160.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@loginfxml.css" text="Login" textFill="WHITE" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="281.0">
          <font>
-            <Font name="Lucida Sans Typewriter Bold" size="27.0" />
+            <Font name="Comic Sans MS Bold" size="27.0" />
          </font>
       </Button>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-5.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="463.7890625" AnchorPane.topAnchor="256.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-9.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-9.0" AnchorPane.rightAnchor="467.7890625" AnchorPane.topAnchor="266.0">
          <image>
             <Image url="@../../../assets/images/ticTacToe.png" />
          </image>
       </ImageView>
       <Label layoutX="115.0" layoutY="163.0" text="Name" textFill="#f22853" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="418.0" AnchorPane.topAnchor="163.0">
          <font>
-            <Font name="Lucida Sans Demibold" size="23.0" />
+            <Font name="Comic Sans MS Bold" size="23.0" />
          </font>
       </Label>
       <Label layoutX="115.0" layoutY="211.0" prefHeight="27.0" prefWidth="112.0" text="Password" textFill="#f22853" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="373.0" AnchorPane.topAnchor="211.0">
          <font>
-            <Font name="Lucida Sans Typewriter Bold" size="23.0" />
+            <Font name="Comic Sans MS Bold" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="184.0" layoutY="342.0" text="Don't have an account? " textFill="#f22853" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="342.0">
+      <Label layoutX="192.0" layoutY="358.0" text="Don't have an account? " textFill="#f22853" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="358.0">
          <font>
-            <Font name="Lucida Sans Typewriter Bold" size="17.0" />
+            <Font name="Comic Sans MS Bold" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="420.0" layoutY="342.0" prefHeight="21.0" prefWidth="95.0" text="signUp " textFill="#fcd015" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="342.0">
+      <Label layoutX="396.0" layoutY="357.0" prefHeight="21.0" prefWidth="95.0" text="signUp " textFill="#fcd015" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="396.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="357.0">
          <font>
-            <Font name="Lucida Sans Typewriter Bold" size="17.0" />
+            <Font name="Comic Sans MS Bold" size="17.0" />
          </font>
       </Label>
       <TextField layoutX="238.0" layoutY="163.0" prefHeight="31.0" prefWidth="236.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px;" AnchorPane.bottomAnchor="214.0" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="163.0" />
