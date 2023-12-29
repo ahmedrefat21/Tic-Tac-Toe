@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="545.0" prefWidth="801.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.Signup_login_designController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="740.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.Signup_login_designController">
     <stylesheets>
         <URL value="@signup_login_design.css" />
     </stylesheets>
@@ -32,12 +32,8 @@
             <Image url="@../../../assets/images/logout.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnlogin" layoutX="245.0" layoutY="253.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="312.0" text="Login" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="244.0" AnchorPane.topAnchor="253.0">
-         <font>
-            <Font name="System Bold" size="35.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnsignup" layoutX="245.0" layoutY="374.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="312.0" text="Sign Up">
+      <Button fx:id="btnlogin" layoutX="245.0" layoutY="253.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="312.0" text="Login" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="244.0" AnchorPane.topAnchor="253.0" />
+      <Button fx:id="btnsignup" layoutX="245.0" layoutY="374.0" mnemonicParsing="false" prefHeight="480.0" prefWidth="740.0" text="Sign Up" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="244.0" AnchorPane.topAnchor="374.0">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
