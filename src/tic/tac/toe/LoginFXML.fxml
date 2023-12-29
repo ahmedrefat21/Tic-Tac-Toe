@@ -19,7 +19,7 @@
             <Image url="@../../../assets/images/user.png" />
          </image>
       </ImageView>
-      <Button layoutX="270.0" layoutY="343.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="199.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@loginfxml.css" text="Login" textFill="WHITE" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="343.0">
+      <Button layoutX="270.0" layoutY="343.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="199.0" style="-fx-border-radius: 50px; -fx-background-radius: 50; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );" stylesheets="@loginfxml.css" text="Login" textFill="WHITE" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="343.0">
          <font>
             <Font name="Comic Sans MS Bold" size="27.0" />
          </font>
@@ -49,12 +49,12 @@
             <Font name="Comic Sans MS Bold" size="22.0" />
          </font>
       </Label>
-      <TextField layoutX="263.0" layoutY="186.0" prefHeight="46.0" prefWidth="329.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px; -fx-font-size: 20px;" AnchorPane.bottomAnchor="248.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="186.0" />
+      <TextField layoutX="263.0" layoutY="186.0" prefHeight="46.0" prefWidth="329.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px; -fx-font-size: 20px; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 8 ,0.4 , -7, 5);" AnchorPane.bottomAnchor="248.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="186.0" />
       <ImageView fitHeight="71.0" fitWidth="81.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="659.0" AnchorPane.topAnchor="25.0">
          <image>
             <Image url="@../../../assets/images/back.png" />
          </image>
       </ImageView>
-      <TextField layoutX="263.0" layoutY="247.0" prefHeight="46.0" prefWidth="329.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px; -fx-font-size: 20px;" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="247.0" />
+      <TextField layoutX="263.0" layoutY="247.0" prefHeight="46.0" prefWidth="318.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px; -fx-font-size: 20px; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="247.0" />
    </children>
 </AnchorPane>
