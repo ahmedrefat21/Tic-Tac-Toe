@@ -9,52 +9,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.LoginFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="740.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.LoginFXMLController">
     <stylesheets>
         <URL value="@loginfxml.css" />
     </stylesheets>
    <children>
-      <ImageView fitHeight="85.0" fitWidth="105.0" layoutX="271.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="289.0" AnchorPane.leftAnchor="271.0" AnchorPane.rightAnchor="225.23873901367188" AnchorPane.topAnchor="36.0">
+      <ImageView fitHeight="113.0" fitWidth="161.0" layoutX="301.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="334.0" AnchorPane.leftAnchor="301.0" AnchorPane.rightAnchor="301.0585632324219" AnchorPane.topAnchor="33.0">
          <image>
             <Image url="@../../../assets/images/user.png" />
          </image>
       </ImageView>
-      <Button layoutX="245.0" layoutY="281.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="160.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@loginfxml.css" text="Login" textFill="WHITE" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="281.0">
+      <Button layoutX="270.0" layoutY="343.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="199.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@loginfxml.css" text="Login" textFill="WHITE" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="343.0">
          <font>
             <Font name="Comic Sans MS Bold" size="27.0" />
          </font>
       </Button>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-9.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-9.0" AnchorPane.rightAnchor="467.7890625" AnchorPane.topAnchor="266.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-14.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="612.7890625" AnchorPane.topAnchor="329.0">
          <image>
             <Image url="@../../../assets/images/ticTacToe.png" />
          </image>
       </ImageView>
-      <Label layoutX="115.0" layoutY="163.0" text="Name" textFill="#f22853" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="418.0" AnchorPane.topAnchor="163.0">
+      <Label layoutX="136.0" layoutY="155.0" text="Name" textFill="#f22853" AnchorPane.bottomAnchor="228.0" AnchorPane.leftAnchor="136.0" AnchorPane.rightAnchor="397.0" AnchorPane.topAnchor="155.0">
          <font>
-            <Font name="Comic Sans MS Bold" size="23.0" />
+            <Font name="Comic Sans MS Bold" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="115.0" layoutY="211.0" prefHeight="27.0" prefWidth="112.0" text="Password" textFill="#f22853" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="373.0" AnchorPane.topAnchor="211.0">
+      <Label layoutX="134.0" layoutY="218.0" prefHeight="27.0" prefWidth="112.0" text="Password" textFill="#f22853" AnchorPane.bottomAnchor="165.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="354.0" AnchorPane.topAnchor="218.0">
          <font>
-            <Font name="Comic Sans MS Bold" size="23.0" />
+            <Font name="Comic Sans MS Bold" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="192.0" layoutY="358.0" text="Don't have an account? " textFill="#f22853" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="358.0">
+      <Label layoutX="205.0" layoutY="387.0" text="Don't have an account? " textFill="#f22853" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="159.0" AnchorPane.topAnchor="387.0">
          <font>
-            <Font name="Comic Sans MS Bold" size="17.0" />
+            <Font name="Comic Sans MS Bold" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="396.0" layoutY="357.0" prefHeight="21.0" prefWidth="95.0" text="signUp " textFill="#fcd015" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="396.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="357.0">
+      <Label layoutX="464.0" layoutY="387.0" prefHeight="21.0" prefWidth="95.0" text="signUp " textFill="#fcd015" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="464.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="387.0">
          <font>
-            <Font name="Comic Sans MS Bold" size="17.0" />
+            <Font name="Comic Sans MS Bold" size="22.0" />
          </font>
       </Label>
-      <TextField layoutX="238.0" layoutY="163.0" prefHeight="31.0" prefWidth="236.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px;" AnchorPane.bottomAnchor="214.0" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="163.0" />
-      <TextField layoutX="238.0" layoutY="208.0" prefHeight="31.0" prefWidth="236.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px;" AnchorPane.bottomAnchor="169.0" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="208.0" />
-      <ImageView fitHeight="54.0" fitWidth="67.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="331.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="536.228572845459" AnchorPane.topAnchor="25.0">
+      <TextField layoutX="263.0" layoutY="186.0" prefHeight="46.0" prefWidth="329.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px;" AnchorPane.bottomAnchor="248.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="186.0" />
+      <ImageView fitHeight="71.0" fitWidth="81.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="659.0" AnchorPane.topAnchor="25.0">
          <image>
             <Image url="@../../../assets/images/back.png" />
          </image>
       </ImageView>
+      <TextField layoutX="263.0" layoutY="247.0" prefHeight="46.0" prefWidth="329.0" style="-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 10px;" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="247.0" />
    </children>
 </AnchorPane>
