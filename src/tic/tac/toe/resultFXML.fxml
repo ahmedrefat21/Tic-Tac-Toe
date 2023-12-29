@@ -16,17 +16,12 @@
    <children>
       <Button layoutX="60.0" layoutY="308.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="202.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@resultfxml.css" text="Play again" textFill="#f22853">
          <font>
-            <Font name="Lucida Sans Typewriter Bold" size="27.0" />
+            <Font name="Comic Sans MS" size="27.0" />
          </font>
       </Button>
-      <Label layoutX="430.0" layoutY="272.0" text="YOU WON" textFill="#f22853">
+      <Label layoutX="227.0" layoutY="55.0" prefHeight="53.0" prefWidth="172.0" stylesheets="" text="RESULT" textFill="#fbc04f" AnchorPane.bottomAnchor="318.0" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="55.0">
          <font>
-            <Font name="Lucida Sans Typewriter Bold" size="23.0" />
-         </font>
-      </Label>
-      <Label layoutX="227.0" layoutY="55.0" prefHeight="44.0" prefWidth="147.0" stylesheets="" text="RESULT" textFill="#fbc04f" AnchorPane.bottomAnchor="318.0" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="226.0" AnchorPane.topAnchor="55.0">
-         <font>
-            <Font name="Lucida Sans Typewriter Bold" size="38.0" />
+            <Font name="Comic Sans MS Bold" size="38.0" />
          </font>
       </Label>
       <ImageView fitHeight="54.0" fitWidth="67.0" layoutX="14.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="296.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="522.228572845459" AnchorPane.topAnchor="50.0">
@@ -36,7 +31,7 @@
       </ImageView>
       <Button layoutX="349.0" layoutY="308.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="202.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@resultfxml.css" text="Main menu" textFill="#f22853">
          <font>
-            <Font name="Lucida Sans Typewriter Bold" size="27.0" />
+            <Font name="Comic Sans MS Bold" size="27.0" />
          </font>
       </Button>
       <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="210.0" layoutY="99.0" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="99.0" />
