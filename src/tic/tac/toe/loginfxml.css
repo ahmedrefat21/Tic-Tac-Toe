@@ -1,0 +1,12 @@
+.mainFxmlClass  {
+    -fx-background-color: rgba(253, 232, 237, 1);
+}
+.button {
+    -fx-background-color: rgba(252, 208, 21, 1);
+    
+
+}
+.element {
+    font-family: league spartan, semiBold;
+    
+}
