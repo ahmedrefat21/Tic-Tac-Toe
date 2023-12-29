@@ -28,12 +28,12 @@
          </image>
       </ImageView>
       <TextField fx:id="userNameTextField" layoutX="302.0" layoutY="199.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15;" />
-      <Text id="firstPlayerNameText" fx:id="secondPlayerNameText" fill="#f22853" layoutX="170.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+      <Text id="firstPlayerNameText" fill="#f22853" layoutX="170.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Text>
-      <Text id="firstPlayerNameText" fx:id="secondPlayerNameText1" fill="#f22853" layoutX="172.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <Text id="firstPlayerNameText" fill="#f22853" layoutX="172.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
@@ -47,7 +47,7 @@
             <Font name="Comic Sans MS Bold" size="30.0" />
          </font>
       </Button>
-      <Text id="firstPlayerNameText" fx:id="secondPlayerNameText2" fill="#f22853" layoutX="236.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have an account?">
+      <Text id="firstPlayerNameText" fill="#f22853" layoutX="236.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have an account?">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
