@@ -9,31 +9,31 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.ResultFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="740.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.ResultFXMLController">
     <stylesheets>
         <URL value="@resultfxml.css" />
     </stylesheets>
    <children>
-      <Button layoutX="60.0" layoutY="308.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="202.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@resultfxml.css" text="Play again" textFill="#f22853">
-         <font>
-            <Font name="Comic Sans MS" size="27.0" />
-         </font>
-      </Button>
-      <Label layoutX="227.0" layoutY="55.0" prefHeight="53.0" prefWidth="172.0" stylesheets="" text="RESULT" textFill="#fbc04f" AnchorPane.bottomAnchor="318.0" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="55.0">
-         <font>
-            <Font name="Comic Sans MS Bold" size="38.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="54.0" fitWidth="67.0" layoutX="14.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="296.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="522.228572845459" AnchorPane.topAnchor="50.0">
-         <image>
-            <Image url="@../../../assets/images/back.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="349.0" layoutY="308.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="202.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@resultfxml.css" text="Main menu" textFill="#f22853">
+      <Button layoutX="125.0" layoutY="378.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="202.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@resultfxml.css" text="Play again" textFill="#f22853" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="413.0" AnchorPane.topAnchor="378.0">
          <font>
             <Font name="Comic Sans MS Bold" size="27.0" />
          </font>
       </Button>
-      <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="210.0" layoutY="99.0" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="99.0" />
+      <Label layoutX="291.0" layoutY="12.0" prefHeight="107.0" prefWidth="158.0" stylesheets="" text="RESULT" textFill="#fbc04f" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="12.0">
+         <font>
+            <Font name="Comic Sans MS Bold" size="38.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="67.0" fitWidth="83.0" layoutX="7.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="381.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="653.8761901855469" AnchorPane.topAnchor="32.0">
+         <image>
+            <Image url="@../../../assets/images/back.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="414.0" layoutY="378.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="202.0" style="-fx-border-radius: 50px; -fx-background-radius: 50;" stylesheets="@resultfxml.css" text="Main menu" textFill="#f22853" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="414.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="378.0">
+         <font>
+            <Font name="Comic Sans MS Bold" size="27.0" />
+         </font>
+      </Button>
+      <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="270.0" layoutY="129.0" AnchorPane.bottomAnchor="151.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="129.0" />
    </children>
 </AnchorPane>
