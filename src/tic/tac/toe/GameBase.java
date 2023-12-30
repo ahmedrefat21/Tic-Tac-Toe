@@ -30,6 +30,17 @@ public  class GameBase extends AnchorPane {
     protected final Text firstPlayerScoreText;
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
+    boolean isfirstPlayerTurn = true;
+    private void setCurrentPlayerShadow(){
+         
+           if (isfirstPlayerTurn==true){
+                firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+           }else{
+               secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+           } 
+        
+        }
+		
 
     public GameBase() {
 
