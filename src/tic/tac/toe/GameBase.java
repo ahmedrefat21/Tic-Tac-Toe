@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public abstract class GameBase extends AnchorPane {
+public  class GameBase extends AnchorPane {
 
     protected final ImageView imageView;
     protected final ImageView imageView0;
