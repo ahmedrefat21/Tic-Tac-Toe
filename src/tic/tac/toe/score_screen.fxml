@@ -15,7 +15,7 @@
         <URL value="@score_screen.css" />
     </stylesheets>
    <children>
-      <AnchorPane layoutX="203.0" layoutY="117.0" prefHeight="341.0" prefWidth="523.0" styleClass="tableframe">
+      <AnchorPane layoutX="203.0" layoutY="117.0" prefHeight="341.0" prefWidth="523.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);" styleClass="tableframe">
          <children>
             <HBox fx:id="record" layoutX="8.0" layoutY="14.0" prefHeight="54.0" prefWidth="510.0" styleClass="record">
                <children>
@@ -81,17 +81,17 @@
             <Font name="Comic Sans MS Bold" size="29.0" />
          </font>
       </Label>
-      <Text fill="#fcd015" layoutX="203.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tic">
+      <Text fill="#fcd015" layoutX="203.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);" text="Tic">
          <font>
             <Font name="Comic Sans MS Bold" size="64.0" />
          </font>
       </Text>
-      <Text fill="#f22853" layoutX="314.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tac">
+      <Text fill="#f22853" layoutX="314.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);" text="Tac">
          <font>
             <Font name="Comic Sans MS Bold" size="64.0" />
          </font>
       </Text>
-      <Text fill="#fcd015" layoutX="436.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Toe" wrappingWidth="133.125">
+      <Text fill="#fcd015" layoutX="436.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);" text="Toe" wrappingWidth="133.125">
          <font>
             <Font name="Comic Sans MS Bold" size="64.0" />
          </font>

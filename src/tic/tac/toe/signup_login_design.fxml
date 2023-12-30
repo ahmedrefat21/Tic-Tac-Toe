@@ -17,12 +17,20 @@
             <Image url="@../../../assets/images/arrow_back.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="welcomeregister" fitHeight="155.0" fitWidth="172.0" layoutX="315.0" layoutY="30.0">
+
+      <ImageView fx:id="welcomeregister" fitHeight="155.0" fitWidth="172.0" layoutX="315.0" layoutY="30.0"/>
+
+      <ImageView fx:id="welcomeregister" fitHeight="155.0" fitWidth="172.0" layoutX="294.0" layoutY="14.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);">
+
          <image>
             <Image url="@../../../assets/images/welcomeregister.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="logo" fitHeight="200.0" fitWidth="198.0" layoutX="7.0" layoutY="374.0">
+
+      <ImageView fx:id="logo" fitHeight="200.0" fitWidth="198.0" layoutX="7.0" layoutY="374.0"/>
+
+      <ImageView fx:id="logo" fitHeight="200.0" fitWidth="198.0" layoutY="273.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);">
+
          <image>
             <Image url="@../../../assets/images/logo.png" />
          </image>
@@ -32,12 +40,17 @@
             <Image url="@../../../assets/images/logout.png" />
          </image>
       </ImageView>
+
       <Button fx:id="btnlogin" layoutX="245.0" layoutY="253.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="312.0" text="Login" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="244.0" AnchorPane.topAnchor="253.0">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>
       </Button>
-      <Button fx:id="btnsignup" layoutX="245.0" layoutY="374.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="312.0" text="Sign Up">
+      <Button fx:id="btnsignup" layoutX="245.0" layoutY="374.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="312.0" text="Sign Up"/>
+
+      <Button fx:id="btnlogin" layoutX="233.0" layoutY="233.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="312.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);" text="Login" />
+      <Button fx:id="btnsignup" layoutX="233.0" layoutY="349.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="312.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);" text="Sign Up">
+
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
