@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -30,6 +31,14 @@ public  class GameBase extends AnchorPane {
     protected final Text firstPlayerScoreText;
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
+    boolean isGameEnds;
+    boolean isFirstPlayerTurn = true;
+    int XOCounter = 0;
+   
+    int randomNumber;
+    Color xForeground = Color.BLUE;
+    Color oForeground = Color.RED;
+    
 
     public GameBase() {
 
@@ -315,6 +324,89 @@ public  class GameBase extends AnchorPane {
         getChildren().add(firstPlayerScoreText);
         getChildren().add(secondPlayerScoreText);
         getChildren().add(recordImage);
+        
+        
 
     }
+    
+    private void checkIfGameEnds() {
+            
+        String t00 = button11.getText();
+        String t01 = button12.getText();
+        String t02 = button13.getText();
+        String t10 = button21.getText();
+        String t11 = button22.getText();
+        String t12 = button23.getText();
+        String t20=  button31.getText();
+        String t21 = button32.getText();
+        String t22 = button33.getText();
+  
+        if (t00.equals(t01) && t00.equals(t02) && !t00.equals("")) {
+            isGameEnds = true;
+            colorBackgroundWinnerButtons(button11, button12, button13);
+        }
+ 
+        if (t10.equals(t11) && t10.equals(t12) && !t10.equals("")) {
+            isGameEnds = true;
+            colorBackgroundWinnerButtons(button21, button22, button23);
+        }
+ 
+        if (t20.equals(t21) && t20.equals(t22) && !t20.equals("")) {
+            isGameEnds = true;
+            colorBackgroundWinnerButtons(button31, button32, button33);
+        }
+ 
+        if (t00.equals(t10) && t00.equals(t20) && !t00.equals("")) {
+            isGameEnds = true;
+            colorBackgroundWinnerButtons(button11, button21, button31);
+        }
+ 
+        if (t01.equals(t11) && t01.equals(t21) && !t01.equals("")) {
+            isGameEnds = true;
+            colorBackgroundWinnerButtons(button12, button22, button32);
+        }
+ 
+        if (t02.equals(t12) && t02.equals(t22) && !t02.equals("")) {
+            isGameEnds = true;
+            colorBackgroundWinnerButtons(button13, button23, button33);
+        }
+ 
+        if (t00.equals(t11) && t00.equals(t22) && !t00.equals("")) {
+            isGameEnds = true;
+            colorBackgroundWinnerButtons(button11, button22, button33);
+        }
+ 
+        if (t02.equals(t11) && t02.equals(t20) && !t02.equals("")) {
+            isGameEnds = true;
+            colorBackgroundWinnerButtons(button13, button22, button31);
+        }
+        
+        if( XOCounter >= 9)
+        {
+            isGameEnds = true;
+            isFirstPlayerTurn = true;
+            XOCounter = 0;
+        }
+        
+        /*if(isGameEnds == true)
+        {
+            if(isFirstPlayerTurn)
+                firstPlayerScore.setText(Integer.valueOf(firstPlayerScore.getText()) + 1 + "");
+    
+            else
+                secondPlayerScore.setText(Integer.valueOf(secondPlayerScore.getText()) + 1 + "");
+            XOCounter = 0;
+            newGame.requestFocus();
+        }*/
+        
+    }
+    
+    private void colorBackgroundWinnerButtons(Button b1, Button b2, Button b3)
+    {
+        b1.setStyle("-fx-background-color: yellow;");
+        b2.setStyle("-fx-background-color: yellow;");
+        b3.setStyle("-fx-background-color: yellow;");
+    }
 }
+
+
