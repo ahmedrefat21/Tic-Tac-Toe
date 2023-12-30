@@ -17,13 +17,19 @@
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="playerOneTextField" layoutX="312.0" layoutY="191.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;" />
+      <TextField fx:id="playerOneTextField" layoutX="312.0" layoutY="191.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;">
+         <font>
+            <Font name="Comic Sans MS Bold" size="18.0" />
+         </font></TextField>
       <Text id="firstPlayerNameText" fill="#f22853" layoutX="182.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player 2">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="playerTwoTextField" layoutX="314.0" layoutY="272.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;" />
+      <TextField fx:id="playerTwoTextField" layoutX="314.0" layoutY="272.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;">
+         <font>
+            <Font name="Comic Sans MS Bold" size="18.0" />
+         </font></TextField>
       <Button id="styles" fx:id="okButton" layoutX="283.0" layoutY="375.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="123.0" style="-fx-background-color: FCD015; -fx-background-radius: 45; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 ); -fx-text-fill: #FDE8ED;" text="Start" textFill="#fde8ed" wrapText="true">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" />
