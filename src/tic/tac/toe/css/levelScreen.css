@@ -1,0 +1,30 @@
+
+.Easy-button{
+    -fx-background-color:#F9D459; 
+    -fx-font: 25px "Comic Sans MS";
+    -fx-text-fill:#F22853;
+    -fx-font-weight: bold;
+    -fx-background-radius:10;
+    -fx-effect:dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 ) 
+}
+.Medium-button{
+    -fx-background-color:#F9D459; 
+    -fx-font: 25px "Comic Sans MS";;
+    -fx-text-fill:#F22853;
+    -fx-font-weight: bold;
+    -fx-background-radius:10;
+    -fx-effect:dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 ) 
+
+}
+.Hard-button{
+    -fx-background-color:#F9D459; 
+    -fx-font: 25px "Comic Sans MS";;
+    -fx-text-fill:#F22853;
+    -fx-font-weight: bold;
+    -fx-background-radius:10;
+    -fx-effect:dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 ) 
+
+}
+
+
+
