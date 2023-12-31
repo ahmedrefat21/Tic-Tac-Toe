@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import static javafx.scene.paint.Color.color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -30,9 +31,11 @@ public  class GameBase extends AnchorPane {
     protected final Text firstPlayerScoreText;
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
+
     boolean isfirstPlayerTurn = true;
    
 		
+
 
     public GameBase() {
 
@@ -56,6 +59,9 @@ public  class GameBase extends AnchorPane {
         firstPlayerScoreText = new Text();
         secondPlayerScoreText = new Text();
         recordImage = new ImageView();
+       
+        
+        
 
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -318,7 +324,11 @@ public  class GameBase extends AnchorPane {
         getChildren().add(firstPlayerScoreText);
         getChildren().add(secondPlayerScoreText);
         getChildren().add(recordImage);
-
+    }
+    private void colorBackgroundWinnerButton(Button b1,Button b2,Button b3){
+       b1.setStyle("-fx-background-color:#edb9c5");
+       b2.setStyle("-fx-background-color:#edb9c5");
+       b3.setStyle("-fx-background-color:#edb9c5");
     }
      private void setCurrentPlayerShadow(){
          
