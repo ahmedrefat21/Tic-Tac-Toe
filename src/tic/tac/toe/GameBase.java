@@ -1,5 +1,11 @@
 package tic.tac.toe;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -30,6 +36,7 @@ public  class GameBase extends AnchorPane {
     protected final Text firstPlayerScoreText;
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
+    private AnchorPane rootPane;
 
     public GameBase() {
 
@@ -199,6 +206,7 @@ public  class GameBase extends AnchorPane {
         button32.setText("o");
         button32.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button32.setFont(new Font("Comic Sans MS Bold", 48.0));
+        
 
         tacText.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
         tacText.setId("tacText");

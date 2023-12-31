@@ -9,7 +9,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="740.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.ResultFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="740.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
     <stylesheets>
         <URL value="@resultfxml.css" />
     </stylesheets>
@@ -34,6 +34,6 @@
             <Font name="Comic Sans MS Bold" size="27.0" />
          </font>
       </Button>
-      <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="270.0" layoutY="129.0" AnchorPane.bottomAnchor="151.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="129.0" />
+      <MediaView fx:id="mideaview" fitHeight="200.0" fitWidth="200.0" layoutX="270.0" layoutY="129.0" AnchorPane.bottomAnchor="151.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="129.0" />
    </children>
 </AnchorPane>
