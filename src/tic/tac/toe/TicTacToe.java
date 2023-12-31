@@ -22,10 +22,12 @@ public class TicTacToe extends Application {
    public static Scene scene ;
     @Override
     public void start(Stage stage) throws Exception { 
-        Parent root = FXMLLoader.load(getClass().getResource("resultFXML.fxml"));     
-       scene = new Scene(root,740,480);
+      //  Parent root = FXMLLoader.load(getClass().getResource("resultFXML.fxml"));    
+      resultFXMLBase base =new resultFXMLBase(this);
+       scene = new Scene(base,740,480);
        stage.setResizable(false);
        stage.setScene(scene);
+       
        stage.show();
     }
 

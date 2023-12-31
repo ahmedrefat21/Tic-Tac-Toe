@@ -1,11 +1,13 @@
 package tic.tac.toe;
 
 import java.net.URL;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -20,13 +22,15 @@ public class resultFXMLBase extends AnchorPane {
     protected final Button button0;
     protected final MediaView mideaview;
 
-    public resultFXMLBase(Stage stage) {
+    public resultFXMLBase(TicTacToe mainapp) {
 
         button = new Button();
         label = new Label();
         imageView = new ImageView();
         button0 = new Button();
         mideaview = new MediaView();
+        PrepareWinnerScreen();
+        
 
         setId("AnchorPane");
         setPrefHeight(480.0);
@@ -102,18 +106,34 @@ public class resultFXMLBase extends AnchorPane {
         getChildren().add(label);
         getChildren().add(imageView);
         getChildren().add(button0);
-        getChildren().add(mideaview);
+      
+        
+        
 
     }
-    public void PrepareWinnerScreen(String Name)
+    public void PrepareWinnerScreen()
      {
-        String path="file:/C:/Users/Administrator/Desktop/tic tac toe/Tic-Tac-Toe/src/assets/videos/winnervideo.mp4";
-        Media media = new Media(getClass().getResource(path).toExternalForm());  
+        String path="file:/C:/Users/Administrator/Desktop/tictactoe/Tic-Tac-Toe/src/assets/videos/winnervideo.mp4";
+        Media media = new Media(path);  
         MediaPlayer mediaPlayer = new MediaPlayer(media); 
-        mideaview.setMediaPlayer(mediaPlayer);
-        mideaview.setFitHeight(200);
-        mideaview.setFitWidth(200);
-        mediaPlayer.setAutoPlay(true);
-        TicTacToe.scene.setRoot(this);
+        MediaView mv =new MediaView(mediaPlayer);
+      //  mideaview.setMediaPlayer(mediaPlayer);
+       // mideaview.setFitHeight(200);
+       // mideaview.setFitWidth(200);
+       mv.setFitHeight(200);
+       mv.setFitWidth(200);
+       mv.setLayoutX(100.0);
+       mv.setLayoutY(100.0);
+       StackPane.setAlignment(mv, Pos.CENTER);
+       mediaPlayer.play();
+         getChildren().add(mv);
+         mediaPlayer.setOnEndOfMedia(() -> {
+            // Add any additional actions when the video finishes
+            System.out.println("Video finished");
+            mv.setVisible(false);
+        });
+     //   mediaPlayer.setAutoPlay(true);  
+       // TicTacToe.scene.setRoot(this);
+       
     }
 }
