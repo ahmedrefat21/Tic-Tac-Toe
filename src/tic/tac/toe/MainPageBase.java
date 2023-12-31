@@ -58,7 +58,7 @@ public abstract class MainPageBase extends AnchorPane {
         imageView.setFitWidth(751.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../assets/images/Splash%20Screen.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/assets/images/SplashScreenempty.png").toExternalForm()));
 
         aboutImage.setFitHeight(104.0);
         aboutImage.setFitWidth(115.0);
@@ -66,7 +66,7 @@ public abstract class MainPageBase extends AnchorPane {
         aboutImage.setLayoutY(14.0);
         aboutImage.setPickOnBounds(true);
         aboutImage.setPreserveRatio(true);
-        aboutImage.setImage(new Image(getClass().getResource("../../../assets/images/about.png").toExternalForm()));
+        aboutImage.setImage(new Image(getClass().getResource("/assets/images/about.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(computerRectangle, 141.0);
         AnchorPane.setLeftAnchor(computerRectangle, 60.0);
@@ -148,7 +148,7 @@ public abstract class MainPageBase extends AnchorPane {
         imageView1.setLayoutY(183.0);
         imageView1.setPickOnBounds(true);
         imageView1.setPreserveRatio(true);
-        imageView1.setImage(new Image(getClass().getResource("../../../assets/images/local.png").toExternalForm()));
+        imageView1.setImage(new Image(getClass().getResource("/assets/images/local.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(imageView2, 207.0);
         AnchorPane.setTopAnchor(imageView2, 183.0);
@@ -158,7 +158,7 @@ public abstract class MainPageBase extends AnchorPane {
         imageView2.setLayoutY(175.0);
         imageView2.setPickOnBounds(true);
         imageView2.setPreserveRatio(true);
-        imageView2.setImage(new Image(getClass().getResource("../../../assets/images/online-game.png").toExternalForm()));
+        imageView2.setImage(new Image(getClass().getResource("/assets/images/online-game.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(text0, 165.2548828125);
         AnchorPane.setTopAnchor(text0, 272.9384765625);
@@ -200,7 +200,7 @@ public abstract class MainPageBase extends AnchorPane {
         imageView3.setLayoutY(363.0);
         imageView3.setPickOnBounds(true);
         imageView3.setPreserveRatio(true);
-        imageView3.setImage(new Image(getClass().getResource("../../../assets/images/recording.png").toExternalForm()));
+        imageView3.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
 
         getChildren().add(imageView);
         getChildren().add(aboutImage);
