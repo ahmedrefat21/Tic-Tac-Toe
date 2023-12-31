@@ -22,7 +22,7 @@ public class resultFXMLBase extends AnchorPane {
     protected final Button button0;
     protected final MediaView mideaview;
 
-    public resultFXMLBase(TicTacToe mainapp) {
+    public resultFXMLBase() {
 
         button = new Button();
         label = new Label();
@@ -76,7 +76,7 @@ public class resultFXMLBase extends AnchorPane {
         imageView.setLayoutY(32.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../assets/images/back.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/assets/images/back.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(button0, 46.0);
         AnchorPane.setLeftAnchor(button0, 414.0);
@@ -113,27 +113,17 @@ public class resultFXMLBase extends AnchorPane {
     }
     public void PrepareWinnerScreen()
      {
-        String path="file:/C:/Users/Administrator/Desktop/tictactoe/Tic-Tac-Toe/src/assets/videos/winnervideo.mp4";
+        String path="file:/C:/Users/Administrator/Desktop/tic%20tac%20toe/Tic-Tac-Toe/src/assets/videos/winnervideo.mp4";
         Media media = new Media(path);  
         MediaPlayer mediaPlayer = new MediaPlayer(media); 
-        MediaView mv =new MediaView(mediaPlayer);
-      //  mideaview.setMediaPlayer(mediaPlayer);
-       // mideaview.setFitHeight(200);
-       // mideaview.setFitWidth(200);
-       mv.setFitHeight(200);
-       mv.setFitWidth(200);
-       mv.setLayoutX(100.0);
-       mv.setLayoutY(100.0);
-       StackPane.setAlignment(mv, Pos.CENTER);
-       mediaPlayer.play();
-         getChildren().add(mv);
-         mediaPlayer.setOnEndOfMedia(() -> {
-            // Add any additional actions when the video finishes
-            System.out.println("Video finished");
-            mv.setVisible(false);
-        });
-     //   mediaPlayer.setAutoPlay(true);  
-       // TicTacToe.scene.setRoot(this);
+        mideaview.setMediaPlayer(mediaPlayer);
+        mideaview.setFitHeight(300);
+        mideaview.setFitWidth(300);
+     //   mideaview.setLayoutX(120.0);
+      //  mideaview.setLayoutY(120.0);
+        getChildren().add(mideaview);
+        mediaPlayer.setAutoPlay(true);  
+      
        
     }
 }
