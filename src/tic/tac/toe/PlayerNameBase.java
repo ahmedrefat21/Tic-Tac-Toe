@@ -165,15 +165,15 @@ public  class PlayerNameBase extends AnchorPane {
             }
         });
         
-//        
-//             backButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//             Parent pane = new MainPageBase(stage) {};
-//             stage.getScene().setRoot(pane);
-//              
-//    }
-//});       
+        
+             backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+             Parent pane = new MainPageBase(stage) {};
+             stage.getScene().setRoot(pane);
+              
+    }
+});       
         
         
     }

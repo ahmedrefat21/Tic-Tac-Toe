@@ -1,12 +1,15 @@
 package tic.tac.toe;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-
+import javafx.stage.Stage;
 public abstract class MainPageBase extends AnchorPane {
 
     protected final ImageView imageView;
@@ -21,7 +24,7 @@ public abstract class MainPageBase extends AnchorPane {
     protected final Button onlineButton;
     protected final Button compButton;
 
-    public MainPageBase() {
+    public MainPageBase(Stage stage) {
 
         imageView = new ImageView();
         aboutImage = new ImageView();
@@ -178,6 +181,16 @@ public abstract class MainPageBase extends AnchorPane {
         getChildren().add(localButton);
         getChildren().add(onlineButton);
         getChildren().add(compButton);
+        
+             localButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+             Parent pane = new PlayerNameBase(stage) {};
+             stage.getScene().setRoot(pane);
+              
+    }
+}); 
+        
 
     }
 
