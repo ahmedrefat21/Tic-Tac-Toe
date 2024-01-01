@@ -17,12 +17,18 @@ import javafx.stage.Stage;
  */
 public class TicTacToe extends Application {
     
+    public static Scene scene ;
+    
     @Override
     public void start(Stage stage) throws Exception {
+
         //Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
+
         
-        Scene scene = new Scene(root,740,480);
+        Parent root =new GameBase();
+        
+        scene = new Scene(root,740,480);
         stage.setResizable(false);
         //stage.setScene(new Scene(root, , 470));
         
