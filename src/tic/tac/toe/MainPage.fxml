@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="480.0" fitWidth="788.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../assets/images/splashscreen.png" />
+            <Image url="@../../../assets/images/mainBackground.png" />
          </image>
       </ImageView>
       <ImageView fx:id="aboutImage" fitHeight="104.0" fitWidth="115.0" layoutX="622.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

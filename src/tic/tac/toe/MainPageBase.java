@@ -51,7 +51,7 @@ public abstract class MainPageBase extends AnchorPane {
         imageView.setFitWidth(788.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("/assets/images/splashscreen.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/assets/images/mainBackground.png").toExternalForm()));
 
         aboutImage.setFitHeight(104.0);
         aboutImage.setFitWidth(115.0);
