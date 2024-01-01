@@ -91,7 +91,7 @@ public abstract class MainPageBase extends AnchorPane {
         localRectangle.setHeight(176.0);
         localRectangle.setLayoutX(275.0);
         localRectangle.setLayoutY(185.0);
-
+        
         localRectangle.setStroke(javafx.scene.paint.Color.TRANSPARENT);
         localRectangle.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         localRectangle.setWidth(190.0);
@@ -132,16 +132,15 @@ public abstract class MainPageBase extends AnchorPane {
         imageView2.setPreserveRatio(true);
         imageView2.setImage(new Image(getClass().getResource("/assets/images/online-game.png").toExternalForm()));
 
-        AnchorPane.setBottomAnchor(localButton, 127.0);
-        AnchorPane.setLeftAnchor(localButton, 293.0);
-        AnchorPane.setRightAnchor(localButton, 290.0);
-        AnchorPane.setTopAnchor(localButton, 298.0);
-        localButton.setLayoutX(293.0);
-        localButton.setLayoutY(298.0);
+        AnchorPane.setBottomAnchor(localButton, 132.0);
+        AnchorPane.setLeftAnchor(localButton, 309.0);
+        AnchorPane.setRightAnchor(localButton, 311.0);
+        AnchorPane.setTopAnchor(localButton, 293.0);
+        localButton.setLayoutX(309.0);
+        localButton.setLayoutY(293.0);
         localButton.setMnemonicParsing(false);
-
         localButton.setPrefHeight(55.0);
-        localButton.setPrefWidth(157.0);
+        localButton.setPrefWidth(120.0);
         localButton.setStyle("-fx-background-radius: 40px;");
         localButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
         localButton.setText("Local");
@@ -151,7 +150,6 @@ public abstract class MainPageBase extends AnchorPane {
         onlineButton.setLayoutX(514.0);
         onlineButton.setLayoutY(296.0);
         onlineButton.setMnemonicParsing(false);
-
         onlineButton.setPrefHeight(51.0);
         onlineButton.setPrefWidth(143.0);
         onlineButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
@@ -162,7 +160,6 @@ public abstract class MainPageBase extends AnchorPane {
         compButton.setLayoutX(82.0);
         compButton.setLayoutY(298.0);
         compButton.setMnemonicParsing(false);
-       
         compButton.setPrefHeight(55.0);
         compButton.setPrefWidth(157.0);
         compButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
@@ -184,5 +181,6 @@ public abstract class MainPageBase extends AnchorPane {
 
     }
 
+  
 
 }

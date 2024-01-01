@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="480.0" fitWidth="788.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../assets/images/Splash%20Screen.png" />
+            <Image url="@../../../assets/images/splashscreen.png" />
          </image>
       </ImageView>
       <ImageView fx:id="aboutImage" fitHeight="104.0" fitWidth="115.0" layoutX="622.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -37,16 +37,16 @@
             <Image url="@../../../assets/images/online-game.png" />
          </image>
       </ImageView>
-      <Button fx:id="localButton" layoutX="293.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="157.0" style="-fx-background-radius: 40px;" stylesheets="@loginfxml.css" text="Local" textFill="#f22853" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="298.0">
+      <Button fx:id="localButton" layoutX="309.0" layoutY="293.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="120.0" style="-fx-background-radius: 40px;" stylesheets="@loginfxml.css" text="Local" textFill="#f22853" AnchorPane.bottomAnchor="132.0" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="311.0" AnchorPane.topAnchor="293.0">
          <font>
             <Font name="Comic Sans MS Bold" size="30.0" />
          </font></Button>
-      <Button fx:id="onlineButton" layoutX="514.0" layoutY="296.0" mnemonicParsing="false" onAction="#OnlineButtonAction" prefHeight="51.0" prefWidth="143.0" stylesheets="@loginfxml.css" text="Online" textFill="#f22853">
+      <Button fx:id="onlineButton" layoutX="514.0" layoutY="296.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="143.0" stylesheets="@loginfxml.css" text="Online" textFill="#f22853">
          <font>
             <Font name="Comic Sans MS Bold" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="compButton" layoutX="82.0" layoutY="298.0" mnemonicParsing="false" onAction="#compButtonAction" prefHeight="55.0" prefWidth="157.0" stylesheets="@loginfxml.css" text="Computer" textFill="#f22853">
+      <Button fx:id="compButton" layoutX="82.0" layoutY="298.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="157.0" stylesheets="@loginfxml.css" text="Computer" textFill="#f22853">
          <font>
             <Font name="Comic Sans MS Bold" size="26.0" />
          </font>
