@@ -217,6 +217,6 @@ public class MainPageBase extends AnchorPane {
         getChildren().add(text1);
         getChildren().add(text2);
         getChildren().add(imageView3);
-
+ 
     }
 }
