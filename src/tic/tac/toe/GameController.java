@@ -24,36 +24,6 @@ import javafx.scene.text.Text;
  */
 public class GameController implements Initializable {
 
-    @FXML
-    private AnchorPane gameAnchore;
-    @FXML
-    private AnchorPane mainPageAnchor;
-
-    @FXML
-    private Text firstPlayerNameText;
-    @FXML
-    private Text secondPlayerNameText;
-    @FXML
-    private Text firstPlayerScoreText;
-    @FXML
-    private Text secondPlayerScoreText;
-    @FXML
-    private ImageView recordImage;
-
-  @FXML
-  public void displayNames(String player1, String player2){
-   firstPlayerNameText.setText(player1);
-   secondPlayerNameText.setText(player2);
-  
-  }
-  @FXML
-    private void exitButton(ActionEvent event) throws IOException {
-    
-        mainPageAnchor = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
-        gameAnchore.getChildren().setAll(mainPageAnchor);
-    
-    }
-  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

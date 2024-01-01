@@ -22,7 +22,16 @@ public class TicTacToe extends Application {
     resultFXMLBase base;
     @Override
     public void start(Stage stage) throws Exception {
+
+
+        //Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+      // Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
+
+        
+        Parent root =new MainPageBase(stage) {};
+
         Parent root =new splash_screenBase(stage);
+
         
         scene = new Scene(root);
         stage.setResizable(false);

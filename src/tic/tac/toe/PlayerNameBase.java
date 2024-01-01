@@ -1,6 +1,14 @@
 package tic.tac.toe;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -8,6 +16,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static tic.tac.toe.TicTacToe.scene;
 
 public  class PlayerNameBase extends AnchorPane {
 
@@ -21,9 +33,13 @@ public  class PlayerNameBase extends AnchorPane {
     protected final ImageView imageView;
     public static String player1Name;
     public static String player2Name;
+    protected JFrame jFrame;
+     private Parent root;
+    Player playerOne, playerTwo;
 
-    public PlayerNameBase() {
-
+    public PlayerNameBase(Stage stage) {
+        playerOne = new Player();
+        playerTwo = new Player();
         text = new Text();
         text0 = new Text();
         playerOneTextField = new TextField();
@@ -32,7 +48,8 @@ public  class PlayerNameBase extends AnchorPane {
         okButton = new Button();
         backButton = new Button();
         imageView = new ImageView();
-
+        jFrame = new JFrame();
+        
         setId("AnchorPane");
         setPrefHeight(480.0);
         setPrefWidth(740.0);
@@ -62,8 +79,9 @@ public  class PlayerNameBase extends AnchorPane {
         playerOneTextField.setLayoutY(191.0);
         playerOneTextField.setPrefHeight(48.0);
         playerOneTextField.setPrefWidth(244.0);
-        playerOneTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;");
-
+        playerOneTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: #F22853;");
+        playerOneTextField.setFont(new Font("Comic Sans MS Bold", 20.0));
+       
         text1.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
         text1.setId("firstPlayerNameText");
         text1.setLayoutX(182.0);
@@ -77,8 +95,9 @@ public  class PlayerNameBase extends AnchorPane {
         playerTwoTextField.setLayoutY(272.0);
         playerTwoTextField.setPrefHeight(48.0);
         playerTwoTextField.setPrefWidth(244.0);
-        playerTwoTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;");
-
+        playerTwoTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: #F22853;");
+        playerTwoTextField.setFont(new Font("Comic Sans MS Bold", 20.0));
+        
         okButton.setId("styles");
         okButton.setLayoutX(283.0);
         okButton.setLayoutY(375.0);
@@ -94,16 +113,7 @@ public  class PlayerNameBase extends AnchorPane {
         
         player1Name=playerOneTextField.getText();
         player2Name=playerTwoTextField.getText();
-        okButton.setOnAction(e -> {
-            if (player1Name.length() > 0 && player2Name.length() > 0) {
-               
-                //TicTacToe.scene().setRoot(new GameBase());
-            } else {
-                
-            }
-            
-            
-        });
+
 
         backButton.setId("styles");
         backButton.setLayoutX(438.0);
@@ -136,5 +146,31 @@ public  class PlayerNameBase extends AnchorPane {
         getChildren().add(backButton);
         getChildren().add(imageView);
 
+        okButton.setOnAction(e -> {
+
+            if (playerOneTextField.getText().length() > 0 && playerTwoTextField.getText().length() > 0) {
+                playerOne.setUsername(playerOneTextField.getText());
+                playerTwo.setUsername(playerTwoTextField.getText());
+                Parent pane = new GameBase(stage, playerOne, playerTwo);
+                stage.getScene().setRoot(pane);
+                System.out.println("Done entering names");
+            } else {
+                if (playerOneTextField.getText().length() == 0) {
+                   JOptionPane.showMessageDialog(jFrame, "Please Enter your Name", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
+        
+             backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+             Parent pane = new MainPageBase(stage) {};
+             stage.getScene().setRoot(pane);
+              
+    }
+});       
+        
+        
     }
 }

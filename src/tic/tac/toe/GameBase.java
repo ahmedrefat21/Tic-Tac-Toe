@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +16,7 @@ import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public  class GameBase extends AnchorPane {
 
@@ -38,6 +40,7 @@ public  class GameBase extends AnchorPane {
     protected final Text firstPlayerScoreText;
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
+    protected Player firstPlayer, secondPlayer;
 
     private int playerTurn = 0;
     
@@ -48,8 +51,7 @@ public  class GameBase extends AnchorPane {
 		
 
 
-
-    public GameBase() {
+    public GameBase(Stage stage, Player playerOne, Player playerTwo) {
         imageView = new ImageView();
         imageView0 = new ImageView();
         exitimage = new ImageView();
@@ -70,10 +72,9 @@ public  class GameBase extends AnchorPane {
         firstPlayerScoreText = new Text();
         secondPlayerScoreText = new Text();
         recordImage = new ImageView();
-
+        this.firstPlayer = playerOne;
+        this.secondPlayer = playerTwo;
         
-        
-
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -117,7 +118,10 @@ public  class GameBase extends AnchorPane {
         exitimage.setPreserveRatio(true);
         exitimage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         exitimage.setImage(new Image(getClass().getResource("/assets/images/exit.png").toExternalForm()));
-
+        
+       
+        
+        
         button11.setLayoutX(189.0);
         button11.setLayoutY(118.0);
         button11.setMinHeight(96.0);
@@ -129,6 +133,8 @@ public  class GameBase extends AnchorPane {
         button11.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button11.setFont(new Font("Comic Sans MS Bold", 48.0));
         button11.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
+        
+
         button11.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
@@ -426,6 +432,16 @@ public  class GameBase extends AnchorPane {
         getChildren().add(secondPlayerScoreText);
         getChildren().add(recordImage);
 
+                firstPlayerNameText.setText(playerOne.getUsername());
+                 secondPlayerNameText.setText(playerTwo.getUsername());
+//////////////////////////
+                exitimage.setOnMousePressed(e -> {
+            Parent pane = new MainPageBase(stage) {};
+            stage.getScene().setRoot(pane);
+
+        });
+        
+        
     }
     
     
@@ -513,6 +529,11 @@ public  class GameBase extends AnchorPane {
            } 
         
         }
+//        private void setNames(Text firstPlayerName, Text secondPlayerName) {
+//        firstPlayer.setUsername(firstPlayerName.getText());
+//        secondPlayer.setUsername(secondPlayerName.getText());
+//
+//    }
 
 }
 
