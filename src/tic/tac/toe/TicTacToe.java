@@ -28,8 +28,7 @@ public class TicTacToe extends Application {
       // Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
 
         
-        Parent root =new MainPageBase(stage) {};
-
+      
         Parent root =new splash_screenBase(stage);
 
         

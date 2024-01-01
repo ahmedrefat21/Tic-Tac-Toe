@@ -9,12 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-
-import javafx.stage.Stage;
-public abstract class MainPageBase extends AnchorPane {
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 
 public class MainPageBase extends AnchorPane {
 
@@ -209,11 +206,6 @@ public class MainPageBase extends AnchorPane {
                
 
 
-        getChildren().add(text0);
-        getChildren().add(text1);
-        getChildren().add(text2);
-        getChildren().add(imageView3);
- 
 
     }
 
