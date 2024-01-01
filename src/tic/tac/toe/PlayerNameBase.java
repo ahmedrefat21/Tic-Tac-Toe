@@ -110,16 +110,7 @@ public  class PlayerNameBase extends AnchorPane {
         
         player1Name=playerOneTextField.getText();
         player2Name=playerTwoTextField.getText();
-        okButton.setOnAction(e -> {
-            if (player1Name.length() > 0 && player2Name.length() > 0) {
-               
-                //TicTacToe.scene().setRoot(new GameBase());
-            } else {
-                
-            }
-            
-            
-        });
+
 
         backButton.setId("styles");
         backButton.setLayoutX(438.0);
@@ -159,10 +150,10 @@ public  class PlayerNameBase extends AnchorPane {
                 playerTwo.setUsername(playerTwoTextField.getText());
                 Parent pane = new GameBase(stage, playerOne, playerTwo);
                 stage.getScene().setRoot(pane);
-                System.out.println("done");
+                System.out.println("Done");
             } else {
                 if (playerOneTextField.getText().length() == 0) {
-                   System.out.print("enter your name");
+                   System.out.println("enter your name");
                 }
             }
         });
