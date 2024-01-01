@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -117,7 +118,10 @@ public  class GameBase extends AnchorPane {
         exitimage.setPreserveRatio(true);
         exitimage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         exitimage.setImage(new Image(getClass().getResource("/assets/images/exit.png").toExternalForm()));
-
+        
+       
+        
+        
         button11.setLayoutX(189.0);
         button11.setLayoutY(118.0);
         button11.setMinHeight(96.0);
@@ -431,7 +435,11 @@ public  class GameBase extends AnchorPane {
                 firstPlayerNameText.setText(playerOne.getUsername());
                  secondPlayerNameText.setText(playerTwo.getUsername());
 //////////////////////////
-        
+                exitimage.setOnMousePressed(e -> {
+            Parent pane = new MainPageBase(stage) {};
+            stage.getScene().setRoot(pane);
+
+        });
         
         
     }

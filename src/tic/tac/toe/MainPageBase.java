@@ -190,7 +190,15 @@ public abstract class MainPageBase extends AnchorPane {
               
     }
 }); 
-        
+               compButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+             Parent pane = new LevelScreenBase(stage) {};
+             stage.getScene().setRoot(pane);
+              
+    }
+});       
+               
 
     }
 
