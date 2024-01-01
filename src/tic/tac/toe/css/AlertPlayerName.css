@@ -13,12 +13,7 @@
     -fx-font: 20px "Comic Sans MS";
     -fx-font-weight: bold;    
 }
-.players-name-txt-filed{
-    -fx-background-color:#FDE8ED; 
-    -fx-font-weight: semibold;
-    -fx-border-color:#F22853;
-    -fx-border-radius:5;
-}
+
 .ok-button{
     -fx-text-fill:#FDE8ED;
     -fx-background-color:#F9D459; 

@@ -76,8 +76,9 @@ public  class PlayerNameBase extends AnchorPane {
         playerOneTextField.setLayoutY(191.0);
         playerOneTextField.setPrefHeight(48.0);
         playerOneTextField.setPrefWidth(244.0);
-        playerOneTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;");
-
+        playerOneTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: #F22853;");
+        playerOneTextField.setFont(new Font("Comic Sans MS Bold", 20.0));
+       
         text1.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
         text1.setId("firstPlayerNameText");
         text1.setLayoutX(182.0);
@@ -91,8 +92,9 @@ public  class PlayerNameBase extends AnchorPane {
         playerTwoTextField.setLayoutY(272.0);
         playerTwoTextField.setPrefHeight(48.0);
         playerTwoTextField.setPrefWidth(244.0);
-        playerTwoTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;");
-
+        playerTwoTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: #F22853;");
+        playerTwoTextField.setFont(new Font("Comic Sans MS Bold", 20.0));
+        
         okButton.setId("styles");
         okButton.setLayoutX(283.0);
         okButton.setLayoutY(375.0);
