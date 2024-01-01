@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static tic.tac.toe.TicTacToe.scene;
 
@@ -32,6 +33,7 @@ public  class PlayerNameBase extends AnchorPane {
     protected final ImageView imageView;
     public static String player1Name;
     public static String player2Name;
+    protected JFrame jFrame;
      private Parent root;
     Player playerOne, playerTwo;
 
@@ -46,7 +48,8 @@ public  class PlayerNameBase extends AnchorPane {
         okButton = new Button();
         backButton = new Button();
         imageView = new ImageView();
-
+        jFrame = new JFrame();
+        
         setId("AnchorPane");
         setPrefHeight(480.0);
         setPrefWidth(740.0);
@@ -150,10 +153,10 @@ public  class PlayerNameBase extends AnchorPane {
                 playerTwo.setUsername(playerTwoTextField.getText());
                 Parent pane = new GameBase(stage, playerOne, playerTwo);
                 stage.getScene().setRoot(pane);
-                System.out.println("Done");
+                System.out.println("Done entering names");
             } else {
                 if (playerOneTextField.getText().length() == 0) {
-                   System.out.println("enter your name");
+                   JOptionPane.showMessageDialog(jFrame, "Please Enter your Name", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
