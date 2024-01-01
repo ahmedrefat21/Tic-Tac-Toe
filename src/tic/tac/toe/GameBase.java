@@ -93,7 +93,7 @@ public  class GameBase extends AnchorPane {
         imageView.setLayoutY(18.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/assets/images/gamer1.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(imageView0, 358.0);
         AnchorPane.setRightAnchor(imageView0, 30.0);
@@ -104,7 +104,7 @@ public  class GameBase extends AnchorPane {
         imageView0.setLayoutY(18.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("/assets/images/gamer2.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(exitimage, 14.0);
         AnchorPane.setRightAnchor(exitimage, 15.0);
@@ -116,7 +116,7 @@ public  class GameBase extends AnchorPane {
         exitimage.setPickOnBounds(true);
         exitimage.setPreserveRatio(true);
         exitimage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        exitimage.setImage(new Image(getClass().getResource("").toExternalForm()));
+        exitimage.setImage(new Image(getClass().getResource("/assets/images/exit.png").toExternalForm()));
 
         button11.setLayoutX(189.0);
         button11.setLayoutY(118.0);
@@ -403,7 +403,7 @@ public  class GameBase extends AnchorPane {
         recordImage.setPickOnBounds(true);
         recordImage.setPreserveRatio(true);
         recordImage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        recordImage.setImage(new Image(getClass().getResource("").toExternalForm()));
+        recordImage.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
 
         getChildren().add(imageView);
         getChildren().add(imageView0);
@@ -498,7 +498,7 @@ public  class GameBase extends AnchorPane {
     }
     
 
-    }
+    
     private void colorBackgroundWinnerButton(Button b1,Button b2,Button b3){
        b1.setStyle("-fx-background-color:#edb9c5");
        b2.setStyle("-fx-background-color:#edb9c5");
