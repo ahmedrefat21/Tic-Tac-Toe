@@ -1,5 +1,11 @@
 package tic.tac.toe;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -31,17 +37,9 @@ public  class GameBase extends AnchorPane {
     protected final Text firstPlayerScoreText;
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
-    boolean isGameEnds;
-    boolean isFirstPlayerTurn = true;
-    int XOCounter = 0;
-   
-    int randomNumber;
-    Color xForeground = Color.BLUE;
-    Color oForeground = Color.RED;
+    private int playerTurn = 0;
     
-
     public GameBase() {
-
         imageView = new ImageView();
         imageView0 = new ImageView();
         exitimage = new ImageView();
@@ -62,6 +60,8 @@ public  class GameBase extends AnchorPane {
         firstPlayerScoreText = new Text();
         secondPlayerScoreText = new Text();
         recordImage = new ImageView();
+        
+        
 
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -82,7 +82,7 @@ public  class GameBase extends AnchorPane {
         imageView.setLayoutY(18.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../assets/images/game%201.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("").toExternalForm()));
 
         AnchorPane.setBottomAnchor(imageView0, 358.0);
         AnchorPane.setRightAnchor(imageView0, 30.0);
@@ -93,7 +93,7 @@ public  class GameBase extends AnchorPane {
         imageView0.setLayoutY(18.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../../../assets/images/gamer%202.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("").toExternalForm()));
 
         AnchorPane.setBottomAnchor(exitimage, 14.0);
         AnchorPane.setRightAnchor(exitimage, 15.0);
@@ -105,7 +105,7 @@ public  class GameBase extends AnchorPane {
         exitimage.setPickOnBounds(true);
         exitimage.setPreserveRatio(true);
         exitimage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        exitimage.setImage(new Image(getClass().getResource("../../../assets/images/exit.png").toExternalForm()));
+        exitimage.setImage(new Image(getClass().getResource("").toExternalForm()));
 
         button11.setLayoutX(189.0);
         button11.setLayoutY(118.0);
@@ -114,10 +114,20 @@ public  class GameBase extends AnchorPane {
         button11.setMnemonicParsing(false);
         button11.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button11.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button11.setText("X");
+        button11.setText(" ");
         button11.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button11.setFont(new Font("Comic Sans MS Bold", 48.0));
         button11.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
+        button11.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button11);
+                button11.setDisable(true);
+                checkIfGameIsOver();
+                button11.setFocusTraversable(false);
+            }
+            
+        });
 
         button13.setLayoutX(455.0);
         button13.setLayoutY(119.0);
@@ -125,9 +135,19 @@ public  class GameBase extends AnchorPane {
         button13.setMinWidth(113.0);
         button13.setMnemonicParsing(false);
         button13.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        button13.setText("X");
+        button13.setText("");
         button13.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button13.setFont(new Font("Comic Sans MS Bold", 48.0));
+        button13.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button13);
+                button13.setDisable(true);
+                checkIfGameIsOver();
+                button13.setFocusTraversable(false);
+            }
+            
+        });
 
         button12.setLayoutX(327.0);
         button12.setLayoutY(119.0);
@@ -136,10 +156,20 @@ public  class GameBase extends AnchorPane {
         button12.setMnemonicParsing(false);
         button12.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button12.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button12.setText("o");
+        button12.setText("");
         button12.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button12.setFont(new Font("Comic Sans MS Bold", 48.0));
         button12.setOpaqueInsets(new Insets(5.0, 5.0, 5.0, 0.0));
+        button12.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button12);
+                button12.setDisable(true);
+                checkIfGameIsOver();
+                button12.setFocusTraversable(false);
+            }
+            
+        });
 
         button31.setLayoutX(193.0);
         button31.setLayoutY(361.0);
@@ -148,10 +178,20 @@ public  class GameBase extends AnchorPane {
         button31.setMnemonicParsing(false);
         button31.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button31.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button31.setText("X");
+        button31.setText(" ");
         button31.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button31.setFont(new Font("Comic Sans MS Bold", 48.0));
         button31.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
+        button31.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button31);
+                button31.setDisable(true);
+                checkIfGameIsOver();
+                button31.setFocusTraversable(false);
+            }
+            
+        });
 
         button23.setLayoutX(461.0);
         button23.setLayoutY(243.0);
@@ -160,9 +200,19 @@ public  class GameBase extends AnchorPane {
         button23.setMnemonicParsing(false);
         button23.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button23.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button23.setText("X");
+        button23.setText(" ");
         button23.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button23.setFont(new Font("Comic Sans MS Bold", 48.0));
+        button23.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button23);
+                button23.setDisable(true);
+                checkIfGameIsOver();
+                button23.setFocusTraversable(false);
+            }
+            
+        });
 
         button22.setLayoutX(327.0);
         button22.setLayoutY(244.0);
@@ -171,9 +221,19 @@ public  class GameBase extends AnchorPane {
         button22.setMnemonicParsing(false);
         button22.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button22.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button22.setText("X");
+        button22.setText(" ");
         button22.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button22.setFont(new Font("Comic Sans MS Bold", 48.0));
+        button22.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button22);
+                button22.setDisable(true);
+                checkIfGameIsOver();
+                button22.setFocusTraversable(false);
+            }
+            
+        });
 
         button21.setLayoutX(192.0);
         button21.setLayoutY(243.0);
@@ -182,10 +242,20 @@ public  class GameBase extends AnchorPane {
         button21.setMnemonicParsing(false);
         button21.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button21.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button21.setText("X");
+        button21.setText(" ");
         button21.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button21.setFont(new Font("Comic Sans MS Bold", 48.0));
         button21.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
+        button21.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button21);
+                button21.setDisable(true);
+                checkIfGameIsOver();
+                button21.setFocusTraversable(false);
+            }
+            
+        });
 
         button33.setLayoutX(461.0);
         button33.setLayoutY(361.0);
@@ -194,9 +264,19 @@ public  class GameBase extends AnchorPane {
         button33.setMnemonicParsing(false);
         button33.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button33.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button33.setText("o");
+        button33.setText(" ");
         button33.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button33.setFont(new Font("Comic Sans MS Bold", 48.0));
+        button33.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button33);
+                button33.setDisable(true);
+                checkIfGameIsOver();
+                button33.setFocusTraversable(false);
+            }
+            
+        });
 
         button32.setLayoutX(325.0);
         button32.setLayoutY(359.0);
@@ -205,9 +285,19 @@ public  class GameBase extends AnchorPane {
         button32.setMnemonicParsing(false);
         button32.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button32.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button32.setText("o");
+        button32.setText(" ");
         button32.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button32.setFont(new Font("Comic Sans MS Bold", 48.0));
+        button32.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                setPlayerSymbol(button32);
+                button32.setDisable(true);
+                checkIfGameIsOver();
+                button32.setFocusTraversable(false);
+            }
+            
+        });
 
         tacText.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
         tacText.setId("tacText");
@@ -302,7 +392,7 @@ public  class GameBase extends AnchorPane {
         recordImage.setPickOnBounds(true);
         recordImage.setPreserveRatio(true);
         recordImage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        recordImage.setImage(new Image(getClass().getResource("../../../assets/images/recording.png").toExternalForm()));
+        recordImage.setImage(new Image(getClass().getResource("").toExternalForm()));
 
         getChildren().add(imageView);
         getChildren().add(imageView0);
@@ -324,89 +414,78 @@ public  class GameBase extends AnchorPane {
         getChildren().add(firstPlayerScoreText);
         getChildren().add(secondPlayerScoreText);
         getChildren().add(recordImage);
-        
-        
-
     }
     
-    private void checkIfGameEnds() {
+    
+    
+    public void setPlayerSymbol(Button button){
+        if(playerTurn % 2 == 0){
             
-        String t00 = button11.getText();
-        String t01 = button12.getText();
-        String t02 = button13.getText();
-        String t10 = button21.getText();
-        String t11 = button22.getText();
-        String t12 = button23.getText();
-        String t20=  button31.getText();
-        String t21 = button32.getText();
-        String t22 = button33.getText();
-  
-        if (t00.equals(t01) && t00.equals(t02) && !t00.equals("")) {
-            isGameEnds = true;
-            colorBackgroundWinnerButtons(button11, button12, button13);
+            button.setText("X");
+            button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
+            playerTurn = 1;
+        } else{
+            button.setText("O");
+            button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
+            playerTurn = 0;
         }
- 
-        if (t10.equals(t11) && t10.equals(t12) && !t10.equals("")) {
-            isGameEnds = true;
-            colorBackgroundWinnerButtons(button21, button22, button23);
-        }
- 
-        if (t20.equals(t21) && t20.equals(t22) && !t20.equals("")) {
-            isGameEnds = true;
-            colorBackgroundWinnerButtons(button31, button32, button33);
-        }
- 
-        if (t00.equals(t10) && t00.equals(t20) && !t00.equals("")) {
-            isGameEnds = true;
-            colorBackgroundWinnerButtons(button11, button21, button31);
-        }
- 
-        if (t01.equals(t11) && t01.equals(t21) && !t01.equals("")) {
-            isGameEnds = true;
-            colorBackgroundWinnerButtons(button12, button22, button32);
-        }
- 
-        if (t02.equals(t12) && t02.equals(t22) && !t02.equals("")) {
-            isGameEnds = true;
-            colorBackgroundWinnerButtons(button13, button23, button33);
-        }
- 
-        if (t00.equals(t11) && t00.equals(t22) && !t00.equals("")) {
-            isGameEnds = true;
-            colorBackgroundWinnerButtons(button11, button22, button33);
-        }
- 
-        if (t02.equals(t11) && t02.equals(t20) && !t02.equals("")) {
-            isGameEnds = true;
-            colorBackgroundWinnerButtons(button13, button22, button31);
-        }
-        
-        if( XOCounter >= 9)
-        {
-            isGameEnds = true;
-            isFirstPlayerTurn = true;
-            XOCounter = 0;
-        }
-        
-        /*if(isGameEnds == true)
-        {
-            if(isFirstPlayerTurn)
-                firstPlayerScore.setText(Integer.valueOf(firstPlayerScore.getText()) + 1 + "");
-    
-            else
-                secondPlayerScore.setText(Integer.valueOf(secondPlayerScore.getText()) + 1 + "");
-            XOCounter = 0;
-            newGame.requestFocus();
-        }*/
-        
     }
-    
-    private void colorBackgroundWinnerButtons(Button b1, Button b2, Button b3)
-    {
-        b1.setStyle("-fx-background-color: yellow;");
-        b2.setStyle("-fx-background-color: yellow;");
-        b3.setStyle("-fx-background-color: yellow;");
-    }
+
+    public void checkIfGameIsOver() {
+    for (int a = 0; a < 8; a++) {
+        String line;
+        switch (a) {
+            case 0:
+                line = button11.getText() + button12.getText() + button13.getText();
+                break;
+            case 1:
+                line = button21.getText() + button22.getText() + button23.getText();
+                break;
+            case 2:
+                line = button31.getText() + button32.getText() + button33.getText();
+                break;
+            case 3:
+                line = button11.getText() + button22.getText() + button33.getText();
+                break;
+            case 4:
+                line = button13.getText() + button22.getText() + button31.getText();
+                break;
+            case 5:
+                line = button11.getText() + button21.getText() + button31.getText();
+                break;
+            case 6:
+                line = button12.getText() + button22.getText() + button32.getText();
+                break;
+            case 7:
+                line = button13.getText() + button23.getText() + button33.getText();
+                break;
+            default:
+                line = null;
+        }
+
+        if ("XXX".equals(line)) {
+            //winnerText.setText("X won!");
+            disableButton();
+        } else if ("OOO".equals(line)) {
+            //winnerText.setText("O won!");
+            disableButton();
+        }
+    }   
 }
+
+    public void disableButton() {
+        button11.setDisable(true);
+        button12.setDisable(true);
+        button13.setDisable(true);
+        button21.setDisable(true);
+        button22.setDisable(true);
+        button23.setDisable(true);
+        button31.setDisable(true);
+        button32.setDisable(true);
+        button33.setDisable(true);
+    }
+    
+}
+
 
 
