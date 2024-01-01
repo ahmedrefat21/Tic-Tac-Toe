@@ -11,10 +11,14 @@
    <children>
       <ImageView fitHeight="460.0" fitWidth="740.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
+
             <Image url="@../../../assets/images/splashscreen.png" />
+
+            <Image url="@../../../assets/images/mainBackground.png" />
+
          </image>
       </ImageView>
-      <Button id="styles" fx:id="Hard_Button" layoutX="168.0" layoutY="366.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="391.0" style="-fx-background-color: FCD015; -fx-background-radius: 45; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );" styleClass="Hard-button" stylesheets="@css/levelScreen.css" text="Hard" textAlignment="CENTER" textFill="#fde8ed" wrapText="true">
+      <Button fx:id="easyButton" layoutX="178.0" layoutY="181.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="406.0" style="-fx-background-color: FCD015; -fx-background-radius: 45;" text="Easy" textFill="#f22853" wrapText="true">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </padding>
@@ -22,7 +26,7 @@
             <Font name="Comic Sans MS Bold" size="30.0" />
          </font>
       </Button>
-      <Button id="styles" fx:id="Medium_Button" layoutX="177.0" layoutY="274.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="391.0" style="-fx-background-color: FCD015; -fx-background-radius: 45; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );" styleClass="Medium-button" stylesheets="@css/levelScreen.css" text="Medium" textFill="#fde8ed" wrapText="true">
+      <Button fx:id="hardButton" layoutX="178.0" layoutY="379.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="406.0" style="-fx-background-color: FCD015; -fx-background-radius: 45;" text="Hard" textFill="#f22853" wrapText="true">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </padding>
@@ -30,7 +34,7 @@
             <Font name="Comic Sans MS Bold" size="30.0" />
          </font>
       </Button>
-      <Button id="styles" fx:id="Easy_Button" layoutX="168.0" layoutY="181.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="406.0" style="-fx-background-color: FCD015; -fx-background-radius: 45; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );" styleClass="Easy-button" stylesheets="@css/levelScreen.css" text="Easy" textFill="#fde8ed" wrapText="true">
+      <Button fx:id="meduimButton" layoutX="178.0" layoutY="280.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="406.0" style="-fx-background-color: FCD015; -fx-background-radius: 45;" text="Medium" textFill="#f22853" wrapText="true">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </padding>
