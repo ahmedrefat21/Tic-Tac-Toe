@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class TicTacToe extends Application {
     
     public static Scene scene ;
-    
+    resultFXMLBase base;
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -26,7 +26,7 @@ public class TicTacToe extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
 
         
-        Parent root =new PlayerNameBase();
+        Parent root =new resultFXMLBase();
         
         scene = new Scene(root,740,480);
         stage.setResizable(false);
