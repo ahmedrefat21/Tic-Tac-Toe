@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public  class GameBase extends AnchorPane {
 
@@ -38,6 +39,7 @@ public  class GameBase extends AnchorPane {
     protected final Text firstPlayerScoreText;
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
+    protected Player firstPlayer, secondPlayer;
 
     private int playerTurn = 0;
     
@@ -48,8 +50,7 @@ public  class GameBase extends AnchorPane {
 		
 
 
-
-    public GameBase() {
+    public GameBase(Stage stage, Player playerOne, Player playerTwo) {
         imageView = new ImageView();
         imageView0 = new ImageView();
         exitimage = new ImageView();
@@ -70,10 +71,9 @@ public  class GameBase extends AnchorPane {
         firstPlayerScoreText = new Text();
         secondPlayerScoreText = new Text();
         recordImage = new ImageView();
-
+        this.firstPlayer = playerOne;
+        this.secondPlayer = playerTwo;
         
-        
-
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -129,6 +129,8 @@ public  class GameBase extends AnchorPane {
         button11.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button11.setFont(new Font("Comic Sans MS Bold", 48.0));
         button11.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
+        
+
         button11.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
@@ -426,6 +428,12 @@ public  class GameBase extends AnchorPane {
         getChildren().add(secondPlayerScoreText);
         getChildren().add(recordImage);
 
+                firstPlayerNameText.setText(playerOne.getUsername());
+                 secondPlayerNameText.setText(playerTwo.getUsername());
+//////////////////////////
+        
+        
+        
     }
     
     
@@ -513,6 +521,11 @@ public  class GameBase extends AnchorPane {
            } 
         
         }
+//        private void setNames(Text firstPlayerName, Text secondPlayerName) {
+//        firstPlayer.setUsername(firstPlayerName.getText());
+//        secondPlayer.setUsername(secondPlayerName.getText());
+//
+//    }
 
 }
 

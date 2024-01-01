@@ -1,6 +1,14 @@
 package tic.tac.toe;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -8,6 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javax.swing.JOptionPane;
+import static tic.tac.toe.TicTacToe.scene;
 
 public  class PlayerNameBase extends AnchorPane {
 
@@ -21,9 +32,12 @@ public  class PlayerNameBase extends AnchorPane {
     protected final ImageView imageView;
     public static String player1Name;
     public static String player2Name;
+     private Parent root;
+    Player playerOne, playerTwo;
 
-    public PlayerNameBase() {
-
+    public PlayerNameBase(Stage stage) {
+        playerOne = new Player();
+        playerTwo = new Player();
         text = new Text();
         text0 = new Text();
         playerOneTextField = new TextField();
@@ -136,5 +150,31 @@ public  class PlayerNameBase extends AnchorPane {
         getChildren().add(backButton);
         getChildren().add(imageView);
 
+        okButton.setOnAction(e -> {
+
+            if (playerOneTextField.getText().length() > 0 && playerTwoTextField.getText().length() > 0) {
+                playerOne.setUsername(playerOneTextField.getText());
+                playerTwo.setUsername(playerTwoTextField.getText());
+                Parent pane = new GameBase(stage, playerOne, playerTwo);
+                stage.getScene().setRoot(pane);
+                System.out.println("done");
+            } else {
+                if (playerOneTextField.getText().length() == 0) {
+                   System.out.print("enter your name");
+                }
+            }
+        });
+        
+//        
+//             backButton.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//             Parent pane = new MainPageBase(stage) {};
+//             stage.getScene().setRoot(pane);
+//              
+//    }
+//});       
+        
+        
     }
 }
