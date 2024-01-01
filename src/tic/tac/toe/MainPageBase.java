@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class MainPageBase extends AnchorPane {
 
@@ -24,7 +25,7 @@ public class MainPageBase extends AnchorPane {
     protected final Text text2;
     protected final ImageView imageView3;
 
-    public MainPageBase() {
+    public MainPageBase(Stage stage) {
 
         imageView = new ImageView();
         aboutImage = new ImageView();
