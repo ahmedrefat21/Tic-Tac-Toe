@@ -23,7 +23,7 @@ public class TicTacToe extends Application {
    resultFXMLBase base;
     @Override
     public void start(Stage stage) throws Exception { 
-     Parent root = new resultFXMLBase();    
+    Parent root = new MainPageBase();   
       scene = new Scene(root,740,480);
        stage.setResizable(false);
        stage.setScene(scene);

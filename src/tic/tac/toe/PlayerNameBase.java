@@ -125,7 +125,7 @@ public  class PlayerNameBase extends AnchorPane {
         imageView.setLayoutY(315.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../assets/images/background.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/assets/images/background.png").toExternalForm()));
 
         getChildren().add(text);
         getChildren().add(text0);

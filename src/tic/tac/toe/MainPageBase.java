@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public abstract class MainPageBase extends AnchorPane {
+public  class MainPageBase extends AnchorPane {
 
     protected final ImageView imageView;
     protected final ImageView aboutImage;
@@ -90,7 +90,7 @@ public abstract class MainPageBase extends AnchorPane {
         imageView0.setLayoutY(183.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../../../assets/images/computer.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("/assets/images/computer.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(text, 166.2548828125);
         AnchorPane.setTopAnchor(text, 271.9384765625);
