@@ -448,17 +448,19 @@ public  class GameBase extends AnchorPane {
     
     public void setPlayerSymbol(Button button){
         if(playerTurn % 2 == 0){
-            
+            secondPlayerNameText.setStyle("-fx-effect: none;");
+            firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
             button.setText("X");
             button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
             playerTurn = 1;
         } else{
+            firstPlayerNameText.setStyle("-fx-effect: none;");
+            secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
             button.setText("O");
             button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
             playerTurn = 0;
         }
     }
-
     public void checkIfGameIsOver() {
     for (int a = 0; a < 8; a++) {
         String line;
