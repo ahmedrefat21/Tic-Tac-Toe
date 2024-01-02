@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,7 +44,7 @@ public  class GameBase extends AnchorPane {
     protected Player firstPlayer, secondPlayer;
 
     private int playerTurn = 0;
-    
+    Stage stage;
 
 
     boolean isfirstPlayerTurn = true;
@@ -51,7 +52,7 @@ public  class GameBase extends AnchorPane {
 		
 
 
-    public GameBase(Stage stage, Player playerOne, Player playerTwo) {
+    public GameBase(Stage s, Player playerOne, Player playerTwo) {
         imageView = new ImageView();
         imageView0 = new ImageView();
         exitimage = new ImageView();
@@ -74,7 +75,7 @@ public  class GameBase extends AnchorPane {
         recordImage = new ImageView();
         this.firstPlayer = playerOne;
         this.secondPlayer = playerTwo;
-        
+        stage= s;
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -435,11 +436,11 @@ public  class GameBase extends AnchorPane {
                 firstPlayerNameText.setText(playerOne.getUsername());
                  secondPlayerNameText.setText(playerTwo.getUsername());
 //////////////////////////
-                exitimage.setOnMousePressed(e -> {
-            Parent pane = new MainPageBase(stage) {};
-            stage.getScene().setRoot(pane);
+         //       exitimage.setOnMousePressed(e -> {
+      //      Parent pane = new MainPageBase(stage);
+     //       stage.getScene().setRoot(pane);
 
-        });
+    //    });
         
         
     }
@@ -504,7 +505,11 @@ public  class GameBase extends AnchorPane {
         }
 
         if ("XXX".equals(line)) {
-            // X wins
+           
+            Parent pane =new resultFXMLBase(stage);
+            Scene scene =new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
             
             highlightWinningButtons(buttons);
             disableButton();

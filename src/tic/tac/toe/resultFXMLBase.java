@@ -22,7 +22,7 @@ public class resultFXMLBase extends AnchorPane {
     protected final Button button0;
     protected final MediaView mideaview;
 
-    public resultFXMLBase() {
+    public resultFXMLBase(Stage stage) {
 
         button = new Button();
         label = new Label();
