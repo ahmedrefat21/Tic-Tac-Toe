@@ -48,7 +48,7 @@ public  class GameBase extends AnchorPane {
 
 
     boolean isfirstPlayerTurn = true;
-   
+    int counter =0;
 		
 
 
@@ -435,16 +435,16 @@ public  class GameBase extends AnchorPane {
 
                 firstPlayerNameText.setText(playerOne.getUsername());
                  secondPlayerNameText.setText(playerTwo.getUsername());
-//////////////////////////
-         //       exitimage.setOnMousePressed(e -> {
-      //      Parent pane = new MainPageBase(stage);
-     //       stage.getScene().setRoot(pane);
 
-    //    });
+              exitimage.setOnMousePressed(e -> {
+         Parent pane = new MainPageBase(stage);
+           stage.getScene().setRoot(pane);
+
+       });
         
+             
         
     }
-    
     
     
     public void setPlayerSymbol(Button button){
@@ -513,12 +513,18 @@ public  class GameBase extends AnchorPane {
             
             highlightWinningButtons(buttons);
             disableButton();
-            
+         
         } else if ("OOO".equals(line)) {
             // O wins
             highlightWinningButtons(buttons);
             disableButton();
         }
+     //   else  {
+       //        Parent pane =new draw_videoBase(stage);
+         //     Scene scene =new Scene (pane);
+        //           stage.setScene(scene);
+          //         stage.show(); 
+            //        }
     }
 }
 
