@@ -462,44 +462,65 @@ public  class GameBase extends AnchorPane {
     public void checkIfGameIsOver() {
     for (int a = 0; a < 8; a++) {
         String line;
+        Button[] buttons;
         switch (a) {
             case 0:
                 line = button11.getText() + button12.getText() + button13.getText();
+                buttons = new Button[]{button11, button12, button13};
                 break;
             case 1:
                 line = button21.getText() + button22.getText() + button23.getText();
+                buttons = new Button[]{button21, button22, button23};
                 break;
             case 2:
                 line = button31.getText() + button32.getText() + button33.getText();
+                buttons = new Button[]{button31, button32, button33};
                 break;
             case 3:
                 line = button11.getText() + button22.getText() + button33.getText();
+                buttons = new Button[]{button11, button22, button33};
                 break;
             case 4:
                 line = button13.getText() + button22.getText() + button31.getText();
+                buttons = new Button[]{button13, button22, button31};
                 break;
             case 5:
                 line = button11.getText() + button21.getText() + button31.getText();
+                buttons = new Button[]{button11, button21, button31};
                 break;
             case 6:
                 line = button12.getText() + button22.getText() + button32.getText();
+                buttons = new Button[]{button12, button22, button32};
                 break;
             case 7:
                 line = button13.getText() + button23.getText() + button33.getText();
+                buttons = new Button[]{button13, button23, button33};
                 break;
             default:
                 line = null;
+                buttons = null;
         }
 
         if ("XXX".equals(line)) {
-            //winnerText.setText("X won!");
+            // X wins
+            
+            highlightWinningButtons(buttons);
             disableButton();
+            
         } else if ("OOO".equals(line)) {
-            //winnerText.setText("O won!");
+            // O wins
+            highlightWinningButtons(buttons);
             disableButton();
         }
-    }   
+    }
 }
+
+    private void highlightWinningButtons(Button[] buttons) {
+        
+        for (int i =0 ; i< 3 ; i++){
+            buttons[i].setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        }
+    }
 
     public void disableButton() {
         button11.setDisable(true);
