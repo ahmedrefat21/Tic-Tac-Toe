@@ -25,6 +25,8 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 import javafx.util.Duration;
+import static tic.tac.toe.GameBase.player1Score;
+import static tic.tac.toe.GameBase.player2Score;
 
 
 public class resultFXMLBase extends AnchorPane {
@@ -34,7 +36,8 @@ public class resultFXMLBase extends AnchorPane {
     protected final ImageView imageView;
     protected final Button button0;
     protected final MediaView mideaview;
-   Player playerOne, playerTwo;
+    Player playerOne, playerTwo;
+    GameBase gameBase;
     public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer) {
 
         button = new Button();
@@ -136,9 +139,13 @@ public class resultFXMLBase extends AnchorPane {
         button0.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+//                playerOne.setScore(0);
+//                playerTwo.setScore(0);
+                
                 Parent pane = new MainPageBase(stage);
                 stage.getScene().setRoot(pane);
-                
+                GameBase.player1Score = 0 ;  
+                GameBase.player2Score = 0 ;
             }
         });        
         
