@@ -515,15 +515,6 @@ public  class GameBase extends AnchorPane {
         }
 
         if ("XXX".equals(line)) {
-           
-
-            Parent pane =new resultFXMLBase(stage,firstPlayer,secondPlayer);
-            Scene scene =new Scene (pane);
-            stage.setScene(scene);
-            stage.show();
-
-            
-
             highlightWinningButtons(buttons);
             disableButton();
             timeline.play();
@@ -534,7 +525,7 @@ public  class GameBase extends AnchorPane {
         } else if ("OOO".equals(line)) {
             // O wins
             highlightWinningButtons(buttons);
-            disableButton();
+            disableButton(); 
             player2Score++;
             secondPlayerScoreText.setText(String.valueOf(player2Score));
         }
