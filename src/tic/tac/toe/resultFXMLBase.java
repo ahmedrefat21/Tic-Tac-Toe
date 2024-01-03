@@ -124,7 +124,14 @@ public class resultFXMLBase extends AnchorPane {
         });
         
         
-        
+        button0.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent pane = new MainPageBase(stage);
+                stage.getScene().setRoot(pane);
+                
+            }
+        });        
         
         
 
