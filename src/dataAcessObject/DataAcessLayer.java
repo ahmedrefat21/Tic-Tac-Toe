@@ -14,8 +14,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-import org.apache.derby.jdbc.ClientDriver;
+
 import sun.security.util.Password;
+import datatransferobject.PlayerDTO;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLNonTransientConnectionException;
+import org.apache.derby.jdbc.ClientDriver;
+
 
 /**
  *
@@ -59,6 +74,7 @@ public class DataAcessLayer {
         return rs;
     
     }
+        return rs;}
     
         
     private Connection con;
