@@ -2,6 +2,8 @@ package tic.tac.toe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -18,6 +20,7 @@ import static javafx.scene.paint.Color.color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public  class GameBase extends AnchorPane {
 
@@ -42,10 +45,10 @@ public  class GameBase extends AnchorPane {
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
     protected Player firstPlayer, secondPlayer;
-
     private int playerTurn = 0;
     Stage stage;
-
+    static int player1Score = 0;
+    static int player2Score = 0;
 
     boolean isfirstPlayerTurn = true;
     int counter =0;
@@ -384,7 +387,7 @@ public  class GameBase extends AnchorPane {
         firstPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         firstPlayerScoreText.setStrokeWidth(0.0);
         firstPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        firstPlayerScoreText.setText("5");
+        firstPlayerScoreText.setText("0");
         firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
 
@@ -397,7 +400,7 @@ public  class GameBase extends AnchorPane {
         secondPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         secondPlayerScoreText.setStrokeWidth(0.0);
         secondPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        secondPlayerScoreText.setText("4");
+        secondPlayerScoreText.setText("0");
         secondPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
 
         AnchorPane.setBottomAnchor(recordImage, 14.0);
@@ -510,14 +513,20 @@ public  class GameBase extends AnchorPane {
             Scene scene =new Scene (pane);
             stage.setScene(scene);
             stage.show();
-            
             highlightWinningButtons(buttons);
             disableButton();
+            Timeline timeline = new Timeline();
+            //timeline = new Timeline(new KeyFrame;
+            player1Score++;
+            firstPlayerScoreText.setText(String.valueOf(player1Score));
+            System.out.println(player1Score);
          
         } else if ("OOO".equals(line)) {
             // O wins
             highlightWinningButtons(buttons);
             disableButton();
+            player2Score++;
+            secondPlayerNameText.setText(String.valueOf(player2Score));
         }
      //   else  {
        //        Parent pane =new draw_videoBase(stage);

@@ -113,8 +113,8 @@ public class resultFXMLBase extends AnchorPane {
     }
     public void PrepareWinnerScreen()
      {
-        String path="file:/C:/Users/Administrator/Desktop/tic%20tac%20toe/Tic-Tac-Toe/src/assets/videos/winner.mp4";
-        Media media = new Media(path);  
+        String path="/assets/videos/winner.mp4";
+        Media media = new Media(getClass().getResource(path).toExternalForm());  
         MediaPlayer mediaPlayer = new MediaPlayer(media); 
         mideaview.setMediaPlayer(mediaPlayer);
         mideaview.setFitHeight(300);
