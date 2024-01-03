@@ -394,7 +394,7 @@ public  class GameBase extends AnchorPane {
         firstPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         firstPlayerScoreText.setStrokeWidth(0.0);
         firstPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        firstPlayerScoreText.setText("0");
+        firstPlayerScoreText.setText(player1Score+"");
         firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
 
@@ -407,7 +407,7 @@ public  class GameBase extends AnchorPane {
         secondPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         secondPlayerScoreText.setStrokeWidth(0.0);
         secondPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        secondPlayerScoreText.setText("0");
+        secondPlayerScoreText.setText(player2Score+"");
         secondPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
 
         AnchorPane.setBottomAnchor(recordImage, 14.0);
@@ -516,7 +516,14 @@ public  class GameBase extends AnchorPane {
 
         if ("XXX".equals(line)) {
            
+
+            Parent pane =new resultFXMLBase(stage,firstPlayer,secondPlayer);
+            Scene scene =new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+
             
+
             highlightWinningButtons(buttons);
             disableButton();
             timeline.play();
@@ -529,7 +536,7 @@ public  class GameBase extends AnchorPane {
             highlightWinningButtons(buttons);
             disableButton();
             player2Score++;
-            secondPlayerNameText.setText(String.valueOf(player2Score));
+            secondPlayerScoreText.setText(String.valueOf(player2Score));
         }
      //   else  {
        //        Parent pane =new draw_videoBase(stage);
