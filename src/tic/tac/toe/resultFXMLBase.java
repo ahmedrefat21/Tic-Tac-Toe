@@ -1,8 +1,13 @@
 package tic.tac.toe;
 
 import java.net.URL;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -16,7 +21,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 import javax.swing.JOptionPane;
+
+import javafx.util.Duration;
+
 
 public class resultFXMLBase extends AnchorPane {
 
@@ -144,8 +153,8 @@ public class resultFXMLBase extends AnchorPane {
         mideaview.setMediaPlayer(mediaPlayer);
         mideaview.setFitHeight(300);
         mideaview.setFitWidth(300);
-     //   mideaview.setLayoutX(120.0);
-      //  mideaview.setLayoutY(120.0);
+        mideaview.setLayoutX(120.0);
+        mideaview.setLayoutY(120.0);
         getChildren().add(mideaview);
         mediaPlayer.setAutoPlay(true);  
       
