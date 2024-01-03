@@ -509,7 +509,7 @@ public  class GameBase extends AnchorPane {
 
         if ("XXX".equals(line)) {
            
-            Parent pane =new resultFXMLBase(stage);
+            Parent pane =new resultFXMLBase(stage,firstPlayer,secondPlayer);
             Scene scene =new Scene (pane);
             stage.setScene(scene);
             stage.show();

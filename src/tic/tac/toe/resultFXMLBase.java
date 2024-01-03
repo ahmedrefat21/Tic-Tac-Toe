@@ -1,7 +1,10 @@
 package tic.tac.toe;
 
 import java.net.URL;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,6 +16,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 public class resultFXMLBase extends AnchorPane {
 
@@ -21,14 +25,17 @@ public class resultFXMLBase extends AnchorPane {
     protected final ImageView imageView;
     protected final Button button0;
     protected final MediaView mideaview;
-
-    public resultFXMLBase(Stage stage) {
+   Player playerOne, playerTwo;
+    public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer) {
 
         button = new Button();
         label = new Label();
         imageView = new ImageView();
         button0 = new Button();
         mideaview = new MediaView();
+         
+        playerOne = new Player();
+        playerTwo = new Player();
         PrepareWinnerScreen();
         
 
@@ -47,7 +54,7 @@ public class resultFXMLBase extends AnchorPane {
         button.setMnemonicParsing(false);
         button.setPrefHeight(54.0);
         button.setPrefWidth(202.0);
-        button.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;");
+        button.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;-fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );");
         button.getStylesheets().add("/tic/tac/toe/resultfxml.css");
         button.setText("Play again");
         button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
@@ -87,7 +94,7 @@ public class resultFXMLBase extends AnchorPane {
         button0.setMnemonicParsing(false);
         button0.setPrefHeight(54.0);
         button0.setPrefWidth(202.0);
-        button0.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;");
+        button0.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );");
         button0.getStylesheets().add("/tic/tac/toe/resultfxml.css");
         button0.setText("Main menu");
         button0.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
@@ -107,6 +114,17 @@ public class resultFXMLBase extends AnchorPane {
         getChildren().add(imageView);
         getChildren().add(button0);
       
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent pane = new GameBase(stage,firstPlayer, secondPlayer);
+                stage.getScene().setRoot(pane);
+                
+            }
+        });
+        
+        
+        
         
         
 
