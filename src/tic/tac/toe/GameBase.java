@@ -52,6 +52,7 @@ public  class GameBase extends AnchorPane {
 
     boolean isfirstPlayerTurn = true;
     int counter =0;
+    Timeline timeline;
 		
 
 
@@ -79,6 +80,12 @@ public  class GameBase extends AnchorPane {
         this.firstPlayer = playerOne;
         this.secondPlayer = playerTwo;
         stage= s;
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane =new resultFXMLBase(stage);
+            Scene scene =new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -509,14 +516,10 @@ public  class GameBase extends AnchorPane {
 
         if ("XXX".equals(line)) {
            
-            Parent pane =new resultFXMLBase(stage);
-            Scene scene =new Scene (pane);
-            stage.setScene(scene);
-            stage.show();
+            
             highlightWinningButtons(buttons);
             disableButton();
-            Timeline timeline = new Timeline();
-            //timeline = new Timeline(new KeyFrame;
+            timeline.play();
             player1Score++;
             firstPlayerScoreText.setText(String.valueOf(player1Score));
             System.out.println(player1Score);
@@ -558,25 +561,7 @@ public  class GameBase extends AnchorPane {
     
 
     
-    private void colorBackgroundWinnerButton(Button b1,Button b2,Button b3){
-       b1.setStyle("-fx-background-color:#edb9c5");
-       b2.setStyle("-fx-background-color:#edb9c5");
-       b3.setStyle("-fx-background-color:#edb9c5");
-    }
-     private void setCurrentPlayerShadow(){
-         
-           if (isfirstPlayerTurn==true){
-                firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-           }else{
-               secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-           } 
-        
-        }
-//        private void setNames(Text firstPlayerName, Text secondPlayerName) {
-//        firstPlayer.setUsername(firstPlayerName.getText());
-//        secondPlayer.setUsername(secondPlayerName.getText());
-//
-//    }
+       
 
 }
 
