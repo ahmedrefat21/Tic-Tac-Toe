@@ -81,7 +81,7 @@ public  class GameBase extends AnchorPane {
         this.secondPlayer = playerTwo;
         stage= s;
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane =new resultFXMLBase(stage);
+            Parent pane =new resultFXMLBase(stage,firstPlayer,secondPlayer);
             Scene scene =new Scene (pane);
             stage.setScene(scene);
             stage.show();
