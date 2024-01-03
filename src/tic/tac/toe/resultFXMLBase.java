@@ -48,7 +48,17 @@ public class resultFXMLBase extends AnchorPane {
          
         playerOne = new Player();
         playerTwo = new Player();
-        PrepareWinnerScreen();
+        
+         String path="/assets/videos/winner.mp4";
+        Media media = new Media(getClass().getResource(path).toExternalForm());  
+        MediaPlayer mediaPlayer = new MediaPlayer(media); 
+        mideaview.setMediaPlayer(mediaPlayer);
+        mideaview.setFitHeight(300);
+        mideaview.setFitWidth(300);
+        mideaview.setLayoutX(120.0);
+        mideaview.setLayoutY(120.0);
+        getChildren().add(mideaview);
+        mediaPlayer.setAutoPlay(true); 
         
 
         setId("AnchorPane");
@@ -89,13 +99,7 @@ public class resultFXMLBase extends AnchorPane {
         AnchorPane.setLeftAnchor(imageView, 7.0);
         AnchorPane.setRightAnchor(imageView, 653.8761901855469);
         AnchorPane.setTopAnchor(imageView, 32.0);
-        imageView.setFitHeight(67.0);
-        imageView.setFitWidth(83.0);
-        imageView.setLayoutX(7.0);
-        imageView.setLayoutY(32.0);
-        imageView.setPickOnBounds(true);
-        imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("/assets/images/back.png").toExternalForm()));
+
 
         AnchorPane.setBottomAnchor(button0, 46.0);
         AnchorPane.setLeftAnchor(button0, 414.0);
@@ -126,17 +130,17 @@ public class resultFXMLBase extends AnchorPane {
         getChildren().add(imageView);
         getChildren().add(button0);
       
-        button.setOnAction(new EventHandler<ActionEvent>() {
+        button.setOnAction(new EventHandler<ActionEvent>() { //playAgain
             @Override
             public void handle(ActionEvent event) {
                 Parent pane = new GameBase(stage,firstPlayer, secondPlayer);
                 stage.getScene().setRoot(pane);
-                
+                mediaPlayer.stop();
             }
         });
         
         
-        button0.setOnAction(new EventHandler<ActionEvent>() {
+        button0.setOnAction(new EventHandler<ActionEvent>() { //back to main
             @Override
             public void handle(ActionEvent event) {
 //                playerOne.setScore(0);
@@ -146,25 +150,13 @@ public class resultFXMLBase extends AnchorPane {
                 stage.getScene().setRoot(pane);
                 GameBase.player1Score = 0 ;  
                 GameBase.player2Score = 0 ;
+                mediaPlayer.stop();
+
             }
         });        
         
         
 
     }
-    public void PrepareWinnerScreen()
-     {
-        String path="/assets/videos/winner.mp4";
-        Media media = new Media(getClass().getResource(path).toExternalForm());  
-        MediaPlayer mediaPlayer = new MediaPlayer(media); 
-        mideaview.setMediaPlayer(mediaPlayer);
-        mideaview.setFitHeight(300);
-        mideaview.setFitWidth(300);
-        mideaview.setLayoutX(120.0);
-        mideaview.setLayoutY(120.0);
-        getChildren().add(mideaview);
-        mediaPlayer.setAutoPlay(true);  
-      
-       
-    }
+
 }
