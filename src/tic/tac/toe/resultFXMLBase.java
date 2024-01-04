@@ -68,7 +68,7 @@ public  class resultFXMLBase extends AnchorPane {
         AnchorPane.setLeftAnchor(mediaView, 165.0);
         AnchorPane.setRightAnchor(mediaView, 175.0);
         AnchorPane.setTopAnchor(mediaView, 33.0);
-        String path="/assets/videos/winner.mp4";
+        String path="/assets/videos/winnerr.mp4";
         Media media = new Media(getClass().getResource(path).toExternalForm());  
         MediaPlayer mediaPlayer = new MediaPlayer(media); 
         mediaView.setMediaPlayer(mediaPlayer);

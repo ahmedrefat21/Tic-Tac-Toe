@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.color;
 import javafx.scene.text.Font;
@@ -96,6 +98,11 @@ public  class GameBase extends AnchorPane {
         setStyle("-fx-background-color: #FDE8ED;");
         getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
 
+         String path="/assets/videos/winnerr.mp4";
+        Media media = new Media(getClass().getResource(path).toExternalForm());  
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        
+        
         AnchorPane.setBottomAnchor(imageView, 358.0);
         AnchorPane.setLeftAnchor(imageView, 30.0);
         AnchorPane.setTopAnchor(imageView, 18.0);
@@ -447,8 +454,12 @@ public  class GameBase extends AnchorPane {
                  secondPlayerNameText.setText(playerTwo.getUsername());
 
               exitimage.setOnMousePressed(e -> {
-         Parent pane = new MainPageBase(stage);
-           stage.getScene().setRoot(pane);
+                    Parent pane = new MainPageBase(stage);
+                stage.getScene().setRoot(pane);
+                GameBase.player1Score = 0 ;  
+                GameBase.player2Score = 0 ;
+                mediaPlayer.stop();
+         
 
        });
         
@@ -525,7 +536,8 @@ public  class GameBase extends AnchorPane {
         } else if ("OOO".equals(line)) {
             // O wins
             highlightWinningButtons(buttons);
-            disableButton(); 
+            disableButton();
+            timeline.play();
             player2Score++;
             secondPlayerScoreText.setText(String.valueOf(player2Score));
         }
