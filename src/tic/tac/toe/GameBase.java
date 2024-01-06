@@ -3,6 +3,7 @@ package tic.tac.toe;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -55,6 +56,7 @@ public  class GameBase extends AnchorPane {
     boolean isfirstPlayerTurn = true;
     int counter =0;
     Timeline timeline;
+    boolean turn, fullBoardFlag;
 		
 
 
@@ -62,6 +64,7 @@ public  class GameBase extends AnchorPane {
         imageView = new ImageView();
         imageView0 = new ImageView();
         exitimage = new ImageView();
+        Button[][] buttons = {{new Button(),new Button(),new Button()},{new Button(),new Button(),new Button()},{new Button(),new Button(),new Button()}};
         button11 = new Button();
         button13 = new Button();
         button12 = new Button();
@@ -158,8 +161,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button11);
                 button11.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button11.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -178,8 +183,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button13);
                 button13.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button13.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -200,8 +207,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button12);
                 button12.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button12.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -222,8 +231,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button31);
                 button31.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button31.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -243,8 +254,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button23);
                 button23.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button23.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -264,8 +277,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button22);
                 button22.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button22.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -286,8 +301,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button21);
                 button21.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button21.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -307,8 +324,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button33);
                 button33.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button33.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -328,8 +347,10 @@ public  class GameBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 setPlayerSymbol(button32);
                 button32.setDisable(true);
+                counter++;
                 checkIfGameIsOver();
                 button32.setFocusTraversable(false);
+                System.out.println(counter);
             }
             
         });
@@ -450,17 +471,15 @@ public  class GameBase extends AnchorPane {
         getChildren().add(secondPlayerScoreText);
         getChildren().add(recordImage);
 
-                firstPlayerNameText.setText(playerOne.getUsername());
-                 secondPlayerNameText.setText(playerTwo.getUsername());
+        firstPlayerNameText.setText(playerOne.getUsername());
+        secondPlayerNameText.setText(playerTwo.getUsername());
 
-              exitimage.setOnMousePressed(e -> {
-                    Parent pane = new MainPageBase(stage);
-                stage.getScene().setRoot(pane);
-                GameBase.player1Score = 0 ;  
-                GameBase.player2Score = 0 ;
-                mediaPlayer.stop();
-         
-
+        exitimage.setOnMousePressed(e -> {
+            Parent pane = new MainPageBase(stage);
+            stage.getScene().setRoot(pane);
+            GameBase.player1Score = 0 ;  
+            GameBase.player2Score = 0 ;
+            mediaPlayer.stop();
        });
         
              
@@ -484,7 +503,7 @@ public  class GameBase extends AnchorPane {
         }
     }
     public void checkIfGameIsOver() {
-    for (int a = 0; a < 8; a++) {
+    for (int a = 0; a <= 8; a++) {
         String line;
         Button[] buttons;
         switch (a) {
@@ -521,6 +540,11 @@ public  class GameBase extends AnchorPane {
                 buttons = new Button[]{button13, button23, button33};
                 break;
             default:
+                if (counter == 9) {
+                    timeline.play();
+                    System.out.println(counter);
+                    return;
+                }
                 line = null;
                 buttons = null;
         }
@@ -532,6 +556,7 @@ public  class GameBase extends AnchorPane {
             player1Score++;
             firstPlayerScoreText.setText(String.valueOf(player1Score));
             System.out.println(player1Score);
+            fullBoardFlag = false;
          
         } else if ("OOO".equals(line)) {
             // O wins
@@ -540,14 +565,10 @@ public  class GameBase extends AnchorPane {
             timeline.play();
             player2Score++;
             secondPlayerScoreText.setText(String.valueOf(player2Score));
+            fullBoardFlag = false;
         }
-     //   else  {
-       //        Parent pane =new draw_videoBase(stage);
-         //     Scene scene =new Scene (pane);
-        //           stage.setScene(scene);
-          //         stage.show(); 
-            //        }
     }
+    
 }
 
     private void highlightWinningButtons(Button[] buttons) {
@@ -573,6 +594,7 @@ public  class GameBase extends AnchorPane {
     
        
 
+   
 }
 
 

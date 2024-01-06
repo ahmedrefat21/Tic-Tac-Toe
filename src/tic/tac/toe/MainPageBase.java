@@ -195,7 +195,7 @@ public class MainPageBase extends AnchorPane {
               
     }
 }); 
-               compButton.setOnAction(new EventHandler<ActionEvent>() {
+            compButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
              Parent pane = new LevelScreenBase(stage) {};
