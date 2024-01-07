@@ -12,8 +12,6 @@
       <ImageView fitHeight="460.0" fitWidth="740.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
 
-            <Image url="@../../../assets/images/splashscreen.png" />
-
             <Image url="@../../../assets/images/mainBackground.png" />
 
          </image>
@@ -42,9 +40,9 @@
             <Font name="Comic Sans MS Bold" size="30.0" />
          </font>
       </Button>
-      <ImageView fx:id="backimage" fitHeight="71.0" fitWidth="73.0" layoutX="14.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backimage" fitHeight="71.0" fitWidth="73.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../assets/images/back.png" />
+            <Image url="@../../../assets/images/back2.png" />
          </image>
       </ImageView>
    </children>
