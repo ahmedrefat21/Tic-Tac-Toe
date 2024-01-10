@@ -541,6 +541,7 @@ public  class GameBase extends AnchorPane {
                 break;
             default:
                 if (counter == 9) {
+                    
                     timeline.play();
                     System.out.println(counter);
                     return;
