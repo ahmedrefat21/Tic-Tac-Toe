@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,24 +23,23 @@
             <Image url="@../../../assets/images/back.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="291.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="97.0" fitWidth="104.0" layoutX="322.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../assets/images/SignUp.png" />
          </image>
       </ImageView>
-      <TextField fx:id="userNameTextField" layoutX="302.0" layoutY="199.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;" />
-      <Text id="firstPlayerNameText" fill="#f22853" layoutX="170.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+      <TextField fx:id="userNameTextField" layoutX="342.0" layoutY="138.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;" />
+      <Text id="firstPlayerNameText" fx:id="Usernamelabel" fill="#f22853" layoutX="163.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Text>
-      <Text id="firstPlayerNameText" fill="#f22853" layoutX="172.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <Text id="firstPlayerNameText" fx:id="passlabel" fill="#f22853" layoutX="167.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="passwordTextField" layoutX="304.0" layoutY="281.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;" />
-      <Button id="styles" fx:id="SignUpButton" layoutX="295.0" layoutY="353.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="152.0" style="-fx-background-color: FCD015; -fx-background-radius: 45; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );" text="SignUp" textFill="#fde8ed" wrapText="true">
+      <Button id="styles" fx:id="SignUpButton" layoutX="294.0" layoutY="377.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="152.0" style="-fx-background-color: FCD015; -fx-background-radius: 45; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );" text="SignUp" textFill="#fde8ed" wrapText="true">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </padding>
@@ -46,15 +47,26 @@
             <Font name="Comic Sans MS Bold" size="30.0" />
          </font>
       </Button>
-      <Text id="firstPlayerNameText" fill="#f22853" layoutX="236.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have an account?">
+      <Text id="firstPlayerNameText" fill="#f22853" layoutX="259.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have an account?">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Text>
-      <Text id="firstPlayerNameText" fx:id="loginText" fill="#fcd015" layoutX="444.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);" text="Login">
+      <Text id="firstPlayerNameText" fx:id="loginText" fill="#fcd015" layoutX="464.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);" text="Login">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Text>
+      <Text id="firstPlayerNameText" fx:id="emaillabel" fill="#f22853" layoutX="193.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+         <font>
+            <Font name="Comic Sans MS Bold" size="24.0" />
+         </font>
+      </Text>
+      <TextField fx:id="emailTextField" layoutX="342.0" layoutY="216.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;" />
+      <PasswordField fx:id="passtextfield" layoutX="342.0" layoutY="297.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;">
+         <effect>
+            <DropShadow />
+         </effect>
+      </PasswordField>
    </children>
 </AnchorPane>
