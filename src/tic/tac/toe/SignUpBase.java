@@ -18,8 +18,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-public abstract class SignUpBase extends AnchorPane {
+public  class SignUpBase extends AnchorPane {
 
     protected final ImageView imageView;
     protected final ImageView backImage;
@@ -37,7 +38,7 @@ public abstract class SignUpBase extends AnchorPane {
     protected final Text loginText;
     StringTokenizer token;
     private Thread thread;
-    public SignUpBase() {
+    public SignUpBase(Stage stage) {
 
         imageView = new ImageView();
         backImage = new ImageView();

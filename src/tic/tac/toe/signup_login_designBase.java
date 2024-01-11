@@ -1,13 +1,17 @@
 package tic.tac.toe;
 
 import java.net.URL;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
-public abstract class signup_login_designBase extends AnchorPane {
+public  class signup_login_designBase extends AnchorPane {
 
     protected final ImageView arrowback;
     protected final ImageView welcomeregister;
@@ -15,7 +19,7 @@ public abstract class signup_login_designBase extends AnchorPane {
     protected final Button btnLogin;
     protected final Button btnSignup;
 
-    public signup_login_designBase() {
+    public signup_login_designBase(Stage stage) {
 
         arrowback = new ImageView();
         welcomeregister = new ImageView();
@@ -82,5 +86,23 @@ public abstract class signup_login_designBase extends AnchorPane {
         getChildren().add(btnLogin);
         getChildren().add(btnSignup);
 
+        
+      /*  btnLogin.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+             Parent pane = new LoginBase(stage) {};
+             stage.getScene().setRoot(pane);
+              
+    }
+});       */
+        btnSignup.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+             Parent pane = new SignUpBase(stage) {};
+             stage.getScene().setRoot(pane);
+              
+    }
+});       
+        
     }
 }
