@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -25,16 +24,17 @@ public abstract class SignUpBase extends AnchorPane {
     protected final ImageView imageView;
     protected final ImageView backImage;
     protected final ImageView imageView0;
-    protected final TextField userNameTextField;
-    protected final Text Usernamelabel;
-    protected final Text passlabel;
+    protected final TextField emailTextField;
+    protected final Text UsernamelLbel;
+    protected final Text passLabel;
     protected final Button SignUpButton;
     protected final Text text;
-    protected final Text loginText;
-    protected final Text emaillabel;
-    protected final TextField emailTextField;
-    protected final PasswordField passtextfield;
+    protected final Text emailLabel;
+    protected final TextField usernameTextField;
+    protected final PasswordField passTextField;
     protected final DropShadow dropShadow;
+    protected final Button loginbtn;
+    protected final Text loginText;
     StringTokenizer token;
     private Thread thread;
     public SignUpBase() {
@@ -42,16 +42,17 @@ public abstract class SignUpBase extends AnchorPane {
         imageView = new ImageView();
         backImage = new ImageView();
         imageView0 = new ImageView();
-        userNameTextField = new TextField();
-        Usernamelabel = new Text();
-        passlabel = new Text();
+        emailTextField = new TextField();
+        UsernamelLbel = new Text();
+        passLabel = new Text();
         SignUpButton = new Button();
         text = new Text();
-        loginText = new Text();
-        emaillabel = new Text();
-        emailTextField = new TextField();
-        passtextfield = new PasswordField();
+        emailLabel = new Text();
+        usernameTextField = new TextField();
+        passTextField = new PasswordField();
         dropShadow = new DropShadow();
+        loginbtn = new Button();
+        loginText = new Text();
 
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -80,36 +81,39 @@ public abstract class SignUpBase extends AnchorPane {
         backImage.setPreserveRatio(true);
         backImage.setImage(new Image(getClass().getResource("../../../assets/images/back.png").toExternalForm()));
 
-        imageView0.setFitHeight(97.0);
-        imageView0.setFitWidth(104.0);
-        imageView0.setLayoutX(322.0);
+        imageView0.setFitHeight(119.0);
+        imageView0.setFitWidth(112.0);
+        imageView0.setLayoutX(305.0);
+        imageView0.setLayoutY(12.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
         imageView0.setImage(new Image(getClass().getResource("../../../assets/images/SignUp.png").toExternalForm()));
 
-        userNameTextField.setLayoutX(342.0);
-        userNameTextField.setLayoutY(138.0);
-        userNameTextField.setPrefHeight(48.0);
-        userNameTextField.setPrefWidth(244.0);
-        userNameTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;");
+        emailTextField.setLayoutX(342.0);
+        emailTextField.setLayoutY(138.0);
+        emailTextField.setPrefHeight(48.0);
+        emailTextField.setPrefWidth(244.0);
+        emailTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
+        emailTextField.setText("dsfsdfs");
+        emailTextField.setFont(new Font("Comic Sans MS Bold", 19.0));
 
-        Usernamelabel.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
-        Usernamelabel.setId("firstPlayerNameText");
-        Usernamelabel.setLayoutX(163.0);
-        Usernamelabel.setLayoutY(172.0);
-        Usernamelabel.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        Usernamelabel.setStrokeWidth(0.0);
-        Usernamelabel.setText("Username");
-        Usernamelabel.setFont(new Font("Comic Sans MS Bold", 24.0));
+        UsernamelLbel.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
+        UsernamelLbel.setId("firstPlayerNameText");
+        UsernamelLbel.setLayoutX(163.0);
+        UsernamelLbel.setLayoutY(249.0);
+        UsernamelLbel.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        UsernamelLbel.setStrokeWidth(0.0);
+        UsernamelLbel.setText("Username");
+        UsernamelLbel.setFont(new Font("Comic Sans MS Bold", 24.0));
 
-        passlabel.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
-        passlabel.setId("firstPlayerNameText");
-        passlabel.setLayoutX(167.0);
-        passlabel.setLayoutY(330.0);
-        passlabel.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        passlabel.setStrokeWidth(0.0);
-        passlabel.setText("Password");
-        passlabel.setFont(new Font("Comic Sans MS Bold", 24.0));
+        passLabel.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
+        passLabel.setId("firstPlayerNameText");
+        passLabel.setLayoutX(167.0);
+        passLabel.setLayoutY(330.0);
+        passLabel.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        passLabel.setStrokeWidth(0.0);
+        passLabel.setText("Password");
+        passLabel.setFont(new Font("Comic Sans MS Bold", 24.0));
 
         SignUpButton.setId("styles");
         SignUpButton.setLayoutX(294.0);
@@ -133,63 +137,72 @@ public abstract class SignUpBase extends AnchorPane {
         text.setText("Have an account?");
         text.setFont(new Font("Comic Sans MS Bold", 24.0));
 
+        emailLabel.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
+        emailLabel.setId("firstPlayerNameText");
+        emailLabel.setLayoutX(163.0);
+        emailLabel.setLayoutY(171.0);
+        emailLabel.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+        emailLabel.setStrokeWidth(0.0);
+        emailLabel.setText("Email");
+        emailLabel.setFont(new Font("Comic Sans MS Bold", 24.0));
+
+        usernameTextField.setLayoutX(342.0);
+        usernameTextField.setLayoutY(216.0);
+        usernameTextField.setPrefHeight(48.0);
+        usernameTextField.setPrefWidth(244.0);
+        usernameTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
+        usernameTextField.setText("fgdg");
+        usernameTextField.setFont(new Font("Comic Sans MS Bold", 19.0));
+
+        passTextField.setLayoutX(342.0);
+        passTextField.setLayoutY(297.0);
+        passTextField.setPrefHeight(48.0);
+        passTextField.setPrefWidth(244.0);
+        passTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
+        passTextField.setText("sfdsdf");
+
+        passTextField.setEffect(dropShadow);
+        passTextField.setFont(new Font(19.0));
+
+        loginbtn.setLayoutX(464.0);
+        loginbtn.setLayoutY(429.0);
+        loginbtn.setMnemonicParsing(false);
+        loginbtn.setPrefHeight(48.0);
+        loginbtn.setPrefWidth(77.0);
+        loginbtn.setStyle("-fx-background-color: #FDE8ED;");
+
         loginText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         loginText.setId("firstPlayerNameText");
-        loginText.setLayoutX(464.0);
-        loginText.setLayoutY(466.0);
         loginText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         loginText.setStrokeWidth(0.0);
         loginText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         loginText.setText("Login");
         loginText.setFont(new Font("Comic Sans MS Bold", 24.0));
-
-        emaillabel.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
-        emaillabel.setId("firstPlayerNameText");
-        emaillabel.setLayoutX(193.0);
-        emaillabel.setLayoutY(250.0);
-        emaillabel.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        emaillabel.setStrokeWidth(0.0);
-        emaillabel.setText("Email");
-        emaillabel.setFont(new Font("Comic Sans MS Bold", 24.0));
-
-        emailTextField.setLayoutX(342.0);
-        emailTextField.setLayoutY(216.0);
-        emailTextField.setPrefHeight(48.0);
-        emailTextField.setPrefWidth(244.0);
-        emailTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;");
-
-        passtextfield.setLayoutX(342.0);
-        passtextfield.setLayoutY(297.0);
-        passtextfield.setPrefHeight(48.0);
-        passtextfield.setPrefWidth(244.0);
-        passtextfield.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED;");
-
-        passtextfield.setEffect(dropShadow);
+        loginbtn.setGraphic(loginText);
 
         getChildren().add(imageView);
         getChildren().add(backImage);
         getChildren().add(imageView0);
-        getChildren().add(userNameTextField);
-        getChildren().add(Usernamelabel);
-        getChildren().add(passlabel);
+        getChildren().add(emailTextField);
+        getChildren().add(UsernamelLbel);
+        getChildren().add(passLabel);
         getChildren().add(SignUpButton);
         getChildren().add(text);
-        getChildren().add(loginText);
-        getChildren().add(emaillabel);
-        getChildren().add(emailTextField);
-        getChildren().add(passtextfield);
+        getChildren().add(emailLabel);
+        getChildren().add(usernameTextField);
+        getChildren().add(passTextField);
+        getChildren().add(loginbtn);
 
     }
     
-    
-    public void signup(){
+     public void signup(){
      
         String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regex); 
         Matcher matcher = pattern.matcher(emailTextField.getText());
-        String userName = userNameTextField.getText().trim();
+        String userName = usernameTextField.getText().trim();
         String email = emailTextField.getText().trim();
-        String password = passtextfield.getText().trim();
+        String password = passTextField.getText().trim();
         if(userName.isEmpty() || email.isEmpty() || password.isEmpty()   ){
                 Alert alert =new Alert(AlertType.WARNING);
                alert.setContentText("inforamtion is false");
@@ -198,13 +211,13 @@ public abstract class SignUpBase extends AnchorPane {
                   Alert alert =new Alert(AlertType.WARNING);
                alert.setContentText("email format is false");
                alert.show();
-                 }else if(!passtextfield.getText().equals(passtextfield.getText())){
+                 }else if(!passTextField.getText().equals(passTextField.getText())){
                       Alert alert =new Alert(AlertType.WARNING);
                alert.setContentText("password is false");
                alert.show();
                  }  
                  else{
-               connectionHandler.ps.println("SignUp###"+userNameTextField.getText()+"###"+emailTextField.getText()+"###"+passtextfield.getText());
+               connectionHandler.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
                  
         
           thread =   new Thread(){
@@ -252,4 +265,11 @@ public abstract class SignUpBase extends AnchorPane {
            thread.start();
                   }
     }
+	
+	
+	
+    
+    
+    
+    
 }
