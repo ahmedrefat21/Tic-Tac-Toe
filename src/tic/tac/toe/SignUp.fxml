@@ -28,7 +28,7 @@
             <Image url="@../../../assets/images/SignUp.png" />
          </image>
       </ImageView>
-      <TextField fx:id="emailTextField" layoutX="342.0" layoutY="138.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;" text="dsfsdfs">
+      <TextField fx:id="emailTextField" layoutX="342.0" layoutY="138.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;">
          <font>
             <Font name="Comic Sans MS Bold" size="19.0" />
          </font></TextField>
@@ -60,11 +60,11 @@
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="usernameTextField" layoutX="342.0" layoutY="216.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;" text="fgdg">
+      <TextField fx:id="usernameTextField" layoutX="342.0" layoutY="216.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;">
          <font>
             <Font name="Comic Sans MS Bold" size="19.0" />
          </font></TextField>
-      <PasswordField fx:id="passTextField" layoutX="342.0" layoutY="297.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;" text="sfdsdf">
+      <PasswordField fx:id="passTextField" layoutX="342.0" layoutY="297.0" prefHeight="48.0" prefWidth="244.0" style="-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;">
          <effect>
             <DropShadow />
          </effect>

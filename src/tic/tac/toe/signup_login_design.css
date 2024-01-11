@@ -3,17 +3,3 @@
     
 }
 
-#btnlogin{
-    -fx-background-color: #FCD015;
-    -fx-font-size:30;
-    -fx-font-family:"Comic Sans MS";
-    -fx-text-fill: #FDE8ED;
-    -fx-background-radius: 50 50 50 50 ;
-}
-#btnsignup{
-    -fx-background-color: #FCD015;
-    -fx-font-size:30;
-    -fx-font-family:"Comic Sans MS";
-    -fx-text-fill: #F22853;
-    -fx-background-radius: 50 50 50 50 ;
-}
