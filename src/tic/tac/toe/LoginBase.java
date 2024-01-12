@@ -3,6 +3,8 @@ package tic.tac.toe;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -40,12 +42,21 @@ public class LoginBase extends AnchorPane {
     private Thread thread;
     StringTokenizer token;
     int score;
-    /*PrintStream ps;
+    HashMap<String, String>hash = new HashMap<>();
+    Socket socket;
     DataInputStream dis;
-    HashMap<String, String>hash = new HashMap<>();*/
+    PrintStream ps;
+
 
     public LoginBase(Stage stage) {
 
+         try {
+            socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
+            dis = new DataInputStream(socket.getInputStream());
+            ps = new PrintStream(socket.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
         imageView = new ImageView();
         imageView0 = new ImageView();
         loginButton = new Button();
@@ -250,7 +261,7 @@ public class LoginBase extends AnchorPane {
                 
             }else{
              
-            connectionHandler.ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
+         
 
             if(emailTextField.getText().equals("")){
                 Platform.runLater(new Runnable() {
@@ -270,7 +281,7 @@ public class LoginBase extends AnchorPane {
                 
             }else{
                 
-                //System.out.println("LOOOOOOOOOOOGIIIIIIIIINNNNNNNNNNN");
+                System.out.println("LOOOOOOOOOOOGIIIIIIIIINNNNNNNNNNN");
 
                 //reciving response
               thread =  new Thread(){
@@ -279,9 +290,16 @@ public class LoginBase extends AnchorPane {
                     @Override
                     public void run(){
                         try {
-                            state = connectionHandler.dis.readLine();
+                                            System.out.println("SIGNIN");
+                                               ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
+            ps.flush();
+
+                            state = dis.readLine();
+                            System.out.println(state);
                             token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
+                                                        System.out.println(receivedState);
+
                             System.out.println("sign in page "+receivedState);
                             
                             
@@ -289,13 +307,13 @@ public class LoginBase extends AnchorPane {
                             switch(receivedState){
                                 case "Logged in successfully":
 //                                    score = Integer.parseInt(token.nextToken());
-                                    playerData = connectionHandler.dis.readLine();
+                                    playerData = dis.readLine();
                                     System.out.println("player data "+playerData);
                             
                                     StringTokenizer token2 = new StringTokenizer(playerData,"###");
-                                    connectionHandler.hash.put("username", token2.nextToken());
-                                    connectionHandler.hash.put("email",token2.nextToken());
-                                    connectionHandler.hash.put("score", token2.nextToken());
+                                    hash.put("username", token2.nextToken());
+                                    hash.put("email",token2.nextToken());
+                                    hash.put("score", token2.nextToken());
                                     //notification for successful logging in
                                     
                                      Platform.runLater(()->{
