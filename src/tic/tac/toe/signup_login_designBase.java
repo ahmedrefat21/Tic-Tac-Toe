@@ -41,20 +41,24 @@ public  class signup_login_designBase extends AnchorPane {
         arrowback.setFitWidth(112.0);
         arrowback.setLayoutX(6.0);
         arrowback.setLayoutY(8.0);
-        arrowback.setImage(new Image(getClass().getResource("../../../assets/images/arrow_back.png").toExternalForm()));
+        arrowback.setImage(new Image(getClass().getResource("/assets/images/arrow_back.png").toExternalForm()));
+        arrowback.setOnMousePressed(e -> {
+            Parent pane = new signup_login_designBase(stage);
+            stage.getScene().setRoot(pane);
+       });
 
         welcomeregister.setFitHeight(155.0);
         welcomeregister.setFitWidth(172.0);
         welcomeregister.setLayoutX(294.0);
         welcomeregister.setLayoutY(14.0);
         welcomeregister.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        welcomeregister.setImage(new Image(getClass().getResource("../../../assets/images/welcomeregister.png").toExternalForm()));
+        welcomeregister.setImage(new Image(getClass().getResource("/assets/images/welcomeregister.png").toExternalForm()));
 
         logo.setFitHeight(200.0);
         logo.setFitWidth(198.0);
         logo.setLayoutY(273.0);
         logo.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        logo.setImage(new Image(getClass().getResource("../../../assets/images/logo.png").toExternalForm()));
+        logo.setImage(new Image(getClass().getResource("/assets/images/logo.png").toExternalForm()));
 
         btnLogin.setLayoutX(233.0);
         btnLogin.setLayoutY(233.0);
@@ -87,14 +91,14 @@ public  class signup_login_designBase extends AnchorPane {
         getChildren().add(btnSignup);
 
         
-      /*  btnLogin.setOnAction(new EventHandler<ActionEvent>() {
+        btnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
              Parent pane = new LoginBase(stage) {};
              stage.getScene().setRoot(pane);
               
     }
-});       */
+});       
         btnSignup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

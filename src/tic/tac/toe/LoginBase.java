@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -20,8 +21,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
-public abstract class LoginBase extends AnchorPane {
+public class LoginBase extends AnchorPane {
 
     protected final ImageView imageView;
     protected final ImageView imageView0;
@@ -38,11 +40,11 @@ public abstract class LoginBase extends AnchorPane {
     private Thread thread;
     StringTokenizer token;
     int score;
-    PrintStream ps;
+    /*PrintStream ps;
     DataInputStream dis;
-    HashMap<String, String>hash = new HashMap<>();
+    HashMap<String, String>hash = new HashMap<>();*/
 
-    public LoginBase() {
+    public LoginBase(Stage stage) {
 
         imageView = new ImageView();
         imageView0 = new ImageView();
@@ -71,7 +73,7 @@ public abstract class LoginBase extends AnchorPane {
         imageView.setLayoutY(23.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../assets/images/user.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/assets/images/user.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(imageView0, 0.0);
         AnchorPane.setLeftAnchor(imageView0, 0.0);
@@ -82,7 +84,7 @@ public abstract class LoginBase extends AnchorPane {
         imageView0.setLayoutY(330.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../../../assets/images/ticTacToe.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("/assets/images/ticTacToe.png").toExternalForm()));
 
         AnchorPane.setBottomAnchor(loginButton, 69.0);
         AnchorPane.setLeftAnchor(loginButton, 281.0);
@@ -91,7 +93,6 @@ public abstract class LoginBase extends AnchorPane {
         loginButton.setLayoutX(281.0);
         loginButton.setLayoutY(350.0);
         loginButton.setMnemonicParsing(false);
-        loginButton.setOnAction(this::handleButtonAction);
         loginButton.setPrefHeight(61.0);
         loginButton.setPrefWidth(199.0);
         loginButton.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );");
@@ -99,13 +100,20 @@ public abstract class LoginBase extends AnchorPane {
         loginButton.setText("Login");
         loginButton.setTextFill(javafx.scene.paint.Color.valueOf("#fde8ed"));
         loginButton.setFont(new Font("Comic Sans MS Bold", 30.0));
-        loginButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
+        /*loginButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
                 login();
             }
             
-        });
+        });*/
+        
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+             login();
+            }
+        });  
 
         AnchorPane.setBottomAnchor(label, 269.0);
         AnchorPane.setLeftAnchor(label, 140.0);
@@ -152,7 +160,7 @@ public abstract class LoginBase extends AnchorPane {
         emailTextField.setPrefHeight(46.0);
         emailTextField.setPrefWidth(238.0);
         emailTextField.setStyle("-fx-background-radius: 20px; -fx-background-color: FDE8ED; -fx-border-color: F22853; -fx-border-radius: 20px; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 8 ,0.4 , -7, 5); -fx-text-fill: F22853;");
-        emailTextField.setText("ahmed@gmail.com");
+        emailTextField.setText("");
         emailTextField.setFont(new Font("Comic Sans MS Bold", 18.0));
 
         passwordTextField.setLayoutX(281.0);
@@ -179,7 +187,11 @@ public abstract class LoginBase extends AnchorPane {
         backImage.setLayoutY(26.0);
         backImage.setPickOnBounds(true);
         backImage.setPreserveRatio(true);
-        backImage.setImage(new Image(getClass().getResource("../../../assets/images/back.png").toExternalForm()));
+        backImage.setImage(new Image(getClass().getResource("/assets/images/back.png").toExternalForm()));
+        backImage.setOnMousePressed(e -> {
+            Parent pane = new signup_login_designBase(stage);
+            stage.getScene().setRoot(pane);
+       });
 
         signupButton.setLayoutX(457.0);
         signupButton.setLayoutY(420.0);
@@ -187,6 +199,13 @@ public abstract class LoginBase extends AnchorPane {
         signupButton.setPrefHeight(46.0);
         signupButton.setPrefWidth(99.0);
         signupButton.setStyle("-fx-background-color: #FDE8ED;");
+        signupButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent pane = new SignUpBase(stage);
+                stage.getScene().setRoot(pane);
+            }
+        }); 
 
         label2.setPrefHeight(32.0);
         label2.setPrefWidth(99.0);
@@ -231,7 +250,7 @@ public abstract class LoginBase extends AnchorPane {
                 
             }else{
              
-            ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
+            connectionHandler.ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
 
             if(emailTextField.getText().equals("")){
                 Platform.runLater(new Runnable() {
@@ -250,6 +269,8 @@ public abstract class LoginBase extends AnchorPane {
                 });
                 
             }else{
+                
+                //System.out.println("LOOOOOOOOOOOGIIIIIIIIINNNNNNNNNNN");
 
                 //reciving response
               thread =  new Thread(){
@@ -258,7 +279,7 @@ public abstract class LoginBase extends AnchorPane {
                     @Override
                     public void run(){
                         try {
-                            state = dis.readLine();
+                            state = connectionHandler.dis.readLine();
                             token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
                             System.out.println("sign in page "+receivedState);
@@ -268,13 +289,13 @@ public abstract class LoginBase extends AnchorPane {
                             switch(receivedState){
                                 case "Logged in successfully":
 //                                    score = Integer.parseInt(token.nextToken());
-                                    playerData = dis.readLine();
+                                    playerData = connectionHandler.dis.readLine();
                                     System.out.println("player data "+playerData);
                             
                                     StringTokenizer token2 = new StringTokenizer(playerData,"###");
-                                    hash.put("username", token2.nextToken());
-                                    hash.put("email",token2.nextToken());
-                                    hash.put("score", token2.nextToken());
+                                    connectionHandler.hash.put("username", token2.nextToken());
+                                    connectionHandler.hash.put("email",token2.nextToken());
+                                    connectionHandler.hash.put("score", token2.nextToken());
                                     //notification for successful logging in
                                     
                                      Platform.runLater(()->{
@@ -352,6 +373,5 @@ public abstract class LoginBase extends AnchorPane {
 
     }
 
-    protected abstract void handleButtonAction(javafx.event.ActionEvent actionEvent);
-
+   
 }

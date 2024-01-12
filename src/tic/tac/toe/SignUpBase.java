@@ -6,7 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -72,7 +75,7 @@ public  class SignUpBase extends AnchorPane {
         imageView.setLayoutY(313.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../assets/images/background.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/assets/images/background.png").toExternalForm()));
 
         backImage.setFitHeight(64.0);
         backImage.setFitWidth(199.0);
@@ -80,7 +83,11 @@ public  class SignUpBase extends AnchorPane {
         backImage.setLayoutY(28.0);
         backImage.setPickOnBounds(true);
         backImage.setPreserveRatio(true);
-        backImage.setImage(new Image(getClass().getResource("../../../assets/images/back.png").toExternalForm()));
+        backImage.setImage(new Image(getClass().getResource("/assets/images/back.png").toExternalForm()));
+        backImage.setOnMousePressed(e -> {
+            Parent pane = new signup_login_designBase(stage);
+            stage.getScene().setRoot(pane);
+       });
 
         imageView0.setFitHeight(119.0);
         imageView0.setFitWidth(112.0);
@@ -88,14 +95,14 @@ public  class SignUpBase extends AnchorPane {
         imageView0.setLayoutY(12.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../../../assets/images/SignUp.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("/assets/images/SignUp.png").toExternalForm()));
 
         emailTextField.setLayoutX(342.0);
         emailTextField.setLayoutY(138.0);
         emailTextField.setPrefHeight(48.0);
         emailTextField.setPrefWidth(244.0);
         emailTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
-        emailTextField.setText("dsfsdfs");
+        emailTextField.setText("");
         emailTextField.setFont(new Font("Comic Sans MS Bold", 19.0));
 
         UsernamelLbel.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
@@ -128,6 +135,12 @@ public  class SignUpBase extends AnchorPane {
         SignUpButton.setWrapText(true);
         SignUpButton.setPadding(new Insets(0.0, 10.0, 10.0, 10.0));
         SignUpButton.setFont(new Font("Comic Sans MS Bold", 30.0));
+        SignUpButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+             signup();
+            }
+        });  
 
         text.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
         text.setId("firstPlayerNameText");
@@ -152,7 +165,7 @@ public  class SignUpBase extends AnchorPane {
         usernameTextField.setPrefHeight(48.0);
         usernameTextField.setPrefWidth(244.0);
         usernameTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
-        usernameTextField.setText("fgdg");
+        usernameTextField.setText("");
         usernameTextField.setFont(new Font("Comic Sans MS Bold", 19.0));
 
         passTextField.setLayoutX(342.0);
@@ -160,7 +173,7 @@ public  class SignUpBase extends AnchorPane {
         passTextField.setPrefHeight(48.0);
         passTextField.setPrefWidth(244.0);
         passTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
-        passTextField.setText("sfdsdf");
+        passTextField.setText("");
 
         passTextField.setEffect(dropShadow);
         passTextField.setFont(new Font(19.0));
@@ -171,6 +184,13 @@ public  class SignUpBase extends AnchorPane {
         loginbtn.setPrefHeight(48.0);
         loginbtn.setPrefWidth(77.0);
         loginbtn.setStyle("-fx-background-color: #FDE8ED;");
+        loginbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent pane = new LoginBase(stage);
+                stage.getScene().setRoot(pane);
+            }
+        }); 
 
         loginText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         loginText.setId("firstPlayerNameText");
