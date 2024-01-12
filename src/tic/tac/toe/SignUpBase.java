@@ -1,6 +1,11 @@
 package tic.tac.toe;
 
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +29,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public  class SignUpBase extends AnchorPane {
+    
+        
 
     protected final ImageView imageView;
     protected final ImageView backImage;
@@ -41,8 +48,18 @@ public  class SignUpBase extends AnchorPane {
     protected final Text loginText;
     StringTokenizer token;
     private Thread thread;
+    HashMap<String, String>hash = new HashMap<>();
+    Socket socket;
+    DataInputStream dis;
+    PrintStream ps;
     public SignUpBase(Stage stage) {
-
+         try {
+            socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
+            dis = new DataInputStream(socket.getInputStream());
+            ps = new PrintStream(socket.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
         imageView = new ImageView();
         backImage = new ImageView();
         imageView0 = new ImageView();
@@ -238,7 +255,7 @@ public  class SignUpBase extends AnchorPane {
                alert.show();
                  }  
                  else{
-               connectionHandler.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
+              ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
                  
         
           thread =   new Thread(){
@@ -246,7 +263,7 @@ public  class SignUpBase extends AnchorPane {
            public void run(){
                try {
                    try {
-                       state = connectionHandler.dis.readLine();
+                       state = dis.readLine();
                    } catch (IOException ex) {
                        Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
                    }
@@ -258,11 +275,12 @@ public  class SignUpBase extends AnchorPane {
                    switch(receivedState){
                        case "Registered Successfully":
                            System.out.println("asdfasdfasdfasdfas");
-                           playerData = connectionHandler.dis.readLine();
+                           playerData = dis.readLine();
+                           System.out.println(playerData);
                            token = new StringTokenizer(playerData,"###");
-                           connectionHandler.hash.put("username", token.nextToken());
-                           connectionHandler.hash.put("email",token.nextToken());
-                           connectionHandler.hash.put("score", "0");
+                           hash.put("username", token.nextToken());
+                          hash.put("email",token.nextToken());
+                           hash.put("score", "0");
                         break;
                         case "already signed-up":
                                      Alert alert =new Alert(AlertType.INFORMATION);
@@ -273,9 +291,9 @@ public  class SignUpBase extends AnchorPane {
                                     break;
                    }
                    
-                    connectionHandler.socket.close();
-                    connectionHandler.dis.close();
-                    connectionHandler.ps.close();
+                  socket.close();
+                    dis.close();
+                    ps.close();
                    
                } catch (IOException ex) {
                    Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
