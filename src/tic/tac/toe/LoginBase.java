@@ -43,16 +43,17 @@ public class LoginBase extends AnchorPane {
     private Thread thread;
     StringTokenizer token;
     int score;
-    HashMap<String, String>hash = new HashMap<>();
+   static HashMap<String, String>hash = new HashMap<>();
     Socket socket;
     DataInputStream dis;
     PrintStream ps;
-    Player player;
+   // Player player;
+
+
 
 
     public LoginBase(Stage stage) {
-      
-        player = new Player();
+        //player = new Player();
         
          try {
             socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
@@ -115,29 +116,20 @@ public class LoginBase extends AnchorPane {
         loginButton.setText("Login");
         loginButton.setTextFill(javafx.scene.paint.Color.valueOf("#fde8ed"));
         loginButton.setFont(new Font("Comic Sans MS Bold", 30.0));
-        /*loginButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                login();
-            }
-            
-        });*/
-        
+
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
              login();
-             
-   
         
-             
-             
-             
-             
-             
+             Parent pane = new ScoreScreenBase(stage);
+             stage.getScene().setRoot(pane);
              
             }
-        });  
+        }); 
+
+
+  
 
         AnchorPane.setBottomAnchor(label, 269.0);
         AnchorPane.setLeftAnchor(label, 140.0);
