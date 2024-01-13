@@ -3,7 +3,9 @@ package tic.tac.toe;
 
 public class Player {
     private String username;
+    private String email;
     private String password;
+    private boolean isplaying;
   
     int score;
         public String getUsername() {
@@ -29,6 +31,14 @@ public class Player {
 
     public Player() {
 
+    }
+
+    boolean isIsplaying() {
+        return isplaying;
+    }
+
+   String getEmail() {
+        return email;
     }
     
 }
