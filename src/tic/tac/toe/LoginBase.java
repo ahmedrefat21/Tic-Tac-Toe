@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 public class LoginBase extends AnchorPane {
 
@@ -46,10 +47,13 @@ public class LoginBase extends AnchorPane {
     Socket socket;
     DataInputStream dis;
     PrintStream ps;
+    Player player;
 
 
     public LoginBase(Stage stage) {
-
+      
+        player = new Player();
+        
          try {
             socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
             dis = new DataInputStream(socket.getInputStream());
@@ -123,6 +127,15 @@ public class LoginBase extends AnchorPane {
             @Override
             public void handle(ActionEvent event) {
              login();
+             
+   
+        
+             
+             
+             
+             
+             
+             
             }
         });  
 
