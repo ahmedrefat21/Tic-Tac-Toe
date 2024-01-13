@@ -1,14 +1,34 @@
 package tic.tac.toe;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public abstract class ScoreScreenBase extends AnchorPane {
 
@@ -29,8 +49,27 @@ public abstract class ScoreScreenBase extends AnchorPane {
     protected final Pane playerLabel;
     protected final Label plynamelabel3;
     protected final ScrollPane playersScrollPane;
+    protected final VBox vBox;
+    protected HBox hBox;
+    protected final ImageView playerImage;
+    protected Label playerName;
+    protected Button inviteButton;
+    private ArrayList<Player> onlinePlayers;
+    private ImageView playerIMG;
+    private Alert alert;
+    PrintStream ps;
+    Socket socket;
+    DataInputStream dis;
 
     public ScoreScreenBase() {
+        
+        try {
+            socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
+            dis = new DataInputStream(socket.getInputStream());
+            ps = new PrintStream(socket.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         text = new Text();
         text0 = new Text();
@@ -49,6 +88,11 @@ public abstract class ScoreScreenBase extends AnchorPane {
         playerLabel = new Pane();
         plynamelabel3 = new Label();
         playersScrollPane = new ScrollPane();
+        vBox = new VBox();
+        hBox = new HBox();
+        playerImage = new ImageView();
+        playerName = new Label();
+        inviteButton = new Button();
 
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -153,7 +197,7 @@ public abstract class ScoreScreenBase extends AnchorPane {
 
         anchorPane2.setLayoutX(251.0);
         anchorPane2.setLayoutY(140.0);
-        anchorPane2.setPrefHeight(307.0);
+        anchorPane2.setPrefHeight(298.0);
         anchorPane2.setPrefWidth(474.0);
         anchorPane2.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 10;");
 
@@ -173,6 +217,39 @@ public abstract class ScoreScreenBase extends AnchorPane {
         playersScrollPane.setPrefWidth(474.0);
         playersScrollPane.setStyle("-fx-background: FFDDE5; -fx-border-color: FFDDE5;");
 
+        vBox.setPrefHeight(219.0);
+        vBox.setPrefWidth(461.0);
+
+        hBox.setCache(true);
+        hBox.setPrefHeight(17.0);
+        hBox.setPrefWidth(461.0);
+
+        playerImage.setFitHeight(42.0);
+        playerImage.setFitWidth(70.0);
+        playerImage.setPickOnBounds(true);
+        playerImage.setPreserveRatio(true);
+        playerImage.setImage(new Image(getClass().getResource("/assets/images/gamer1.png").toExternalForm()));
+
+        playerName.setPrefHeight(35.0);
+        playerName.setPrefWidth(282.0);
+        playerName.setText("Refat");
+        playerName.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
+        playerName.setFont(new Font("Comic Sans MS Bold", 24.0));
+        HBox.setMargin(playerName, new Insets(3.0, 0.0, 3.0, 7.0));
+
+        inviteButton.setMnemonicParsing(false);
+        inviteButton.setPrefHeight(37.0);
+        inviteButton.setPrefWidth(84.0);
+        inviteButton.setStyle("-fx-background-color: f22853; -fx-background-radius: 10;");
+        inviteButton.setText("Invite");
+        inviteButton.setTextFill(javafx.scene.paint.Color.WHITE);
+        inviteButton.setOpaqueInsets(new Insets(10.0, 0.0, 0.0, 0.0));
+        inviteButton.setFont(new Font("Comic Sans MS Bold", 16.0));
+        HBox.setMargin(inviteButton, new Insets(3.0, 0.0, 3.0, 0.0));
+        hBox.setOpaqueInsets(new Insets(0.0, 0.0, 10.0, 0.0));
+        VBox.setMargin(hBox, new Insets(5.0));
+        playersScrollPane.setContent(vBox);
+
         getChildren().add(text);
         getChildren().add(text0);
         getChildren().add(text1);
@@ -186,8 +263,91 @@ public abstract class ScoreScreenBase extends AnchorPane {
         getChildren().add(anchorPane1);
         playerLabel.getChildren().add(plynamelabel3);
         anchorPane2.getChildren().add(playerLabel);
+        hBox.getChildren().add(playerImage);
+        hBox.getChildren().add(playerName);
+        hBox.getChildren().add(inviteButton);
+        vBox.getChildren().add(hBox);
         anchorPane2.getChildren().add(playersScrollPane);
         getChildren().add(anchorPane2);
 
+    }
+    
+    private void listOnlinePlayers(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+//                try {
+                    playersScrollPane.setContent(null);
+                    vBox.getChildren().clear();
+                    
+                    for(Player x : onlinePlayers){
+                        System.out.println("inside for loop");
+                        playerIMG = new ImageView(new Image(getClass().getResource("/assets/images/gamer1.png").toExternalForm()));
+                        playerIMG.setFitHeight(42.0);
+                        playerIMG.setFitWidth(70.0);
+                        playerIMG.setPreserveRatio(true);
+                        
+                        playerName = new Label(x.getUsername());
+                        playerName.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
+                        playerName.setFont(new Font("Comic Sans MS Bold", 24.0));
+                        playerName.setPrefHeight(35.0);
+                        playerName.setPrefWidth(282.0);
+                        HBox.setMargin(playerName, new Insets(3.0, 0.0, 3.0, 7.0));
+                        
+                        inviteButton = new Button("Invite");
+                        inviteButton.setMnemonicParsing(false);
+                        inviteButton.setPrefHeight(37.0);
+                        inviteButton.setPrefWidth(84.0);
+                        inviteButton.setStyle("-fx-background-color: f22853; -fx-background-radius: 10;");
+                        inviteButton.setTextFill(javafx.scene.paint.Color.WHITE);
+                        inviteButton.setOpaqueInsets(new Insets(10.0, 0.0, 0.0, 0.0));
+                        inviteButton.setFont(new Font("Comic Sans MS Bold", 16.0));
+                        HBox.setMargin(inviteButton, new Insets(3.0, 0.0, 3.0, 0.0));
+                        hBox.setOpaqueInsets(new Insets(0.0, 0.0, 10.0, 0.0));
+                        VBox.setMargin(hBox, new Insets(5.0));
+                        
+                        hBox = new HBox(playerIMG,playerName,inviteButton);
+                        hBox.setPrefHeight(17.0);
+                        hBox.setPrefWidth(461.0);
+                        
+                    
+                        
+                        inviteButton.setId(""+x.getEmail());
+                        if(x.isIsplaying()){
+                            hBox.setDisable(true);
+                            inviteButton.setDisable(true);
+                        }
+                        
+                        inviteButton.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                ps.println("request###"+inviteButton.getId()+"###"+emailText.getText()+"###"+usernameText.getText()+"###"+scoreText.getText());
+                                // pop up waiting for response from server 
+                                ButtonType Yes = new ButtonType("Ok"); // can use an Alert, Dialog, or PopupWindow as needed...
+                                alert = new Alert(Alert.AlertType.NONE);
+                                alert.setTitle("Information Dialog");
+                                alert.setHeaderText("Please Wait The Opponent to respond..");
+                                alert.getDialogPane().getButtonTypes().addAll(Yes);
+                               
+                                //DialogPane dialogPane = alert.getDialogPane();
+                                //dialogPane.getStylesheets().add(
+                                //getClass().getResource("/css/fullpackstyling.css").toExternalForm());
+                                //dialogPane.getStyleClass().add("infoDialog");
+
+                                // hide popup after 3 seconds:
+                                PauseTransition delay = new PauseTransition(Duration.seconds(15));
+                                delay.setOnFinished(e -> alert.hide());
+
+                                alert.show();
+                                delay.play();
+                            }
+                        });
+                        vBox.getChildren().add(hBox);
+                        playersScrollPane.setContent(vBox);
+                    }
+                    onlinePlayers.clear();
+                
+            }
+        });
     }
 }
