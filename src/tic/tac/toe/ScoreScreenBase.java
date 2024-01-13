@@ -32,9 +32,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public abstract class ScoreScreenBase extends AnchorPane {
+public  class ScoreScreenBase extends AnchorPane {
 
     protected final Text text;
     protected final Text text0;
@@ -66,12 +67,18 @@ public abstract class ScoreScreenBase extends AnchorPane {
     PrintStream ps;
     Socket socket;
     DataInputStream dis;
+
     private StringTokenizer token;
     private String player2Username ;
     private int player2Score;
     static HashMap<String, String>hash = new HashMap<>();
 
     public ScoreScreenBase() {
+    static HashMap<String, String>PlayerData = new HashMap<>();
+    String userName;
+    String email;
+    String score;
+    public ScoreScreenBase(Stage stage) {
         
         try {
             socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
@@ -103,7 +110,12 @@ public abstract class ScoreScreenBase extends AnchorPane {
         playerImage = new ImageView();
         playerName = new Label();
         inviteButton = new Button();
+        
+//        email = LoginBase.hash.get("email");
+//        userName = LoginBase.hash.get("username");
+//        score = LoginBase.hash.get("score");
 
+        
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -176,7 +188,7 @@ public abstract class ScoreScreenBase extends AnchorPane {
 
         usernameText.setLayoutX(49.0);
         usernameText.setLayoutY(18.0);
-        usernameText.setText("Refat");
+        usernameText.setText("");
         usernameText.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         usernameText.setFont(new Font("Comic Sans MS Bold", 29.0));
 
@@ -188,7 +200,7 @@ public abstract class ScoreScreenBase extends AnchorPane {
 
         scoreText.setLayoutX(71.0);
         scoreText.setLayoutY(18.0);
-        scoreText.setText("10");
+       scoreText.setText("");
         scoreText.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         scoreText.setFont(new Font("Comic Sans MS Bold", 29.0));
 
@@ -201,7 +213,7 @@ public abstract class ScoreScreenBase extends AnchorPane {
         emailText.setLayoutX(7.0);
         emailText.setLayoutY(24.0);
         emailText.setPrefWidth(203.0);
-        emailText.setText("ahmed21@gmail.com");
+        emailText.setText("");
         emailText.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         emailText.setFont(new Font("Comic Sans MS Bold", 20.0));
 
@@ -260,6 +272,12 @@ public abstract class ScoreScreenBase extends AnchorPane {
         VBox.setMargin(hBox, new Insets(5.0));
         playersScrollPane.setContent(vBox);
 
+           emailText.setText(LoginBase.hash.get("email"));
+         usernameText.setText(LoginBase.hash.get("username"));
+         scoreText.setText(LoginBase.hash.get("score")); 
+       
+        
+        
         getChildren().add(text);
         getChildren().add(text0);
         getChildren().add(text1);
