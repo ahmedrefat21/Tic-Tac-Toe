@@ -6,6 +6,9 @@ import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Optional;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
@@ -16,6 +19,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -57,9 +61,15 @@ public abstract class ScoreScreenBase extends AnchorPane {
     private ArrayList<Player> onlinePlayers;
     private ImageView playerIMG;
     private Alert alert;
+    private Thread thread;
+    private Boolean loaded = false;
     PrintStream ps;
     Socket socket;
     DataInputStream dis;
+    private StringTokenizer token;
+    private String player2Username ;
+    private int player2Score;
+    static HashMap<String, String>hash = new HashMap<>();
 
     public ScoreScreenBase() {
         
@@ -270,8 +280,89 @@ public abstract class ScoreScreenBase extends AnchorPane {
         anchorPane2.getChildren().add(playersScrollPane);
         getChildren().add(anchorPane2);
 
+        
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    if(loaded){
+                        onlinePlayers.clear();
+                    do{
+
+                        try{
+                            String data = dis.readLine();
+                            if(data.equals("null")){
+                                break;
+                            }
+                            switch(data){
+                                case "requestPlaying":
+                                    System.out.println("request received "+data);
+                                    alertRequestPlayer();
+                                    break;
+                                case "decline":
+                                    alertRefused();
+                                    break;
+                                   
+                            }
+                        } catch (IOException ex) {
+                            thread.stop();
+                        }
+                    }while(true);
+                    listOnlinePlayers();
+                    try{
+                            Thread.sleep(300);
+                        }catch(InterruptedException ex){
+                            thread.stop();
+                        }
+                    }
+                }                   
+            }
+            });
     }
+     
+       
+       
     
+             private void alertRequestPlayer() throws IOException{
+        String opponentData = dis.readLine();
+        System.out.println("recieved request");
+        token = new StringTokenizer(opponentData,"###");
+        String opponentMail = token.nextToken();
+        player2Username = token.nextToken();
+        String sOpponentScore = token.nextToken();
+        player2Score = Integer.parseInt(sOpponentScore);
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                System.out.println("recieved request run");
+                ButtonType AcceptType = new ButtonType("Accept");
+                ButtonType RejectType = new ButtonType("Reject", ButtonBar.ButtonData.CANCEL_CLOSE);             
+                alert = new Alert(Alert.AlertType.NONE);
+                alert.setTitle("Request Playing");
+                alert.setHeaderText(player2Username+" Wants to Play with You ?");
+                alert.getDialogPane().getButtonTypes().addAll(AcceptType,RejectType);
+                DialogPane dialog = alert.getDialogPane();              
+                dialog.getStylesheets().add(
+                getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                dialog.getStyleClass().add("reqalert");
+                PauseTransition delay = new PauseTransition(Duration.seconds(10));
+                delay.setOnFinished(e -> alert.hide());
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == AcceptType){
+                    System.out.println("game on");
+                    ps.println("accept###"+hash.get("email")+"###"+hash.get("username")+"###"+opponentMail);
+                //    showGame(false,player2Username);
+                
+                }else {
+                    // to players online screen
+                    System.out.println("no first request");
+                    ps.println("decline###"+opponentMail);
+                }
+                delay.play();
+            }
+
+        });
+    }
     private void listOnlinePlayers(){
         Platform.runLater(new Runnable() {
             @Override
@@ -322,22 +413,17 @@ public abstract class ScoreScreenBase extends AnchorPane {
                             @Override
                             public void handle(ActionEvent event) {
                                 ps.println("request###"+inviteButton.getId()+"###"+emailText.getText()+"###"+usernameText.getText()+"###"+scoreText.getText());
-                                // pop up waiting for response from server 
-                                ButtonType Yes = new ButtonType("Ok"); // can use an Alert, Dialog, or PopupWindow as needed...
+                                ButtonType Yes = new ButtonType("Ok"); 
                                 alert = new Alert(Alert.AlertType.NONE);
-                                alert.setTitle("Information Dialog");
-                                alert.setHeaderText("Please Wait The Opponent to respond..");
-                                alert.getDialogPane().getButtonTypes().addAll(Yes);
-                               
-                                //DialogPane dialogPane = alert.getDialogPane();
-                                //dialogPane.getStylesheets().add(
-                                //getClass().getResource("/css/fullpackstyling.css").toExternalForm());
-                                //dialogPane.getStyleClass().add("infoDialog");
-
-                                // hide popup after 3 seconds:
+                                alert.setTitle("Request Playing");
+                                alert.setHeaderText("Pending Request Please Wait");
+                                alert.getDialogPane().getButtonTypes().addAll(Yes);                     
+                                DialogPane dialogPane = alert.getDialogPane();
+                                dialogPane.getStylesheets().add(
+                                getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                                dialogPane.getStyleClass().add("pendingalert");
                                 PauseTransition delay = new PauseTransition(Duration.seconds(15));
                                 delay.setOnFinished(e -> alert.hide());
-
                                 alert.show();
                                 delay.play();
                             }
@@ -350,4 +436,24 @@ public abstract class ScoreScreenBase extends AnchorPane {
             }
         });
     }
+    private void alertRefused(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(alert.isShowing())
+                    alert.close();
+                ButtonType Yes = new ButtonType("Ok"); 
+                alert = new Alert(Alert.AlertType.NONE);
+                alert.setTitle("");
+                alert.setHeaderText("Your Request has been Refused");
+                alert.getDialogPane().getButtonTypes().addAll(Yes);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(
+                getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                dialogPane.getStyleClass().add("refalert");
+                alert.showAndWait();
+            }
+        });
+    }
+     
 }
