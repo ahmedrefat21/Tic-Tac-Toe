@@ -43,7 +43,7 @@ public class LoginBase extends AnchorPane {
     private Thread thread;
     StringTokenizer token;
     int score;
-   static HashMap<String, String>hash = new HashMap<>();
+    static HashMap<String, String>hash = new HashMap<>();
     Socket socket;
     DataInputStream dis;
     PrintStream ps;

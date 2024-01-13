@@ -48,7 +48,7 @@ public  class SignUpBase extends AnchorPane {
     protected final Text loginText;
     StringTokenizer token;
     private Thread thread;
-    HashMap<String, String>hash = new HashMap<>();
+    static HashMap<String, String>hash = new HashMap<>();
     Socket socket;
     DataInputStream dis;
     PrintStream ps;
@@ -156,6 +156,8 @@ public  class SignUpBase extends AnchorPane {
             @Override
             public void handle(ActionEvent event) {
              signup();
+             Parent pane = new ScoreScreenBase(stage);
+             stage.getScene().setRoot(pane);
             }
         });  
 

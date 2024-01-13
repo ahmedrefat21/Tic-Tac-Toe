@@ -64,6 +64,7 @@ public  class ScoreScreenBase extends AnchorPane {
     private Alert alert;
     private Thread thread;
     private Boolean loaded = false;
+    private Player player;
     PrintStream ps;
     Socket socket;
     DataInputStream dis;
@@ -73,20 +74,17 @@ public  class ScoreScreenBase extends AnchorPane {
     private int player2Score;
     static HashMap<String, String>hash = new HashMap<>();
 
-    public ScoreScreenBase() {
-    static HashMap<String, String>PlayerData = new HashMap<>();
-    String userName;
-    String email;
-    String score;
     public ScoreScreenBase(Stage stage) {
         
         try {
-            socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
+            socket = new Socket(InetAddress.getLocalHost(), 5005);
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
         } catch (IOException ex) {
             Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
         }
+        loaded = true;
+        ps.println("playerlist");
 
         text = new Text();
         text0 = new Text();
@@ -272,9 +270,18 @@ public  class ScoreScreenBase extends AnchorPane {
         VBox.setMargin(hBox, new Insets(5.0));
         playersScrollPane.setContent(vBox);
 
-           emailText.setText(LoginBase.hash.get("email"));
-         usernameText.setText(LoginBase.hash.get("username"));
-         scoreText.setText(LoginBase.hash.get("score")); 
+        emailText.setText(LoginBase.hash.get("email"));
+        usernameText.setText(LoginBase.hash.get("username"));
+        scoreText.setText(LoginBase.hash.get("score")); 
+        emailText.setText(SignUpBase.hash.get("email"));
+        usernameText.setText(SignUpBase.hash.get("username"));
+        scoreText.setText(SignUpBase.hash.get("score")); 
+        System.out.println(LoginBase.hash.get("email"));
+        System.out.println(LoginBase.hash.get("username"));
+        System.out.println(LoginBase.hash.get("score"));
+        System.out.println(SignUpBase.hash.get("email"));
+        System.out.println(SignUpBase.hash.get("username"));
+        System.out.println(SignUpBase.hash.get("score"));
        
         
         
@@ -298,12 +305,15 @@ public  class ScoreScreenBase extends AnchorPane {
         anchorPane2.getChildren().add(playersScrollPane);
         getChildren().add(anchorPane2);
 
+        onlinePlayers = new ArrayList();  
         
+        //listOnlinePlayers();
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(true){
                     if(loaded){
+                        System.out.println("playyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
                         onlinePlayers.clear();
                     do{
 
@@ -320,12 +330,20 @@ public  class ScoreScreenBase extends AnchorPane {
                                 case "decline":
                                     alertRefused();
                                     break;
+                                    
+                                case "close":
+                                    thread.stop();
+                                    
+                                default :
+                                    System.out.println("default");
+                                    readOnlineList(data);
                                    
                             }
                         } catch (IOException ex) {
                             thread.stop();
                         }
                     }while(true);
+                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                     listOnlinePlayers();
                     try{
                             Thread.sleep(300);
@@ -336,12 +354,13 @@ public  class ScoreScreenBase extends AnchorPane {
                 }                   
             }
             });
+            thread.start();
     }
      
        
        
     
-             private void alertRequestPlayer() throws IOException{
+    private void alertRequestPlayer() throws IOException{
         String opponentData = dis.readLine();
         System.out.println("recieved request");
         token = new StringTokenizer(opponentData,"###");
@@ -472,6 +491,24 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.showAndWait();
             }
         });
+    }
+    
+    private void readOnlineList(String data){
+        //System.out.println("data :"+data+"\n");
+        token = new StringTokenizer(data, "###");
+        player = new Player();
+        player.setUsername(token.nextToken());
+        player.setEmail(token.nextToken());
+        player.setIsactive(Boolean.parseBoolean(token.nextToken()));
+        player.setIsplaying(Boolean.parseBoolean(token.nextToken()));
+        player.setScore(Integer.parseInt(token.nextToken()));
+        
+        System.out.println(hash.get("email"));
+        System.out.println(player.getEmail());
+        if(!hash.get("email").equals(player.getEmail())){
+            System.out.println("Add list");
+            onlinePlayers.add(player);
+        }
     }
      
 }

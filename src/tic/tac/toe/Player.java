@@ -6,6 +6,8 @@ public class Player {
     private String email;
     private String password;
     private boolean isplaying;
+    private boolean isactive;
+   
      int score;
 
     public String getPassword() {
@@ -58,7 +60,20 @@ public class Player {
     public String getEmail() {
         return email;
     }
+    
+   
+    public void setIsplaying(boolean isplaying) {
+        this.isplaying = isplaying;
+    }
 
+    public boolean isIsactive() {
+        return isactive;
+    }
+
+    
+    public void setIsactive(boolean isactive) {
+        this.isactive = isactive;
+    }
 
     
 }
