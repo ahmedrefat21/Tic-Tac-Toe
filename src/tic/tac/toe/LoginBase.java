@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class LoginBase extends AnchorPane {
@@ -43,6 +44,7 @@ public class LoginBase extends AnchorPane {
     private Thread thread;
     StringTokenizer token;
     int score;
+    protected JFrame jFrame;
 
 
 
