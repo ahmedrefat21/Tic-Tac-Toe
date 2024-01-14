@@ -65,26 +65,26 @@ public  class ScoreScreenBase extends AnchorPane {
     private Thread thread;
     private Boolean loaded = false;
     private Player player;
-    PrintStream ps;
-    Socket socket;
-    DataInputStream dis;
+    //PrintStream ps;
+    //Socket socket;
+    //DataInputStream dis;
 
     private StringTokenizer token;
     private String player2Username ;
     private int player2Score;
-    static HashMap<String, String>hash = new HashMap<>();
+    //static HashMap<String, String>hash = new HashMap<>();
 
     public ScoreScreenBase(Stage stage) {
         
-        try {
+        /*try {
             socket = new Socket(InetAddress.getLocalHost(), 5005);
-            dis = new DataInputStream(socket.getInputStream());
+            //dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
         } catch (IOException ex) {
             Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         loaded = true;
-        ps.println("playerlist");
+        App.ps.println("playerlist");
 
         text = new Text();
         text0 = new Text();
@@ -270,18 +270,18 @@ public  class ScoreScreenBase extends AnchorPane {
         VBox.setMargin(hBox, new Insets(5.0));
         playersScrollPane.setContent(vBox);
 
-        emailText.setText(LoginBase.hash.get("email"));
+        /*emailText.setText(LoginBase.hash.get("email"));
         usernameText.setText(LoginBase.hash.get("username"));
-        scoreText.setText(LoginBase.hash.get("score")); 
-        emailText.setText(SignUpBase.hash.get("email"));
-        usernameText.setText(SignUpBase.hash.get("username"));
-        scoreText.setText(SignUpBase.hash.get("score")); 
-        System.out.println(LoginBase.hash.get("email"));
+        scoreText.setText(LoginBase.hash.get("score")); */
+        emailText.setText(App.hash.get("email"));
+        usernameText.setText(App.hash.get("username"));
+        scoreText.setText(App.hash.get("score")); 
+        /*System.out.println(LoginBase.hash.get("email"));
         System.out.println(LoginBase.hash.get("username"));
-        System.out.println(LoginBase.hash.get("score"));
-        System.out.println(SignUpBase.hash.get("email"));
-        System.out.println(SignUpBase.hash.get("username"));
-        System.out.println(SignUpBase.hash.get("score"));
+        System.out.println(LoginBase.hash.get("score"));*/
+        System.out.println(App.hash.get("email"));
+        System.out.println(App.hash.get("username"));
+        System.out.println(App.hash.get("score"));
        
         
         
@@ -318,7 +318,7 @@ public  class ScoreScreenBase extends AnchorPane {
                     do{
 
                         try{
-                            String data = dis.readLine();
+                            String data = App.dis.readLine();
                             if(data.equals("null")){
                                 break;
                             }
@@ -361,7 +361,7 @@ public  class ScoreScreenBase extends AnchorPane {
        
     
     private void alertRequestPlayer() throws IOException{
-        String opponentData = dis.readLine();
+        String opponentData = App.dis.readLine();
         System.out.println("recieved request");
         token = new StringTokenizer(opponentData,"###");
         String opponentMail = token.nextToken();
@@ -379,21 +379,21 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.setHeaderText(player2Username+" Wants to Play with You ?");
                 alert.getDialogPane().getButtonTypes().addAll(AcceptType,RejectType);
                 DialogPane dialog = alert.getDialogPane();              
-                dialog.getStylesheets().add(
-                getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                dialog.getStyleClass().add("reqalert");
+                //dialog.getStylesheets().add(
+                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                //dialog.getStyleClass().add("reqalert");
                 PauseTransition delay = new PauseTransition(Duration.seconds(10));
                 delay.setOnFinished(e -> alert.hide());
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == AcceptType){
                     System.out.println("game on");
-                    ps.println("accept###"+hash.get("email")+"###"+hash.get("username")+"###"+opponentMail);
+                    App.ps.println("accept###"+App.hash.get("email")+"###"+App.hash.get("username")+"###"+opponentMail);
                 //    showGame(false,player2Username);
                 
                 }else {
                     // to players online screen
                     System.out.println("no first request");
-                    ps.println("decline###"+opponentMail);
+                    App.ps.println("decline###"+opponentMail);
                 }
                 delay.play();
             }
@@ -449,16 +449,16 @@ public  class ScoreScreenBase extends AnchorPane {
                         inviteButton.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
-                                ps.println("request###"+inviteButton.getId()+"###"+emailText.getText()+"###"+usernameText.getText()+"###"+scoreText.getText());
+                                App.ps.println("request###"+inviteButton.getId()+"###"+emailText.getText()+"###"+usernameText.getText()+"###"+scoreText.getText());
                                 ButtonType Yes = new ButtonType("Ok"); 
                                 alert = new Alert(Alert.AlertType.NONE);
                                 alert.setTitle("Request Playing");
                                 alert.setHeaderText("Pending Request Please Wait");
                                 alert.getDialogPane().getButtonTypes().addAll(Yes);                     
                                 DialogPane dialogPane = alert.getDialogPane();
-                                dialogPane.getStylesheets().add(
-                                getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                                dialogPane.getStyleClass().add("pendingalert");
+                                //dialogPane.getStylesheets().add(
+                                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                                //dialogPane.getStyleClass().add("pendingalert");
                                 PauseTransition delay = new PauseTransition(Duration.seconds(15));
                                 delay.setOnFinished(e -> alert.hide());
                                 alert.show();
@@ -485,9 +485,9 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.setHeaderText("Your Request has been Refused");
                 alert.getDialogPane().getButtonTypes().addAll(Yes);
                 DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.getStylesheets().add(
-                getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                dialogPane.getStyleClass().add("refalert");
+                //dialogPane.getStylesheets().add(
+                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                //dialogPane.getStyleClass().add("refalert");
                 alert.showAndWait();
             }
         });
@@ -503,9 +503,9 @@ public  class ScoreScreenBase extends AnchorPane {
         player.setIsplaying(Boolean.parseBoolean(token.nextToken()));
         player.setScore(Integer.parseInt(token.nextToken()));
         
-        System.out.println(hash.get("email"));
+        System.out.println(App.hash.get("email"));
         System.out.println(player.getEmail());
-        if(!hash.get("email").equals(player.getEmail())){
+        if(!App.hash.get("email").equals(player.getEmail())){
             System.out.println("Add list");
             onlinePlayers.add(player);
         }

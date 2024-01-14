@@ -43,10 +43,10 @@ public class LoginBase extends AnchorPane {
     private Thread thread;
     StringTokenizer token;
     int score;
-    static HashMap<String, String>hash = new HashMap<>();
+    /*static HashMap<String, String>hash = new HashMap<>();
     Socket socket;
     DataInputStream dis;
-    PrintStream ps;
+    PrintStream ps;*/
    // Player player;
 
 
@@ -55,13 +55,13 @@ public class LoginBase extends AnchorPane {
     public LoginBase(Stage stage) {
         //player = new Player();
         
-         try {
+         /*try {
             socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
         } catch (IOException ex) {
             Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         imageView = new ImageView();
         imageView0 = new ImageView();
         loginButton = new Button();
@@ -295,11 +295,12 @@ public class LoginBase extends AnchorPane {
                     @Override
                     public void run(){
                         try {
-                                            System.out.println("SIGNIN");
-                                               ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
-            ps.flush();
+                                System.out.println("SIGNIN");
+                                App.ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
+            
+                                App.ps.flush();
 
-                            state = dis.readLine();
+                            state = App.dis.readLine();
                             System.out.println(state);
                             token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
@@ -312,13 +313,13 @@ public class LoginBase extends AnchorPane {
                             switch(receivedState){
                                 case "Logged in successfully":
 //                                    score = Integer.parseInt(token.nextToken());
-                                    playerData = dis.readLine();
+                                    playerData = App.dis.readLine();
                                     System.out.println("player data "+playerData);
                             
                                     StringTokenizer token2 = new StringTokenizer(playerData,"###");
-                                    hash.put("username", token2.nextToken());
-                                    hash.put("email",token2.nextToken());
-                                    hash.put("score", token2.nextToken());
+                                    App.hash.put("username", token2.nextToken());
+                                    App.hash.put("email",token2.nextToken());
+                                    App.hash.put("score", token2.nextToken());
                                     //notification for successful logging in
                                     
                                      Platform.runLater(()->{

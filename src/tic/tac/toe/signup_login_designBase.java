@@ -20,6 +20,8 @@ public  class signup_login_designBase extends AnchorPane {
     protected final Button btnSignup;
 
     public signup_login_designBase(Stage stage) {
+        
+          App.start();
 
         arrowback = new ImageView();
         welcomeregister = new ImageView();
