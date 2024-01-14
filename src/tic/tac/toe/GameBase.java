@@ -420,14 +420,14 @@ public  class GameBase extends AnchorPane {
         checkIfGameIsOver();
         button.setFocusTraversable(false);
         GameWinnerDetails gameWinner = checkWinner();
-        if (counter < 9 && (gameWinner != null && !gameWinner.someoneWon) && challengeComputer && (playerTurn == 1)) {
-            int playComputer = playComputer();
+        if (counter < 9 && !gameWinner.someoneWon && challengeComputer && playerTurn == 1) {
+            int[] playComputer = playComputer();
             System.out.println("Computer will play = " + playComputer);
-            playMove(getButtonFromXY(getCoordinates(playComputer)));
+            playMove(getButton(playComputer[0], playComputer[1]));
         }
     }
     
-    public int playComputer() {
+    public int[] playComputer() {
         switch (difficulty) {
             case EASY:
                 return findRandomMove();
@@ -436,18 +436,12 @@ public  class GameBase extends AnchorPane {
             case HARD:
                 return findBestMove();
             default:
-                return 0;
+                return new int[]{};
         }
     }
     
-    /**
-     * This function returns the Button object based on row and column
-     * @param x the row index
-     * @param y the column index
-     * @return the Button itself
-     */
-    private Button getButtonFromXY(int x, int y) {
-             if (x == 0 && y == 0) return button11;
+    private Button getButton(int x, int y) {
+            if (x == 0 && y == 0) return button11;
         else if (x == 0 && y == 1) return button12;
         else if (x == 0 && y == 2) return button13;
         else if (x == 1 && y == 0) return button21;
@@ -460,83 +454,30 @@ public  class GameBase extends AnchorPane {
     }
     
     /**
-     * Same as getButtonFromXY(int x, int y) but pass row and column as array
-     * @param coordinates array with row index as first element and column index as second element
-     * @return the Button itself
-     */
-    private Button getButtonFromXY(int[] coordinates) {
-        int x = coordinates[0], y = coordinates[1];
-        return getButtonFromXY(x, y);
-    }
-    
-    /**
-     * Returns the row index and column index based on flat index
-     * Flat index is from 1 to 9 (single value instead of row/column) 
-     * If we have 1 2 3
-     *            4 5 6
-     *            7 8 9
-     * and we want to flatten them to a single list, it will be like
-     * 1 2 3 4 5 6 7 8 9
-     * Then when we pass flat index for a cell, we will return its row and column
-     * @param flatIndex the flat index for this cell
-     * @return array with row index as first element and column index as second element
-     */
-    public int[] getCoordinates(int flatIndex) {
-            if (flatIndex == 1) return new int[]{0, 0};
-        else if (flatIndex == 2) return new int[]{0, 1};
-        else if (flatIndex == 3) return new int[]{0, 2};
-        else if (flatIndex == 4) return new int[]{1, 0};
-        else if (flatIndex == 5) return new int[]{1, 1};
-        else if (flatIndex == 6) return new int[]{1, 2};
-        else if (flatIndex == 7) return new int[]{2, 0};
-        else if (flatIndex == 8) return new int[]{2, 1};
-        else if (flatIndex == 9) return new int[]{2, 2};
-        else return new int[]{-1, -1};
-    }
-    
-    /**
-     * Does the opposite of getCoordinates
-     * @param x cell row index
-     * @param y cell column index
-     * @return flat index for this cell
-     */
-    private int flatIndex(int x, int y) {
-            if (x == 0 && y == 0) return 1;
-        else if (x == 0 && y == 1) return 2;
-        else if (x == 0 && y == 2) return 3;
-        else if (x == 1 && y == 0) return 4;
-        else if (x == 1 && y == 1) return 5;
-        else if (x == 1 && y == 2) return 6;
-        else if (x == 2 && y == 0) return 7;
-        else if (x == 2 && y == 1) return 8;
-        else if (x == 2 && y == 2) return 9;
-        else return 0;
-    }
-    
-    /**
      * Returns the flat index of the next empty random cell on the board
      */
-    private int findRandomMove() {
+    private int[] findRandomMove() {
         Random rand = new Random();
         int x, y;
 
         do {
             x = rand.nextInt(3);
             y = rand.nextInt(3);
-        } while (!isButtonEmpty(getButtonFromXY(x, y)));
+        } while (!isButtonEmpty(getButton(x, y)));
 
-        return flatIndex(x, y);
+        return new int[]{x, y};
     }
     
     /**
      * Returns the flat index of a random move or a best move in turns
      * medium level (one time easy, one time hard)
+     * Begins with a best move
      */
-    private int findMediumMove() {
-        if (counter % 2 != 0)
-            return findRandomMove();
-        else
+    private int[] findMediumMove() {
+        if (counter % 2 == 0)
             return findBestMove();
+        else
+            return findRandomMove();
     }
     
     /**
@@ -544,15 +485,15 @@ public  class GameBase extends AnchorPane {
      * the best move is either a move that will help the computer win, or will prevent the player from winning
      * this means that the computer will always try to win or draw the game (hard level)
      */
-    public int findBestMove() {
+    public int[] findBestMove() {
         int bestScore = Integer.MIN_VALUE;
-        int bestMove = -1;
+        int bestX = -1, bestY = -1;
 
         // Loop through all cells
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
                 // Get the button by row and column coordinates
-                Button button = getButtonFromXY(row, column);
+                Button button = getButton(row, column);
 
                 // Check if the cell is empty
                 if (isButtonEmpty(button)) {
@@ -576,13 +517,14 @@ public  class GameBase extends AnchorPane {
                     */
                     if (moveScore > bestScore) {
                         bestScore = moveScore;
-                        bestMove = flatIndex(row, column);
+                        bestX = row;
+                        bestY = column;
                     }
                 }
             }
         }
-        
-        return bestMove;
+
+        return new int[]{bestX, bestY};
     }
     
     /**
@@ -609,7 +551,7 @@ public  class GameBase extends AnchorPane {
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    Button button = getButtonFromXY(i, j);
+                    Button button = getButton(i, j);
                     if (isButtonEmpty(button)) {
                         button.setText("O");
                         best = Math.max(best, minimax(false));
@@ -623,7 +565,7 @@ public  class GameBase extends AnchorPane {
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    Button button = getButtonFromXY(i, j);
+                    Button button = getButton(i, j);
                     if (isButtonEmpty(button)) {
                         button.setText("X");
                         best = Math.min(best, minimax(true));
@@ -656,7 +598,7 @@ public  class GameBase extends AnchorPane {
     private boolean isMovesLeft() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (isButtonEmpty(getButtonFromXY(i, j))) {
+                if (isButtonEmpty(getButton(i, j))) {
                     return true;
                 }
             }
