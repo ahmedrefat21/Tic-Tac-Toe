@@ -43,25 +43,11 @@ public class LoginBase extends AnchorPane {
     private Thread thread;
     StringTokenizer token;
     int score;
-    /*static HashMap<String, String>hash = new HashMap<>();
-    Socket socket;
-    DataInputStream dis;
-    PrintStream ps;*/
-   // Player player;
 
 
 
 
     public LoginBase(Stage stage) {
-        //player = new Player();
-        
-         /*try {
-            socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
-            dis = new DataInputStream(socket.getInputStream());
-            ps = new PrintStream(socket.getOutputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         imageView = new ImageView();
         imageView0 = new ImageView();
         loginButton = new Button();

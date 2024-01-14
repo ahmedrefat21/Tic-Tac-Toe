@@ -48,18 +48,9 @@ public  class SignUpBase extends AnchorPane {
     protected final Text loginText;
     StringTokenizer token;
     private Thread thread;
-    //static HashMap<String, String>hash = new HashMap<>();
-//    static Socket socket;
-//    static DataInputStream dis;
-//    static PrintStream ps;
+    
     public SignUpBase(Stage stage) {
-//         try {
-//                socket = new Socket(InetAddress.getLoopbackAddress(), 5005);
-//                dis = new DataInputStream(socket.getInputStream());
-//                ps = new PrintStream(socket.getOutputStream());
-//        } catch (IOException ex) {
-//            Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
         imageView = new ImageView();
         backImage = new ImageView();
         imageView0 = new ImageView();
@@ -293,9 +284,7 @@ public  class SignUpBase extends AnchorPane {
                                     break;
                    }
                    
-//                  socket.close();
-//                    dis.close();
-//                    ps.close();
+
                    
                } catch (IOException ex) {
                    Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);

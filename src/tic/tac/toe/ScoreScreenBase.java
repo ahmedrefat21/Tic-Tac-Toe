@@ -65,24 +65,13 @@ public  class ScoreScreenBase extends AnchorPane {
     private Thread thread;
     private Boolean loaded = false;
     private Player player;
-    //PrintStream ps;
-    //Socket socket;
-    //DataInputStream dis;
-
     private StringTokenizer token;
     private String player2Username ;
     private int player2Score;
-    //static HashMap<String, String>hash = new HashMap<>();
+    
 
     public ScoreScreenBase(Stage stage) {
         
-        /*try {
-            socket = new Socket(InetAddress.getLocalHost(), 5005);
-            //dis = new DataInputStream(socket.getInputStream());
-            ps = new PrintStream(socket.getOutputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         loaded = true;
         App.ps.println("playerlist");
 
@@ -108,12 +97,7 @@ public  class ScoreScreenBase extends AnchorPane {
         playerImage = new ImageView();
         playerName = new Label();
         inviteButton = new Button();
-        
-//        email = LoginBase.hash.get("email");
-//        userName = LoginBase.hash.get("username");
-//        score = LoginBase.hash.get("score");
-
-        
+                
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -270,15 +254,10 @@ public  class ScoreScreenBase extends AnchorPane {
         VBox.setMargin(hBox, new Insets(5.0));
         playersScrollPane.setContent(vBox);
 
-        /*emailText.setText(LoginBase.hash.get("email"));
-        usernameText.setText(LoginBase.hash.get("username"));
-        scoreText.setText(LoginBase.hash.get("score")); */
+        
         emailText.setText(App.hash.get("email"));
         usernameText.setText(App.hash.get("username"));
         scoreText.setText(App.hash.get("score")); 
-        /*System.out.println(LoginBase.hash.get("email"));
-        System.out.println(LoginBase.hash.get("username"));
-        System.out.println(LoginBase.hash.get("score"));*/
         System.out.println(App.hash.get("email"));
         System.out.println(App.hash.get("username"));
         System.out.println(App.hash.get("score"));
