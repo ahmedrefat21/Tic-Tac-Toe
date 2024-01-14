@@ -103,16 +103,6 @@ public class LoginBase extends AnchorPane {
         loginButton.setTextFill(javafx.scene.paint.Color.valueOf("#fde8ed"));
         loginButton.setFont(new Font("Comic Sans MS Bold", 30.0));
 
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-             login();
-        
-             Parent pane = new ScoreScreenBase(stage);
-             stage.getScene().setRoot(pane);
-             
-            }
-        }); 
 
 
   
@@ -217,6 +207,11 @@ public class LoginBase extends AnchorPane {
         label2.setFont(new Font("Comic Sans MS Bold", 22.0));
         signupButton.setGraphic(label2);
 
+        
+   
+        
+        
+        
         getChildren().add(imageView);
         getChildren().add(imageView0);
         getChildren().add(loginButton);
@@ -229,12 +224,12 @@ public class LoginBase extends AnchorPane {
         getChildren().add(backImage);
         getChildren().add(signupButton);
 
-    }
-    
-    
-    public void login(){
-            
-            
+                loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+        
+           
+         
             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
             Pattern pattern = Pattern.compile(regex);     
             Matcher matcher = pattern.matcher(emailTextField.getText());
@@ -307,6 +302,9 @@ public class LoginBase extends AnchorPane {
                                     App.hash.put("email",token2.nextToken());
                                     App.hash.put("score", token2.nextToken());
                                     //notification for successful logging in
+                                      Parent pane = new ScoreScreenBase(stage);
+                                         stage.getScene().setRoot(pane);
+             
                                     
                                      Platform.runLater(()->{
                                          thread.stop();
@@ -381,7 +379,21 @@ public class LoginBase extends AnchorPane {
 
     
 
-    }
+    
+        
+        
+        
+        
+        
+                  }
+        });   
+        
+    } 
+    
+    
+
+            
+
 
    
 }
