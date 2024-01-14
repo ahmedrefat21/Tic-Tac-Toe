@@ -17,10 +17,18 @@ public  class resultFXMLBase extends AnchorPane {
     protected final Button playAgainButton;
     protected final Button backToMainButn;
     protected final MediaView mediaView;
-     Player playerOne, playerTwo;
+    Player playerOne, playerTwo;
+    private Boolean challengeComputer = false;
+    private GameDifficulty difficulty;
     GameBase gameBase;
-    public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer)  {
 
+    public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer, Boolean challengeComputer, GameDifficulty difficulty) {
+        this(stage, firstPlayer, secondPlayer);
+        this.challengeComputer = challengeComputer;
+        this.difficulty = difficulty;
+    }
+
+    public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer)  {
         playAgainButton = new Button();
         backToMainButn = new Button();
         mediaView = new MediaView();
@@ -85,7 +93,8 @@ public  class resultFXMLBase extends AnchorPane {
          playAgainButton.setOnAction(new EventHandler<ActionEvent>() { //playAgain
             @Override
             public void handle(ActionEvent event) {
-                Parent pane = new GameBase(stage,firstPlayer, secondPlayer);
+                Parent pane;
+                pane = new GameBase(stage,firstPlayer, secondPlayer, challengeComputer, difficulty);
                 stage.getScene().setRoot(pane);
                 mediaPlayer.stop();
             }

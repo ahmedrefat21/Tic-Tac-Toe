@@ -2,6 +2,7 @@ package tic.tac.toe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -48,6 +49,10 @@ public  class GameBase extends AnchorPane {
     protected final Text secondPlayerScoreText;
     protected final ImageView recordImage;
     protected Player firstPlayer, secondPlayer;
+    private Button[][] buttons = new Button[3][3];
+    private boolean isGameEnds = false;
+    private boolean challengeComputer = false;
+    private GameDifficulty difficulty;
     private int playerTurn = 0;
     Stage stage;
     static int player1Score = 0;
@@ -57,8 +62,12 @@ public  class GameBase extends AnchorPane {
     int counter =0;
     Timeline timeline;
     boolean turn, fullBoardFlag;
-		
-
+    
+    public GameBase(Stage s, Player playerOne, Player playerTwo, Boolean challengeComputer, GameDifficulty difficulty) {
+        this(s, playerOne, playerTwo);
+        this.challengeComputer = challengeComputer;
+        this.difficulty = difficulty;
+    }
 
     public GameBase(Stage s, Player playerOne, Player playerTwo) {
         imageView = new ImageView();
@@ -84,13 +93,15 @@ public  class GameBase extends AnchorPane {
         recordImage = new ImageView();
         this.firstPlayer = playerOne;
         this.secondPlayer = playerTwo;
+
         stage= s;
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane =new resultFXMLBase(stage,firstPlayer,secondPlayer);
-            Scene scene =new Scene (pane);
+            Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer, challengeComputer, difficulty);
+            Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
         }));
+
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -156,17 +167,8 @@ public  class GameBase extends AnchorPane {
         button11.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
         
 
-        button11.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button11);
-                button11.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button11.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button11.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button11);
         });
 
         button13.setLayoutX(455.0);
@@ -175,20 +177,11 @@ public  class GameBase extends AnchorPane {
         button13.setMinWidth(113.0);
         button13.setMnemonicParsing(false);
         button13.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        button13.setText("");
+        button13.setText(" ");
         button13.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button13.setFont(new Font("Comic Sans MS Bold", 48.0));
-        button13.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button13);
-                button13.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button13.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button13.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button13);
         });
 
         button12.setLayoutX(327.0);
@@ -198,21 +191,12 @@ public  class GameBase extends AnchorPane {
         button12.setMnemonicParsing(false);
         button12.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button12.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
-        button12.setText("");
+        button12.setText(" ");
         button12.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button12.setFont(new Font("Comic Sans MS Bold", 48.0));
         button12.setOpaqueInsets(new Insets(5.0, 5.0, 5.0, 0.0));
-        button12.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button12);
-                button12.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button12.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button12.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button12);
         });
 
         button31.setLayoutX(193.0);
@@ -226,17 +210,8 @@ public  class GameBase extends AnchorPane {
         button31.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button31.setFont(new Font("Comic Sans MS Bold", 48.0));
         button31.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
-        button31.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button31);
-                button31.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button31.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button31.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button31);
         });
 
         button23.setLayoutX(461.0);
@@ -249,17 +224,8 @@ public  class GameBase extends AnchorPane {
         button23.setText(" ");
         button23.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button23.setFont(new Font("Comic Sans MS Bold", 48.0));
-        button23.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button23);
-                button23.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button23.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button23.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button23);
         });
 
         button22.setLayoutX(327.0);
@@ -272,17 +238,8 @@ public  class GameBase extends AnchorPane {
         button22.setText(" ");
         button22.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button22.setFont(new Font("Comic Sans MS Bold", 48.0));
-        button22.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button22);
-                button22.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button22.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button22.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button22);
         });
 
         button21.setLayoutX(192.0);
@@ -296,17 +253,8 @@ public  class GameBase extends AnchorPane {
         button21.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button21.setFont(new Font("Comic Sans MS Bold", 48.0));
         button21.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
-        button21.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button21);
-                button21.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button21.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button21.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button21);
         });
 
         button33.setLayoutX(461.0);
@@ -319,17 +267,8 @@ public  class GameBase extends AnchorPane {
         button33.setText(" ");
         button33.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button33.setFont(new Font("Comic Sans MS Bold", 48.0));
-        button33.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button33);
-                button33.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button33.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button33.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button33);
         });
 
         button32.setLayoutX(325.0);
@@ -342,17 +281,8 @@ public  class GameBase extends AnchorPane {
         button32.setText(" ");
         button32.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button32.setFont(new Font("Comic Sans MS Bold", 48.0));
-        button32.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                setPlayerSymbol(button32);
-                button32.setDisable(true);
-                counter++;
-                checkIfGameIsOver();
-                button32.setFocusTraversable(false);
-                System.out.println(counter);
-            }
-            
+        button32.addEventHandler(ActionEvent.ACTION, (ActionEvent event) -> {
+            playMove(button32);
         });
 
         tacText.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
@@ -399,20 +329,20 @@ public  class GameBase extends AnchorPane {
         firstPlayerNameText.setStrokeWidth(0.0);
         firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         firstPlayerNameText.setText("Refat");
-        firstPlayerNameText.setFont(new Font("Comic Sans MS Bold", 48.0));
+        firstPlayerNameText.setFont(new Font("Comic Sans MS Bold", 24.0));
 
         AnchorPane.setBottomAnchor(secondPlayerNameText, 291.0);
         AnchorPane.setTopAnchor(secondPlayerNameText, 122.0);
         secondPlayerNameText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         secondPlayerNameText.setId("firstPlayerNameText");
-        secondPlayerNameText.setLayoutX(592.0);
+        secondPlayerNameText.setLayoutX(620.0);
         secondPlayerNameText.setLayoutY(175.0);
         secondPlayerNameText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         secondPlayerNameText.setStrokeWidth(0.0);
         secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         secondPlayerNameText.setText("Sara");
-        secondPlayerNameText.setFont(new Font("Comic Sans MS Bold", 48.0));
-
+        secondPlayerNameText.setFont(new Font("Comic Sans MS Bold", 24.0));
+        
         AnchorPane.setBottomAnchor(firstPlayerScoreText, 206.0);
         AnchorPane.setTopAnchor(firstPlayerScoreText, 207.0);
         firstPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
@@ -430,7 +360,7 @@ public  class GameBase extends AnchorPane {
         AnchorPane.setTopAnchor(secondPlayerScoreText, 207.0);
         secondPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         secondPlayerScoreText.setId("firstPlayerNameText");
-        secondPlayerScoreText.setLayoutX(628.0);
+        secondPlayerScoreText.setLayoutX(655.0);
         secondPlayerScoreText.setLayoutY(249.0);
         secondPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         secondPlayerScoreText.setStrokeWidth(0.0);
@@ -479,22 +409,273 @@ public  class GameBase extends AnchorPane {
             stage.getScene().setRoot(pane);
             GameBase.player1Score = 0 ;  
             GameBase.player2Score = 0 ;
-            mediaPlayer.stop();
+           mediaPlayer.stop();  
        });
-        
-             
-        
+    }
+
+    private void playMove(Button button) {
+        setPlayerSymbol(button);
+        button.setDisable(true);
+        System.out.println(++counter);
+        checkIfGameIsOver();
+        button.setFocusTraversable(false);
+        GameWinnerDetails gameWinner = checkWinner();
+        if (counter < 9 && (gameWinner != null && !gameWinner.someoneWon) && challengeComputer && (playerTurn == 1)) {
+            int playComputer = playComputer();
+            System.out.println("Computer will play = " + playComputer);
+            playMove(getButtonFromXY(getCoordinates(playComputer)));
+        }
     }
     
+    public int playComputer() {
+        switch (difficulty) {
+            case EASY:
+                return findRandomMove();
+            case MEDIUM:
+                return findMediumMove();
+            case HARD:
+                return findBestMove();
+            default:
+                return 0;
+        }
+    }
+    
+    /**
+     * This function returns the Button object based on row and column
+     * @param x the row index
+     * @param y the column index
+     * @return the Button itself
+     */
+    private Button getButtonFromXY(int x, int y) {
+             if (x == 0 && y == 0) return button11;
+        else if (x == 0 && y == 1) return button12;
+        else if (x == 0 && y == 2) return button13;
+        else if (x == 1 && y == 0) return button21;
+        else if (x == 1 && y == 1) return button22;
+        else if (x == 1 && y == 2) return button23;
+        else if (x == 2 && y == 0) return button31;
+        else if (x == 2 && y == 1) return button32;
+        else if (x == 2 && y == 2) return button33;
+        else return null;
+    }
+    
+    /**
+     * Same as getButtonFromXY(int x, int y) but pass row and column as array
+     * @param coordinates array with row index as first element and column index as second element
+     * @return the Button itself
+     */
+    private Button getButtonFromXY(int[] coordinates) {
+        int x = coordinates[0], y = coordinates[1];
+        return getButtonFromXY(x, y);
+    }
+    
+    /**
+     * Returns the row index and column index based on flat index
+     * Flat index is from 1 to 9 (single value instead of row/column) 
+     * If we have 1 2 3
+     *            4 5 6
+     *            7 8 9
+     * and we want to flatten them to a single list, it will be like
+     * 1 2 3 4 5 6 7 8 9
+     * Then when we pass flat index for a cell, we will return its row and column
+     * @param flatIndex the flat index for this cell
+     * @return array with row index as first element and column index as second element
+     */
+    public int[] getCoordinates(int flatIndex) {
+            if (flatIndex == 1) return new int[]{0, 0};
+        else if (flatIndex == 2) return new int[]{0, 1};
+        else if (flatIndex == 3) return new int[]{0, 2};
+        else if (flatIndex == 4) return new int[]{1, 0};
+        else if (flatIndex == 5) return new int[]{1, 1};
+        else if (flatIndex == 6) return new int[]{1, 2};
+        else if (flatIndex == 7) return new int[]{2, 0};
+        else if (flatIndex == 8) return new int[]{2, 1};
+        else if (flatIndex == 9) return new int[]{2, 2};
+        else return new int[]{-1, -1};
+    }
+    
+    /**
+     * Does the opposite of getCoordinates
+     * @param x cell row index
+     * @param y cell column index
+     * @return flat index for this cell
+     */
+    private int flatIndex(int x, int y) {
+            if (x == 0 && y == 0) return 1;
+        else if (x == 0 && y == 1) return 2;
+        else if (x == 0 && y == 2) return 3;
+        else if (x == 1 && y == 0) return 4;
+        else if (x == 1 && y == 1) return 5;
+        else if (x == 1 && y == 2) return 6;
+        else if (x == 2 && y == 0) return 7;
+        else if (x == 2 && y == 1) return 8;
+        else if (x == 2 && y == 2) return 9;
+        else return 0;
+    }
+    
+    /**
+     * Returns the flat index of the next empty random cell on the board
+     */
+    private int findRandomMove() {
+        Random rand = new Random();
+        int x, y;
+
+        do {
+            x = rand.nextInt(3);
+            y = rand.nextInt(3);
+        } while (!isButtonEmpty(getButtonFromXY(x, y)));
+
+        return flatIndex(x, y);
+    }
+    
+    /**
+     * Returns the flat index of a random move or a best move in turns
+     * medium level (one time easy, one time hard)
+     */
+    private int findMediumMove() {
+        if (counter % 2 != 0)
+            return findRandomMove();
+        else
+            return findBestMove();
+    }
+    
+    /**
+     * Return the flat index of the best move that the computer can take
+     * the best move is either a move that will help the computer win, or will prevent the player from winning
+     * this means that the computer will always try to win or draw the game (hard level)
+     */
+    public int findBestMove() {
+        int bestScore = Integer.MIN_VALUE;
+        int bestMove = -1;
+
+        // Loop through all cells
+        for (int row = 0; row < 3; row++) {
+            for (int column = 0; column < 3; column++) {
+                // Get the button by row and column coordinates
+                Button button = getButtonFromXY(row, column);
+
+                // Check if the cell is empty
+                if (isButtonEmpty(button)) {
+                    /*
+                    We make the computer simulate a hypothetical game, 
+                    calculating all possible moves in both its direction and the player's direction
+                    to achieve the best outcome or the best position to play.
+                    */
+                    button.setText("O");
+                    /*
+                    Here, the computer accumulates a sum to calculate the hypothetical steps it has taken,
+                    whether in its favor or not, it increases its own total accordingly and
+                    If the steps are in favor of the player, it subtracts the corresponding sum.
+                    */         
+                    int moveScore = minimax(false);
+                    // After completing the simulation process, it returns all the cells it used to be empty.
+                    button.setText(" ");
+                    /*
+                     Here, we choose the highest sum obtained during the simulation process to
+                    ensure the best outcome for winning or drawing with the least estimation.
+                    */
+                    if (moveScore > bestScore) {
+                        bestScore = moveScore;
+                        bestMove = flatIndex(row, column);
+                    }
+                }
+            }
+        }
+        
+        return bestMove;
+    }
+    
+    /**
+     * MiniMax algorithm is used when we have two players in a game
+     * and we want to calculate the score of a simulation on the board.
+     * The simulation maximizes possible score for a player and minimizes it for
+     * the other, then returns this score representing either a win for the
+     * maximized player or a win for the minimized player.
+     * @param isMaximizing are we maximizing score for player 1 (the computer in case of our game)
+     * or minimizing it for player 2 (the human player)
+     * @return score of the winning player
+     */
+    private int minimax(boolean isMaximizing) {
+        int score = evaluate();
+
+        if (score == 10 || score == -10)
+            return score;
+
+        if (!isMovesLeft())
+            return 0;
+
+        if (isMaximizing) {
+            int best = Integer.MIN_VALUE;
+
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    Button button = getButtonFromXY(i, j);
+                    if (isButtonEmpty(button)) {
+                        button.setText("O");
+                        best = Math.max(best, minimax(false));
+                        button.setText(" ");
+                    }
+                }
+            }
+            return best;
+        } else {
+            int best = Integer.MAX_VALUE;
+
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    Button button = getButtonFromXY(i, j);
+                    if (isButtonEmpty(button)) {
+                        button.setText("X");
+                        best = Math.min(best, minimax(true));
+                        button.setText(" ");
+                    }
+                }
+            }
+            return best;
+        }
+    }
+    
+    /**
+     * Return a score based on the game winner.
+     */
+    private int evaluate() {
+        GameWinnerDetails winnerDetails = checkWinner();
+
+        if (winnerDetails != null && winnerDetails.someoneWon)
+            if (winnerDetails.player1Won)
+                return -10;
+            else
+                return +10;
+
+        return 0;
+    }
+    
+    /**
+     * Checks if there is at least one more move in the game.
+     */
+    private boolean isMovesLeft() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (isButtonEmpty(getButtonFromXY(i, j))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean isButtonEmpty(Button button) {
+        return button.getText().equals(" ");
+    }
     
     public void setPlayerSymbol(Button button){
-        if(playerTurn % 2 == 0){
+        if (playerTurn % 2 == 0) {
             secondPlayerNameText.setStyle("-fx-effect: none;");
             firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
             button.setText("X");
             button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
             playerTurn = 1;
-        } else{
+        } else {
             firstPlayerNameText.setStyle("-fx-effect: none;");
             secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
             button.setText("O");
@@ -502,79 +683,121 @@ public  class GameBase extends AnchorPane {
             playerTurn = 0;
         }
     }
-    public void checkIfGameIsOver() {
-    for (int a = 0; a <= 8; a++) {
-        String line;
-        Button[] buttons;
-        switch (a) {
-            case 0:
-                line = button11.getText() + button12.getText() + button13.getText();
-                buttons = new Button[]{button11, button12, button13};
-                break;
-            case 1:
-                line = button21.getText() + button22.getText() + button23.getText();
-                buttons = new Button[]{button21, button22, button23};
-                break;
-            case 2:
-                line = button31.getText() + button32.getText() + button33.getText();
-                buttons = new Button[]{button31, button32, button33};
-                break;
-            case 3:
-                line = button11.getText() + button22.getText() + button33.getText();
-                buttons = new Button[]{button11, button22, button33};
-                break;
-            case 4:
-                line = button13.getText() + button22.getText() + button31.getText();
-                buttons = new Button[]{button13, button22, button31};
-                break;
-            case 5:
-                line = button11.getText() + button21.getText() + button31.getText();
-                buttons = new Button[]{button11, button21, button31};
-                break;
-            case 6:
-                line = button12.getText() + button22.getText() + button32.getText();
-                buttons = new Button[]{button12, button22, button32};
-                break;
-            case 7:
-                line = button13.getText() + button23.getText() + button33.getText();
-                buttons = new Button[]{button13, button23, button33};
-                break;
-            default:
-                if (counter == 9) {
+
+    /**
+     * Checks if there is a game winner.
+     * @return details for the winner player, including which side and which cells won them the game.
+     */
+    private GameWinnerDetails checkWinner() {
+        String line = "";
+        Button[] buttons = new Button[3];
+        for (int i = 0; i < 8; ++i) {
+            switch (i) {
+                case 0:
+                    // 11 12 13
                     
-                    timeline.play();
-                    System.out.println(counter);
-                    return;
-                }
-                line = null;
-                buttons = null;
+                    
+                    line = button11.getText() + button12.getText() + button13.getText();
+                    buttons = new Button[]{button11, button12, button13};
+                    break;
+                case 1:
+                    
+                    // 21 22 23
+                    
+                    line = button21.getText() + button22.getText() + button23.getText();
+                    buttons = new Button[]{button21, button22, button23};
+                    break;
+                case 2:
+                     
+                    
+                    // 31 32 33
+                    line = button31.getText() + button32.getText() + button33.getText();
+                    buttons = new Button[]{button31, button32, button33};
+                    break;
+                case 3:
+                    // 11       
+                    //    22   
+                    //       33
+                    line = button11.getText() + button22.getText() + button33.getText();
+                    buttons = new Button[]{button11, button22, button33};
+                    break;
+                case 4:
+                    //       13 
+                    //    22   
+                    // 31      
+                    line = button13.getText() + button22.getText() + button31.getText();
+                    buttons = new Button[]{button13, button22, button31};
+                    break;
+                case 5:
+                    // 11  
+                    // 21 
+                    // 31 
+                    line = button11.getText() + button21.getText() + button31.getText();
+                    buttons = new Button[]{button11, button21, button31};
+                    break;
+                case 6:
+                    //    12 
+                    //    22
+                    //    32 
+                    line = button12.getText() + button22.getText() + button32.getText();
+                    buttons = new Button[]{button12, button22, button32};
+                    break;
+                case 7:
+                    //       13 
+                    //       23
+                    //       33
+                    line = button13.getText() + button23.getText() + button33.getText();
+                    buttons = new Button[]{button13, button23, button33};
+                    break;
+                default:
+                    return new GameWinnerDetails(false, false, null);
+            }
+            
+            if ("XXX".equals(line)) {
+                
+                
+                return new GameWinnerDetails(true, true, buttons);
+            } else if ("OOO".equals(line)) {
+                return new GameWinnerDetails(true, false, buttons);
+            }
         }
 
-        if ("XXX".equals(line)) {
-            highlightWinningButtons(buttons);
-            disableButton();
+        if (counter == 9) {
             timeline.play();
-            player1Score++;
-            firstPlayerScoreText.setText(String.valueOf(player1Score));
-            System.out.println(player1Score);
-            fullBoardFlag = false;
-         
-        } else if ("OOO".equals(line)) {
-            // O wins
-            highlightWinningButtons(buttons);
-            disableButton();
-            timeline.play();
-            player2Score++;
-            secondPlayerScoreText.setText(String.valueOf(player2Score));
-            fullBoardFlag = false;
+            System.out.println(counter);
+            return new GameWinnerDetails(false, false, null);
         }
+
+        return new GameWinnerDetails(false, false, null);
     }
     
-}
+    
+
+    public void checkIfGameIsOver() {
+        GameWinnerDetails winnerDetails = checkWinner();
+        System.out.println("Winner details = " + winnerDetails);
+        if (winnerDetails != null) {
+            if (winnerDetails.someoneWon) {
+                if (winnerDetails.player1Won) {
+                    firstPlayerScoreText.setText(String.valueOf(player1Score));
+                    player1Score++;
+                    System.out.println("Player 1 score = " + player1Score);
+                } else {
+                    secondPlayerScoreText.setText(String.valueOf(player2Score));
+                    player2Score++;
+                    System.out.println("Player 2 score = " + player2Score);
+                }
+
+                highlightWinningButtons(winnerDetails.winningButtons);
+                disableButton();
+                timeline.play();
+                fullBoardFlag = false;
+            }
+        }
+    }
 
     private void highlightWinningButtons(Button[] buttons) {
-        
-        for (int i =0 ; i< 3 ; i++){
+        for (int i = 0; i < 3; i++) {
             buttons[i].setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
         }
     }
@@ -591,12 +814,25 @@ public  class GameBase extends AnchorPane {
         button33.setDisable(true);
     }
     
-
     
-       
+    /**
+     * Describes if someone won, and some details about them.
+     * Includes which side won, and which buttons won them the game.
+     */
+    class GameWinnerDetails {
+        public boolean someoneWon;
+        public boolean player1Won;
+        public Button[] winningButtons;
+        
+        public GameWinnerDetails(boolean someoneWon, boolean isPlayer1, Button[] winningButtons) {
+            this.someoneWon = someoneWon;
+            this.player1Won = isPlayer1;
+            this.winningButtons = winningButtons;
+        }
 
-   
+        @Override
+        public String toString() {
+            return "WinnerDetails{" + this.someoneWon + ", " + this.player1Won + ", " + this.winningButtons + "}";
+        }
+    }
 }
-
-
-
