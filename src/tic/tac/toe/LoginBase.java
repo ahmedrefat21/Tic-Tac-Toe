@@ -237,13 +237,11 @@ public class LoginBase extends AnchorPane {
             String email = emailTextField.getText().trim();
             if(userName.isEmpty() || email.isEmpty() ){
                 Platform.runLater(()->{
-                  alertText.setText("Empty Fields is Required");
-                 }); 
+                JOptionPane.showMessageDialog(jFrame, "Empty fields are required", "ERROR", JOptionPane.ERROR_MESSAGE);                 }); 
                 
             }else if(!matcher.matches()){
                 Platform.runLater(()->{
-                  alertText.setText("Please enter a valid mail");
-                 }); 
+                JOptionPane.showMessageDialog(jFrame, "Please enter a valid email", "ERROR", JOptionPane.ERROR_MESSAGE);                 }); 
                 
             }else{
              
@@ -253,23 +251,20 @@ public class LoginBase extends AnchorPane {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        alertText.setText("Please enter your Email");
-                    }
+                     JOptionPane.showMessageDialog(jFrame, "Please enter your email", "ERROR", JOptionPane.ERROR_MESSAGE);                    }
                 });
                 
             } else if(passwordTextField.getText().equals("")){
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        alertText.setText("Please enter your password");            
-                    }
+                    JOptionPane.showMessageDialog(jFrame, "Please enter your password", "ERROR", JOptionPane.ERROR_MESSAGE);                    }
                 });
                 
             }else{
                 
                 System.out.println("LOOOOOOOOOOOGIIIIIIIIINNNNNNNNNNN");
 
-                //reciving response
               thread =  new Thread(){
                    // HashMap<String, String> hash = new HashMap<>(); 
                     String state,playerData;
@@ -315,7 +310,9 @@ public class LoginBase extends AnchorPane {
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText(receivedState);
+                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);
+
+                                         //   alertText.setText(receivedState);
                                         }
                                     });                             
                                     break;
@@ -323,32 +320,28 @@ public class LoginBase extends AnchorPane {
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText(receivedState);
-                                        }
-                                    });                              
+                                            JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
+                                          });                              
                                     break;
                                 case "Password is incorrect":
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText(receivedState);
-                                        }
+                                        JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
                                     });                                 
                                     break;
                                 case "Connection issue, please try again later":
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText(receivedState);
-                                        }
+                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
                                     }); 
                                     break;
                                 default :
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText("Please Enter valid Credentials");
-                                        }
+                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
                                     });
                             }
 
