@@ -9,16 +9,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public abstract class LevelScreenBase extends AnchorPane {
+public class LevelScreenBase extends AnchorPane {
 
     protected final ImageView imageView;
     protected final Button easyButton;
     protected final Button hardButton;
     protected final Button meduimButton;
     protected final ImageView backimage;
+    Player playerOne, computer;
 
     public LevelScreenBase(Stage stage) {
-
+         playerOne = new Player();
+        computer = new Player();
         imageView = new ImageView();
         easyButton = new Button();
         hardButton = new Button();
@@ -93,6 +95,22 @@ public abstract class LevelScreenBase extends AnchorPane {
             stage.getScene().setRoot(pane);
 
         });
-
+         easyButton.setOnMousePressed(e -> {
+             startGame(stage, GameDifficulty.EASY);
+        });
+         meduimButton.setOnMousePressed(e -> {
+             startGame(stage, GameDifficulty.MEDIUM);
+         });
+         hardButton.setOnMousePressed(e -> {
+             startGame(stage, GameDifficulty.HARD);
+         });
+    }
+    
+    private void startGame(Stage stage, GameDifficulty difficulty) {
+        playerOne.setUsername("playerOne");
+        computer.setUsername("computer");
+        Parent pane = new GameBase(stage, playerOne, computer, true, difficulty);
+        stage.getScene().setRoot(pane);
+        System.out.println("welcome to the computer game");
     }
 }
