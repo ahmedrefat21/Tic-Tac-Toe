@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class LoginBase extends AnchorPane {
@@ -43,6 +44,7 @@ public class LoginBase extends AnchorPane {
     private Thread thread;
     StringTokenizer token;
     int score;
+    protected JFrame jFrame;
 
 
 
@@ -103,16 +105,6 @@ public class LoginBase extends AnchorPane {
         loginButton.setTextFill(javafx.scene.paint.Color.valueOf("#fde8ed"));
         loginButton.setFont(new Font("Comic Sans MS Bold", 30.0));
 
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-             login();
-        
-             Parent pane = new ScoreScreenBase(stage);
-             stage.getScene().setRoot(pane);
-             
-            }
-        }); 
 
 
   
@@ -217,6 +209,11 @@ public class LoginBase extends AnchorPane {
         label2.setFont(new Font("Comic Sans MS Bold", 22.0));
         signupButton.setGraphic(label2);
 
+        
+   
+        
+        
+        
         getChildren().add(imageView);
         getChildren().add(imageView0);
         getChildren().add(loginButton);
@@ -229,12 +226,12 @@ public class LoginBase extends AnchorPane {
         getChildren().add(backImage);
         getChildren().add(signupButton);
 
-    }
-    
-    
-    public void login(){
-            
-            
+                loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+        
+           
+         
             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
             Pattern pattern = Pattern.compile(regex);     
             Matcher matcher = pattern.matcher(emailTextField.getText());
@@ -242,13 +239,11 @@ public class LoginBase extends AnchorPane {
             String email = emailTextField.getText().trim();
             if(userName.isEmpty() || email.isEmpty() ){
                 Platform.runLater(()->{
-                  alertText.setText("Empty Fields is Required");
-                 }); 
+                JOptionPane.showMessageDialog(jFrame, "Empty fields are required", "ERROR", JOptionPane.ERROR_MESSAGE);                 }); 
                 
             }else if(!matcher.matches()){
                 Platform.runLater(()->{
-                  alertText.setText("Please enter a valid mail");
-                 }); 
+                JOptionPane.showMessageDialog(jFrame, "Please enter a valid email", "ERROR", JOptionPane.ERROR_MESSAGE);                 }); 
                 
             }else{
              
@@ -258,23 +253,20 @@ public class LoginBase extends AnchorPane {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        alertText.setText("Please enter your Email");
-                    }
+                     JOptionPane.showMessageDialog(jFrame, "Please enter your email", "ERROR", JOptionPane.ERROR_MESSAGE);                    }
                 });
                 
             } else if(passwordTextField.getText().equals("")){
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        alertText.setText("Please enter your password");            
-                    }
+                    JOptionPane.showMessageDialog(jFrame, "Please enter your password", "ERROR", JOptionPane.ERROR_MESSAGE);                    }
                 });
                 
             }else{
                 
                 System.out.println("LOOOOOOOOOOOGIIIIIIIIINNNNNNNNNNN");
 
-                //reciving response
               thread =  new Thread(){
                    // HashMap<String, String> hash = new HashMap<>(); 
                     String state,playerData;
@@ -307,6 +299,9 @@ public class LoginBase extends AnchorPane {
                                     App.hash.put("email",token2.nextToken());
                                     App.hash.put("score", token2.nextToken());
                                     //notification for successful logging in
+                                      Parent pane = new ScoreScreenBase(stage);
+                                         stage.getScene().setRoot(pane);
+             
                                     
                                      Platform.runLater(()->{
                                          thread.stop();
@@ -317,7 +312,9 @@ public class LoginBase extends AnchorPane {
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText(receivedState);
+                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);
+
+                                         //   alertText.setText(receivedState);
                                         }
                                     });                             
                                     break;
@@ -325,32 +322,28 @@ public class LoginBase extends AnchorPane {
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText(receivedState);
-                                        }
-                                    });                              
+                                            JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
+                                          });                              
                                     break;
                                 case "Password is incorrect":
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText(receivedState);
-                                        }
+                                        JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
                                     });                                 
                                     break;
                                 case "Connection issue, please try again later":
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText(receivedState);
-                                        }
+                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
                                     }); 
                                     break;
                                 default :
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
-                                            alertText.setText("Please Enter valid Credentials");
-                                        }
+                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
                                     });
                             }
 
@@ -381,7 +374,21 @@ public class LoginBase extends AnchorPane {
 
     
 
-    }
+    
+        
+        
+        
+        
+        
+                  }
+        });   
+        
+    } 
+    
+    
+
+            
+
 
    
 }

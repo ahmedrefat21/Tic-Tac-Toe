@@ -27,6 +27,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public  class SignUpBase extends AnchorPane {
     
@@ -48,6 +50,8 @@ public  class SignUpBase extends AnchorPane {
     protected final Text loginText;
     StringTokenizer token;
     private Thread thread;
+    protected JFrame jFrame;
+
     
     public SignUpBase(Stage stage) {
 
@@ -143,14 +147,7 @@ public  class SignUpBase extends AnchorPane {
         SignUpButton.setWrapText(true);
         SignUpButton.setPadding(new Insets(0.0, 10.0, 10.0, 10.0));
         SignUpButton.setFont(new Font("Comic Sans MS Bold", 30.0));
-        SignUpButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-             signup();
-             Parent pane = new ScoreScreenBase(stage);
-             stage.getScene().setRoot(pane);
-            }
-        });  
+
 
         text.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
         text.setId("firstPlayerNameText");
@@ -223,11 +220,14 @@ public  class SignUpBase extends AnchorPane {
         getChildren().add(usernameTextField);
         getChildren().add(passTextField);
         getChildren().add(loginbtn);
-
-    }
-    
-     public void signup(){
-      
+        
+        SignUpButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+           
+            
+          
+        
         String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regex); 
         Matcher matcher = pattern.matcher(emailTextField.getText());
@@ -235,17 +235,14 @@ public  class SignUpBase extends AnchorPane {
         String email = emailTextField.getText().trim();
         String password = passTextField.getText().trim();
         if(userName.isEmpty() || email.isEmpty() || password.isEmpty()   ){
-                Alert alert =new Alert(AlertType.WARNING);
-               alert.setContentText("inforamtion is false");
-               alert.show();
+          JOptionPane.showMessageDialog(jFrame, "Please enter data the fields are required", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+
                  }else if(!matcher.matches()){
-                  Alert alert =new Alert(AlertType.WARNING);
-               alert.setContentText("email format is false");
-               alert.show();
+                 JOptionPane.showMessageDialog(jFrame, "Email Format is False", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+
                  }else if(!passTextField.getText().equals(passTextField.getText())){
-                      Alert alert =new Alert(AlertType.WARNING);
-               alert.setContentText("password is false");
-               alert.show();
+                    JOptionPane.showMessageDialog(jFrame, "Wrong password", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+
                  }  
                  else{
               App.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
@@ -274,13 +271,11 @@ public  class SignUpBase extends AnchorPane {
                            App.hash.put("username", token.nextToken());
                           App.hash.put("email",token.nextToken());
                            App.hash.put("score", "0");
+                           Parent pane = new ScoreScreenBase(stage);
+                           stage.getScene().setRoot(pane);
                         break;
                         case "already signed-up":
-                                     Alert alert =new Alert(AlertType.INFORMATION);
-               
-                                     alert.setContentText("This Email is " +receivedState);
-               
-                                     alert.show();                             
+                            JOptionPane.showMessageDialog(jFrame, "This email is already signed in", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
                                     break;
                    }
                    
@@ -295,11 +290,18 @@ public  class SignUpBase extends AnchorPane {
            thread.start();
                   }
     }
-	
-	
-	
-    
-    
-    
-    
+        
+        
+      });   
+        
+        
+    }
 }
+
+
+
+
+
+
+
+
