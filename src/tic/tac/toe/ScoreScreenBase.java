@@ -1,16 +1,41 @@
 package tic.tac.toe;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Optional;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public abstract class ScoreScreenBase extends AnchorPane {
+public  class ScoreScreenBase extends AnchorPane {
 
     protected final Text text;
     protected final Text text0;
@@ -29,8 +54,26 @@ public abstract class ScoreScreenBase extends AnchorPane {
     protected final Pane playerLabel;
     protected final Label plynamelabel3;
     protected final ScrollPane playersScrollPane;
+    protected final VBox vBox;
+    protected HBox hBox;
+    protected final ImageView playerImage;
+    protected Label playerName;
+    protected Button inviteButton;
+    private ArrayList<Player> onlinePlayers;
+    private ImageView playerIMG;
+    private Alert alert;
+    private Thread thread;
+    private Boolean loaded = false;
+    private Player player;
+    private StringTokenizer token;
+    private String player2Username ;
+    private int player2Score;
+    
 
-    public ScoreScreenBase() {
+    public ScoreScreenBase(Stage stage) {
+        
+        loaded = true;
+        App.ps.println("playerlist");
 
         text = new Text();
         text0 = new Text();
@@ -49,7 +92,12 @@ public abstract class ScoreScreenBase extends AnchorPane {
         playerLabel = new Pane();
         plynamelabel3 = new Label();
         playersScrollPane = new ScrollPane();
-
+        vBox = new VBox();
+        hBox = new HBox();
+        playerImage = new ImageView();
+        playerName = new Label();
+        inviteButton = new Button();
+                
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -122,7 +170,7 @@ public abstract class ScoreScreenBase extends AnchorPane {
 
         usernameText.setLayoutX(49.0);
         usernameText.setLayoutY(18.0);
-        usernameText.setText("Refat");
+        usernameText.setText("");
         usernameText.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         usernameText.setFont(new Font("Comic Sans MS Bold", 29.0));
 
@@ -134,7 +182,7 @@ public abstract class ScoreScreenBase extends AnchorPane {
 
         scoreText.setLayoutX(71.0);
         scoreText.setLayoutY(18.0);
-        scoreText.setText("10");
+       scoreText.setText("");
         scoreText.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         scoreText.setFont(new Font("Comic Sans MS Bold", 29.0));
 
@@ -147,13 +195,13 @@ public abstract class ScoreScreenBase extends AnchorPane {
         emailText.setLayoutX(7.0);
         emailText.setLayoutY(24.0);
         emailText.setPrefWidth(203.0);
-        emailText.setText("ahmed21@gmail.com");
+        emailText.setText("");
         emailText.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         emailText.setFont(new Font("Comic Sans MS Bold", 20.0));
 
         anchorPane2.setLayoutX(251.0);
         anchorPane2.setLayoutY(140.0);
-        anchorPane2.setPrefHeight(307.0);
+        anchorPane2.setPrefHeight(298.0);
         anchorPane2.setPrefWidth(474.0);
         anchorPane2.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 10;");
 
@@ -173,6 +221,49 @@ public abstract class ScoreScreenBase extends AnchorPane {
         playersScrollPane.setPrefWidth(474.0);
         playersScrollPane.setStyle("-fx-background: FFDDE5; -fx-border-color: FFDDE5;");
 
+        vBox.setPrefHeight(219.0);
+        vBox.setPrefWidth(461.0);
+
+        hBox.setCache(true);
+        hBox.setPrefHeight(17.0);
+        hBox.setPrefWidth(461.0);
+
+        playerImage.setFitHeight(42.0);
+        playerImage.setFitWidth(70.0);
+        playerImage.setPickOnBounds(true);
+        playerImage.setPreserveRatio(true);
+        playerImage.setImage(new Image(getClass().getResource("/assets/images/gamer1.png").toExternalForm()));
+
+        playerName.setPrefHeight(35.0);
+        playerName.setPrefWidth(282.0);
+        playerName.setText("Refat");
+        playerName.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
+        playerName.setFont(new Font("Comic Sans MS Bold", 24.0));
+        HBox.setMargin(playerName, new Insets(3.0, 0.0, 3.0, 7.0));
+
+        inviteButton.setMnemonicParsing(false);
+        inviteButton.setPrefHeight(37.0);
+        inviteButton.setPrefWidth(84.0);
+        inviteButton.setStyle("-fx-background-color: f22853; -fx-background-radius: 10;");
+        inviteButton.setText("Invite");
+        inviteButton.setTextFill(javafx.scene.paint.Color.WHITE);
+        inviteButton.setOpaqueInsets(new Insets(10.0, 0.0, 0.0, 0.0));
+        inviteButton.setFont(new Font("Comic Sans MS Bold", 16.0));
+        HBox.setMargin(inviteButton, new Insets(3.0, 0.0, 3.0, 0.0));
+        hBox.setOpaqueInsets(new Insets(0.0, 0.0, 10.0, 0.0));
+        VBox.setMargin(hBox, new Insets(5.0));
+        playersScrollPane.setContent(vBox);
+
+        
+        emailText.setText(App.hash.get("email"));
+        usernameText.setText(App.hash.get("username"));
+        scoreText.setText(App.hash.get("score")); 
+        System.out.println(App.hash.get("email"));
+        System.out.println(App.hash.get("username"));
+        System.out.println(App.hash.get("score"));
+       
+        
+        
         getChildren().add(text);
         getChildren().add(text0);
         getChildren().add(text1);
@@ -186,8 +277,217 @@ public abstract class ScoreScreenBase extends AnchorPane {
         getChildren().add(anchorPane1);
         playerLabel.getChildren().add(plynamelabel3);
         anchorPane2.getChildren().add(playerLabel);
+        hBox.getChildren().add(playerImage);
+        hBox.getChildren().add(playerName);
+        hBox.getChildren().add(inviteButton);
+        vBox.getChildren().add(hBox);
         anchorPane2.getChildren().add(playersScrollPane);
         getChildren().add(anchorPane2);
 
+        onlinePlayers = new ArrayList();  
+        
+        //listOnlinePlayers();
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    if(loaded){
+                        System.out.println("playyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+                        onlinePlayers.clear();
+                    do{
+
+                        try{
+                            String data = App.dis.readLine();
+                            if(data.equals("null")){
+                                break;
+                            }
+                            switch(data){
+                                case "requestPlaying":
+                                    System.out.println("request received "+data);
+                                    alertRequestPlayer();
+                                    break;
+                                case "decline":
+                                    alertRefused();
+                                    break;
+                                    
+                                case "close":
+                                    thread.stop();
+                                    
+                                default :
+                                    System.out.println("default");
+                                    readOnlineList(data);
+                                   
+                            }
+                        } catch (IOException ex) {
+                            thread.stop();
+                        }
+                    }while(true);
+                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    listOnlinePlayers();
+                    try{
+                            Thread.sleep(300);
+                        }catch(InterruptedException ex){
+                            thread.stop();
+                        }
+                    }
+                }                   
+            }
+            });
+            thread.start();
     }
+     
+       
+       
+    
+    private void alertRequestPlayer() throws IOException{
+        String opponentData = App.dis.readLine();
+        System.out.println("recieved request");
+        token = new StringTokenizer(opponentData,"###");
+        String opponentMail = token.nextToken();
+        player2Username = token.nextToken();
+        String sOpponentScore = token.nextToken();
+        player2Score = Integer.parseInt(sOpponentScore);
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                System.out.println("recieved request run");
+                ButtonType AcceptType = new ButtonType("Accept");
+                ButtonType RejectType = new ButtonType("Reject", ButtonBar.ButtonData.CANCEL_CLOSE);             
+                alert = new Alert(Alert.AlertType.NONE);
+                alert.setTitle("Request Playing");
+                alert.setHeaderText(player2Username+" Wants to Play with You ?");
+                alert.getDialogPane().getButtonTypes().addAll(AcceptType,RejectType);
+                DialogPane dialog = alert.getDialogPane();              
+                //dialog.getStylesheets().add(
+                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                //dialog.getStyleClass().add("reqalert");
+                PauseTransition delay = new PauseTransition(Duration.seconds(10));
+                delay.setOnFinished(e -> alert.hide());
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == AcceptType){
+                    System.out.println("game on");
+                    App.ps.println("accept###"+App.hash.get("email")+"###"+App.hash.get("username")+"###"+opponentMail);
+                //    showGame(false,player2Username);
+                
+                }else {
+                    // to players online screen
+                    System.out.println("no first request");
+                    App.ps.println("decline###"+opponentMail);
+                }
+                delay.play();
+            }
+
+        });
+    }
+    private void listOnlinePlayers(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+//                try {
+                    playersScrollPane.setContent(null);
+                    vBox.getChildren().clear();
+                    
+                    for(Player x : onlinePlayers){
+                        System.out.println("inside for loop");
+                        playerIMG = new ImageView(new Image(getClass().getResource("/assets/images/gamer1.png").toExternalForm()));
+                        playerIMG.setFitHeight(42.0);
+                        playerIMG.setFitWidth(70.0);
+                        playerIMG.setPreserveRatio(true);
+                        
+                        playerName = new Label(x.getUsername());
+                        playerName.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
+                        playerName.setFont(new Font("Comic Sans MS Bold", 24.0));
+                        playerName.setPrefHeight(35.0);
+                        playerName.setPrefWidth(282.0);
+                        HBox.setMargin(playerName, new Insets(3.0, 0.0, 3.0, 7.0));
+                        
+                        inviteButton = new Button("Invite");
+                        inviteButton.setMnemonicParsing(false);
+                        inviteButton.setPrefHeight(37.0);
+                        inviteButton.setPrefWidth(84.0);
+                        inviteButton.setStyle("-fx-background-color: f22853; -fx-background-radius: 10;");
+                        inviteButton.setTextFill(javafx.scene.paint.Color.WHITE);
+                        inviteButton.setOpaqueInsets(new Insets(10.0, 0.0, 0.0, 0.0));
+                        inviteButton.setFont(new Font("Comic Sans MS Bold", 16.0));
+                        HBox.setMargin(inviteButton, new Insets(3.0, 0.0, 3.0, 0.0));
+                        hBox.setOpaqueInsets(new Insets(0.0, 0.0, 10.0, 0.0));
+                        VBox.setMargin(hBox, new Insets(5.0));
+                        
+                        hBox = new HBox(playerIMG,playerName,inviteButton);
+                        hBox.setPrefHeight(17.0);
+                        hBox.setPrefWidth(461.0);
+                        
+                    
+                        
+                        inviteButton.setId(""+x.getEmail());
+                        if(x.isIsplaying()){
+                            hBox.setDisable(true);
+                            inviteButton.setDisable(true);
+                        }
+                        
+                        inviteButton.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                App.ps.println("request###"+inviteButton.getId()+"###"+emailText.getText()+"###"+usernameText.getText()+"###"+scoreText.getText());
+                                ButtonType Yes = new ButtonType("Ok"); 
+                                alert = new Alert(Alert.AlertType.NONE);
+                                alert.setTitle("Request Playing");
+                                alert.setHeaderText("Pending Request Please Wait");
+                                alert.getDialogPane().getButtonTypes().addAll(Yes);                     
+                                DialogPane dialogPane = alert.getDialogPane();
+                                //dialogPane.getStylesheets().add(
+                                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                                //dialogPane.getStyleClass().add("pendingalert");
+                                PauseTransition delay = new PauseTransition(Duration.seconds(15));
+                                delay.setOnFinished(e -> alert.hide());
+                                alert.show();
+                                delay.play();
+                            }
+                        });
+                        vBox.getChildren().add(hBox);
+                        playersScrollPane.setContent(vBox);
+                    }
+                    onlinePlayers.clear();
+                
+            }
+        });
+    }
+    private void alertRefused(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(alert.isShowing())
+                    alert.close();
+                ButtonType Yes = new ButtonType("Ok"); 
+                alert = new Alert(Alert.AlertType.NONE);
+                alert.setTitle("");
+                alert.setHeaderText("Your Request has been Refused");
+                alert.getDialogPane().getButtonTypes().addAll(Yes);
+                DialogPane dialogPane = alert.getDialogPane();
+                //dialogPane.getStylesheets().add(
+                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
+                //dialogPane.getStyleClass().add("refalert");
+                alert.showAndWait();
+            }
+        });
+    }
+    
+    private void readOnlineList(String data){
+        //System.out.println("data :"+data+"\n");
+        token = new StringTokenizer(data, "###");
+        player = new Player();
+        player.setUsername(token.nextToken());
+        player.setEmail(token.nextToken());
+        player.setIsactive(Boolean.parseBoolean(token.nextToken()));
+        player.setIsplaying(Boolean.parseBoolean(token.nextToken()));
+        player.setScore(Integer.parseInt(token.nextToken()));
+        
+        System.out.println(App.hash.get("email"));
+        System.out.println(player.getEmail());
+        if(!App.hash.get("email").equals(player.getEmail())){
+            System.out.println("Add list");
+            onlinePlayers.add(player);
+        }
+    }
+     
 }

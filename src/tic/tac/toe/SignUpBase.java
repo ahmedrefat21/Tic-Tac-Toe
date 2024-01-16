@@ -1,12 +1,20 @@
 package tic.tac.toe;
 
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -18,8 +26,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public abstract class SignUpBase extends AnchorPane {
+public  class SignUpBase extends AnchorPane {
+    
+        
 
     protected final ImageView imageView;
     protected final ImageView backImage;
@@ -37,7 +50,10 @@ public abstract class SignUpBase extends AnchorPane {
     protected final Text loginText;
     StringTokenizer token;
     private Thread thread;
-    public SignUpBase() {
+    protected JFrame jFrame;
+
+    
+    public SignUpBase(Stage stage) {
 
         imageView = new ImageView();
         backImage = new ImageView();
@@ -71,7 +87,7 @@ public abstract class SignUpBase extends AnchorPane {
         imageView.setLayoutY(313.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(getClass().getResource("../../../assets/images/background.png").toExternalForm()));
+        imageView.setImage(new Image(getClass().getResource("/assets/images/background.png").toExternalForm()));
 
         backImage.setFitHeight(64.0);
         backImage.setFitWidth(199.0);
@@ -79,7 +95,11 @@ public abstract class SignUpBase extends AnchorPane {
         backImage.setLayoutY(28.0);
         backImage.setPickOnBounds(true);
         backImage.setPreserveRatio(true);
-        backImage.setImage(new Image(getClass().getResource("../../../assets/images/back.png").toExternalForm()));
+        backImage.setImage(new Image(getClass().getResource("/assets/images/back.png").toExternalForm()));
+        backImage.setOnMousePressed(e -> {
+            Parent pane = new signup_login_designBase(stage);
+            stage.getScene().setRoot(pane);
+       });
 
         imageView0.setFitHeight(119.0);
         imageView0.setFitWidth(112.0);
@@ -87,14 +107,14 @@ public abstract class SignUpBase extends AnchorPane {
         imageView0.setLayoutY(12.0);
         imageView0.setPickOnBounds(true);
         imageView0.setPreserveRatio(true);
-        imageView0.setImage(new Image(getClass().getResource("../../../assets/images/SignUp.png").toExternalForm()));
+        imageView0.setImage(new Image(getClass().getResource("/assets/images/SignUp.png").toExternalForm()));
 
         emailTextField.setLayoutX(342.0);
         emailTextField.setLayoutY(138.0);
         emailTextField.setPrefHeight(48.0);
         emailTextField.setPrefWidth(244.0);
         emailTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
-        emailTextField.setText("dsfsdfs");
+        emailTextField.setText("");
         emailTextField.setFont(new Font("Comic Sans MS Bold", 19.0));
 
         UsernamelLbel.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
@@ -128,6 +148,7 @@ public abstract class SignUpBase extends AnchorPane {
         SignUpButton.setPadding(new Insets(0.0, 10.0, 10.0, 10.0));
         SignUpButton.setFont(new Font("Comic Sans MS Bold", 30.0));
 
+
         text.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
         text.setId("firstPlayerNameText");
         text.setLayoutX(259.0);
@@ -151,7 +172,7 @@ public abstract class SignUpBase extends AnchorPane {
         usernameTextField.setPrefHeight(48.0);
         usernameTextField.setPrefWidth(244.0);
         usernameTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
-        usernameTextField.setText("fgdg");
+        usernameTextField.setText("");
         usernameTextField.setFont(new Font("Comic Sans MS Bold", 19.0));
 
         passTextField.setLayoutX(342.0);
@@ -159,7 +180,7 @@ public abstract class SignUpBase extends AnchorPane {
         passTextField.setPrefHeight(48.0);
         passTextField.setPrefWidth(244.0);
         passTextField.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5); -fx-background-radius: 15; -fx-border-color: f22853; -fx-border-radius: 15; -fx-background-color: #FDE8ED; -fx-text-fill: F22853;");
-        passTextField.setText("sfdsdf");
+        passTextField.setText("");
 
         passTextField.setEffect(dropShadow);
         passTextField.setFont(new Font(19.0));
@@ -170,6 +191,13 @@ public abstract class SignUpBase extends AnchorPane {
         loginbtn.setPrefHeight(48.0);
         loginbtn.setPrefWidth(77.0);
         loginbtn.setStyle("-fx-background-color: #FDE8ED;");
+        loginbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Parent pane = new LoginBase(stage);
+                stage.getScene().setRoot(pane);
+            }
+        }); 
 
         loginText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         loginText.setId("firstPlayerNameText");
@@ -192,11 +220,14 @@ public abstract class SignUpBase extends AnchorPane {
         getChildren().add(usernameTextField);
         getChildren().add(passTextField);
         getChildren().add(loginbtn);
-
-    }
-    
-     public void signup(){
-     
+        
+        SignUpButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+           
+            
+          
+        
         String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regex); 
         Matcher matcher = pattern.matcher(emailTextField.getText());
@@ -204,20 +235,17 @@ public abstract class SignUpBase extends AnchorPane {
         String email = emailTextField.getText().trim();
         String password = passTextField.getText().trim();
         if(userName.isEmpty() || email.isEmpty() || password.isEmpty()   ){
-                Alert alert =new Alert(AlertType.WARNING);
-               alert.setContentText("inforamtion is false");
-               alert.show();
+          JOptionPane.showMessageDialog(jFrame, "Please enter data the fields are required", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+
                  }else if(!matcher.matches()){
-                  Alert alert =new Alert(AlertType.WARNING);
-               alert.setContentText("email format is false");
-               alert.show();
+                 JOptionPane.showMessageDialog(jFrame, "Email Format is False", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+
                  }else if(!passTextField.getText().equals(passTextField.getText())){
-                      Alert alert =new Alert(AlertType.WARNING);
-               alert.setContentText("password is false");
-               alert.show();
+                    JOptionPane.showMessageDialog(jFrame, "Wrong password", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+
                  }  
                  else{
-               connectionHandler.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
+              App.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
                  
         
           thread =   new Thread(){
@@ -225,7 +253,7 @@ public abstract class SignUpBase extends AnchorPane {
            public void run(){
                try {
                    try {
-                       state = connectionHandler.dis.readLine();
+                       state = App.dis.readLine();
                    } catch (IOException ex) {
                        Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
                    }
@@ -237,24 +265,21 @@ public abstract class SignUpBase extends AnchorPane {
                    switch(receivedState){
                        case "Registered Successfully":
                            System.out.println("asdfasdfasdfasdfas");
-                           playerData = connectionHandler.dis.readLine();
+                           playerData = App.dis.readLine();
+                           System.out.println(playerData);
                            token = new StringTokenizer(playerData,"###");
-                           connectionHandler.hash.put("username", token.nextToken());
-                           connectionHandler.hash.put("email",token.nextToken());
-                           connectionHandler.hash.put("score", "0");
+                           App.hash.put("username", token.nextToken());
+                          App.hash.put("email",token.nextToken());
+                           App.hash.put("score", "0");
+                           Parent pane = new ScoreScreenBase(stage);
+                           stage.getScene().setRoot(pane);
                         break;
                         case "already signed-up":
-                                     Alert alert =new Alert(AlertType.INFORMATION);
-               
-                                     alert.setContentText("This Email is " +receivedState);
-               
-                                     alert.show();                             
+                            JOptionPane.showMessageDialog(jFrame, "This email is already signed in", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
                                     break;
                    }
                    
-                    connectionHandler.socket.close();
-                    connectionHandler.dis.close();
-                    connectionHandler.ps.close();
+
                    
                } catch (IOException ex) {
                    Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -265,11 +290,18 @@ public abstract class SignUpBase extends AnchorPane {
            thread.start();
                   }
     }
-	
-	
-	
-    
-    
-    
-    
+        
+        
+      });   
+        
+        
+    }
 }
+
+
+
+
+
+
+
+
