@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -68,10 +69,16 @@ public  class ScoreScreenBase extends AnchorPane {
     private StringTokenizer token;
     private String player2Username ;
     private int player2Score;
+    private int opponentScore;
+    Stage stage;
+    
+    
+    
+    
     
 
     public ScoreScreenBase(Stage stage) {
-        
+        this.stage=stage;
         loaded = true;
         App.ps.println("playerlist");
 
@@ -309,6 +316,12 @@ public  class ScoreScreenBase extends AnchorPane {
                                 case "decline":
                                     alertRefused();
                                     break;
+                                case "gameOn":
+                                    System.out.println("gammmmmmmmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeeeeeee");
+                                    startGame();
+                                    System.out.println("onnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+                                    
+                                    break;
                                     
                                 case "close":
                                     thread.stop();
@@ -367,7 +380,9 @@ public  class ScoreScreenBase extends AnchorPane {
                 if (result.get() == AcceptType){
                     System.out.println("game on");
                     App.ps.println("accept###"+App.hash.get("email")+"###"+App.hash.get("username")+"###"+opponentMail);
-                //    showGame(false,player2Username);
+                    System.out.println("staaaaaaaaaaaaaaaaaaaaaagggggggggggggggggeeeeeeeeeeeeeeeeeeee");
+                    showGame(false,player2Username);
+                    
                 
                 }else {
                     // to players online screen
@@ -489,5 +504,41 @@ public  class ScoreScreenBase extends AnchorPane {
             onlinePlayers.add(player);
         }
     }
+    
+    private void startGame() throws IOException{
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run(){
+                if(alert.isShowing())
+                    alert.close();
+            }
+        });
+        String OpponentUsername = App.dis.readLine();
+        String sOpponentScore = App.dis.readLine();
+        opponentScore = Integer.parseInt(sOpponentScore);
+        System.out.println("player 2 accepted");
+        showGame(true,OpponentUsername);    
+    }
+    
+    private void showGame(boolean state, String name){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                
+                Parent pane = new OnlineGameBoardBase(stage);
+                stage.getScene().setRoot(pane);  
+                System.out.println("my state: "+state);
+                
+                System.out.println("letttttttttttttttttttttttttttttttttttttttttssssssssssssss"); 
+               
+                
+                                  
+            }
+        });
+        
+        
+    }
+    
+    
      
 }

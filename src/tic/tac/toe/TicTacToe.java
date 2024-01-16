@@ -29,9 +29,7 @@ public class TicTacToe extends Application {
 
         
       
-        Parent root =new splash_screenBase(stage);
-
-        
+        Parent root =new splash_screenBase(stage);        
         scene = new Scene(root);
         stage.setResizable(false);
         stage.setScene(scene);
