@@ -1,6 +1,10 @@
 package tic.tac.toe;
 
 import java.io.IOException;
+import java.util.HashMap;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,12 +39,18 @@ public  class OnlineGameBoardBase extends AnchorPane {
     protected final Text firstPlayerScoreText;
     protected final Text secondPlayerScoreText;
     protected final Button exitButton;
+
     protected final ImageView exitimage;
     protected final Button exitButton1;
     protected final ImageView recordImage;
     private Thread thread;
     boolean myTurn,opponentTurn,gameState=true;
     private String myTic,oppTic;
+   boolean enemyTurn ;
+    boolean myTurn ;
+    private int Score;
+    private HashMap<String, Button> buttn;
+
     public OnlineGameBoardBase(Stage stage) {
 
         imageView = new ImageView();
@@ -407,6 +417,68 @@ public  class OnlineGameBoardBase extends AnchorPane {
         getChildren().add(exitButton);
         getChildren().add(exitButton1);
         
+        //store all buttons in the hash map to see which button associated to the enemy
+        buttn = new HashMap();
+
+        buttn.put("btn1", button11);
+        buttn.put("btn2", button12);
+        buttn.put("btn3", button13);
+        buttn.put("btn4", button21);
+        buttn.put("btn5", button22);
+        buttn.put("btn6", button23);
+        buttn.put("btn7", button31);
+        buttn.put("btn8", button32);
+        buttn.put("btn9", button33);
+        
+        
+        
+
+    }
+    
+       
+       
+    private void enemyTurn() {
+    try {
+        String enemySymbol = App.dis.readLine();
+
+        Button enemyBtn = buttn.get(enemySymbol); //btn => hashMap of 9 buttons
+
+        EventHandler<ActionEvent> opponentHandler = event -> {
+            Button button = (Button) event.getSource();
+            Platform.runLater(() -> {
+                button.setText(enemySymbol);
+                    //func to check if game is end or not (neeeeed)
+            });
+        };
+
+        ActionEvent simulatedEvent = new ActionEvent();
+        opponentHandler.handle(simulatedEvent);
+
+        enemyBtn.setOnAction(opponentHandler);
+        enemyTurn = false;
+        myTurn = true;
+
+    } catch (IOException ex) {
+               System.out.println(ex);
+    }
+}
+    
+        private void updateScore(){ 
+        
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Score += 1; //currentscore of the player
+                    App.hash.put("score", ""+Score);
+                } catch(NumberFormatException ex){ 
+
+                }
+                firstPlayerScoreText.setText(""+Score); 
+                App.ps.println("updateScore###"+App.hash.get("email")+"###"+Score);
+            }
+        });
+        
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -520,6 +592,10 @@ public  class OnlineGameBoardBase extends AnchorPane {
 
     public void checkIfGameIsOver(){
         
-        
+
     }
+    
+    
+    
+    
 }
