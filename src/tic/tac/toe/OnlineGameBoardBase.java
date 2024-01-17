@@ -373,11 +373,11 @@ public  class OnlineGameBoardBase extends AnchorPane {
             Button button = (Button) event.getSource();
             Platform.runLater(() -> {
                 button.setText(enemySymbol);
-                    //func to check if game is end or not
+                    //func to check if game is end or not (neeeeed)
             });
         };
 
-        ActionEvent simulatedEvent = new ActionEvent(); //OopBtn.fire
+        ActionEvent simulatedEvent = new ActionEvent();
         opponentHandler.handle(simulatedEvent);
 
         enemyBtn.setOnAction(opponentHandler);
@@ -395,12 +395,12 @@ public  class OnlineGameBoardBase extends AnchorPane {
             @Override
             public void run() {
                 try{
-                    Score += 1; //currentscore
+                    Score += 1; //currentscore of the player
                     App.hash.put("score", ""+Score);
                 } catch(NumberFormatException ex){ 
 
                 }
-                firstPlayerScoreText.setText(""+Score); ////tab el sec??? 3ayza haga a7ot feha el secondPlayerScoreText => show game => player2lbl.setText(""+opponentScore);
+                firstPlayerScoreText.setText(""+Score); 
                 App.ps.println("updateScore###"+App.hash.get("email")+"###"+Score);
             }
         });
