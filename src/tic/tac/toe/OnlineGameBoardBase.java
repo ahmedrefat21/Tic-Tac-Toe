@@ -47,7 +47,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     boolean myTurn,opponentTurn,gameState=true;
     private String myTic,oppTic;
    boolean enemyTurn ;
-    boolean myTurn ;
+    
     private int Score;
     private HashMap<String, Button> buttn;
 
