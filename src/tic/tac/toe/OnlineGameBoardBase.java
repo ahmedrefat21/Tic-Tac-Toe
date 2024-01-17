@@ -2,6 +2,8 @@ package tic.tac.toe;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -46,12 +48,11 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private Thread thread;
     boolean myTurn,opponentTurn,gameState=true;
     private String myTic,oppTic;
-   boolean enemyTurn ;
-    
+    boolean enemyTurn ;
     private int Score;
     private HashMap<String, Button> buttn;
 
-    public OnlineGameBoardBase(Stage stage) {
+    public OnlineGameBoardBase(Stage stage , String player2 , int score) {
 
         imageView = new ImageView();
         imageView0 = new ImageView();
@@ -325,6 +326,8 @@ public  class OnlineGameBoardBase extends AnchorPane {
         firstPlayerNameText.setStrokeWidth(0.0);
         firstPlayerNameText.setText("Refat");
         firstPlayerNameText.setFont(new Font("Comic Sans MS Bold", 48.0));
+        firstPlayerNameText.setText(App.hash.get("username"));
+        
 
         AnchorPane.setBottomAnchor(secondPlayerNameText, 291.0);
         AnchorPane.setTopAnchor(secondPlayerNameText, 122.0);
@@ -336,6 +339,15 @@ public  class OnlineGameBoardBase extends AnchorPane {
         secondPlayerNameText.setStrokeWidth(0.0);
         secondPlayerNameText.setText("Sara");
         secondPlayerNameText.setFont(new Font("Comic Sans MS Bold", 48.0));
+        secondPlayerNameText.setText(player2);
+//        try {
+//             String OpponentUsername = App.dis.readLine();
+//             secondPlayerNameText.setText(OpponentUsername);
+//        } catch (IOException ex) {
+//            Logger.getLogger(OnlineGameBoardBase.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        
 
         AnchorPane.setBottomAnchor(firstPlayerScoreText, 206.0);
         AnchorPane.setTopAnchor(firstPlayerScoreText, 207.0);
@@ -348,6 +360,8 @@ public  class OnlineGameBoardBase extends AnchorPane {
         firstPlayerScoreText.setText("5");
         firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
+        int currentScore = Integer.parseInt(App.hash.get("score"));
+        firstPlayerScoreText.setText(""+currentScore);
 
         AnchorPane.setBottomAnchor(secondPlayerScoreText, 206.0);
         AnchorPane.setTopAnchor(secondPlayerScoreText, 207.0);
@@ -359,6 +373,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
         secondPlayerScoreText.setStrokeWidth(0.0);
         secondPlayerScoreText.setText("4");
         secondPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
+        secondPlayerScoreText.setText(""+score);
+//        try {
+//            String sOpponentScore = App.dis.readLine();
+//            int opponentScore = Integer.parseInt(sOpponentScore);
+//            secondPlayerScoreText.setText(""+opponentScore);
+//        } catch (IOException ex) {
+//            Logger.getLogger(OnlineGameBoardBase.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         AnchorPane.setBottomAnchor(exitButton, 12.0);
         AnchorPane.setLeftAnchor(exitButton, 612.0);
@@ -417,6 +439,8 @@ public  class OnlineGameBoardBase extends AnchorPane {
         getChildren().add(exitButton);
         getChildren().add(exitButton1);
         
+        
+        
         //store all buttons in the hash map to see which button associated to the enemy
         buttn = new HashMap();
 
@@ -430,6 +454,55 @@ public  class OnlineGameBoardBase extends AnchorPane {
         buttn.put("btn8", button32);
         buttn.put("btn9", button33);
         
+        
+        
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    do{
+                        try{
+                            String data = App.dis.readLine();
+                            if(data.equals("null")){
+                                break;
+                            }
+                            switch(data){
+                               
+                                case "gameTic":
+                                    
+                                    break;
+                                case "finalgameTic":
+                                    
+                                    break;
+
+                                case "endGame":
+                                    
+                                    break;
+                                case "withdraw":
+                                    System.out.println("withdraw");
+                                    App.ps.println("available###"+App.hash.get("email"));
+                                    Platform.runLater(() -> {
+                                        System.out.println("You opponent has withdrawed, you are the winner!!!");
+                                        thread.stop();
+                                    });
+                                    break;
+                                default :
+                                    System.out.println("default");      
+                            }
+                        } catch (IOException ex) {
+                            
+                        }
+                    }while(true);
+                    
+                    try{
+                            Thread.sleep(300);
+                        }catch(InterruptedException ex){
+                            thread.stop();
+                        }
+                    }
+                }                   
+        });
+        thread.start();
         
         
 
@@ -464,7 +537,6 @@ public  class OnlineGameBoardBase extends AnchorPane {
 }
     
         private void updateScore(){ 
-        
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -478,122 +550,31 @@ public  class OnlineGameBoardBase extends AnchorPane {
                 App.ps.println("updateScore###"+App.hash.get("email")+"###"+Score);
             }
         });
-        
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true){
-                    do{
-                        try{
-                            String data = App.dis.readLine();
-                            if(data.equals("null")){
-                                break;
-                            }
-                            switch(data){
-                               
-                                case "gameTic":
-                                    
-                                    break;
-                                case "finalgameTic":
-                                    
-                                    break;
-
-                                case "endGame":
-                                    
-                                    break;
-                                case "withdraw":
-                                    System.out.println("withdraw");
-                                  
-                                    App.ps.println("available###"+App.hash.get("email"));
-                                    Platform.runLater(() -> {
-                                        System.out.println("You opponent has withdrawed, you are the winner!!!");
-                                        
-                                        thread.stop();
-                                        
-                                    });
-                                    break;
-                                
-                                default :
-                                    System.out.println("default");      
-                            }
-                        } catch (IOException ex) {
-                            
-                        }
-                    }while(true);
-                    
-                    try{
-                            Thread.sleep(300);
-                        }catch(InterruptedException ex){
-                            thread.stop();
-                        }
-                    }
-                }                   
-        });
-        thread.start();
-
     }
-    
-    
-    
-    
 
-    
-    
     public void setPlayerTurn(Button button){
         if(gameState && myTurn){
             if(button.getText().equals("")){
-                secondPlayerNameText.setStyle("-fx-effect: none;");
-                firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
                 button.setText("X");
                 button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
                 myTurn = false;
                 opponentTurn = true;
+                if(myTurn && myTic.equals("X")){
+                    firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+                }else{
+                    secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");   
+                }
+                if(gameState){
+                    App.ps.println("finishgameTic###"+App.hash.get("email")+"###"+button.getId());
+                }else{
+                    App.ps.println("gameTic###"+App.hash.get("email")+"###"+button.getId());
+                }
             }
             
-        } else{
-            firstPlayerNameText.setStyle("-fx-effect: none;");
-            secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-            button.setText("O");
-            button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
-            myTurn = true;
-            opponentTurn = false;
-            
-        }
+        } 
     }
     
-    public void buttonPressed2(){
-        Button buttonPressed = null ;
-        if(gameState && myTurn){
-            if(buttonPressed.getText().equals("")){
-                buttonPressed.setText("x");
-                buttonPressed.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
-                myTurn = false;
-                opponentTurn = true;
-                if(myTurn && myTic.equals("X")){
-                    secondPlayerNameText.setStyle("-fx-effect: none;");
-                    firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-                    
-                }else{
-                    firstPlayerNameText.setStyle("-fx-effect: none;");
-                    secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-                    
-                }
-                System.out.println("I pressed "+buttonPressed.getId());
-                if(gameState){
-                    
-                    App.ps.println("finishgameTic###"+App.hash.get("email")+"###"+buttonPressed.getId());
-                }else{
-                    App.ps.println("gameTic###"+App.hash.get("email")+"###"+buttonPressed.getId());
-                }
-            }
-        }
-    }
-
-
-    public void checkIfGameIsOver(){
-        
-
-    }
+    
     
     
     

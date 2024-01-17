@@ -525,7 +525,7 @@ public  class ScoreScreenBase extends AnchorPane {
             @Override
             public void run() {
                 
-                Parent pane = new OnlineGameBoardBase(stage);
+                Parent pane = new OnlineGameBoardBase(stage , name , opponentScore);
                 stage.getScene().setRoot(pane);  
                 System.out.println("my state: "+state);
                 
