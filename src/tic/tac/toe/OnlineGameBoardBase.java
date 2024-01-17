@@ -389,7 +389,22 @@ public  class OnlineGameBoardBase extends AnchorPane {
     }
 }
     
+        private void updateScore(){ 
+        
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Score += 1; //currentscore
+                    App.hash.put("score", ""+Score);
+                } catch(NumberFormatException ex){ 
 
+                }
+                firstPlayerScoreText.setText(""+Score); ////tab el sec??? 3ayza haga a7ot feha el secondPlayerScoreText => show game => player2lbl.setText(""+opponentScore);
+                App.ps.println("updateScore###"+App.hash.get("email")+"###"+Score);
+            }
+        });
+    }
     
     
     
