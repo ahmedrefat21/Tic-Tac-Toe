@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,7 +51,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private String myTic,oppTic;
     boolean enemyTurn ;
     private int Score;
-    private HashMap<String, Button> buttn;
+    private HashMap<String, Button> btn;
 
     public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
 
@@ -119,11 +120,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button11.setText("");
         button11.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button11.setFont(new Font("Comic Sans MS Bold", 48.0));
+        button11.setId("btn1");
         button11.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
         button11.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
                 setPlayerTurn(button11);
+                
+                
             }
             
         });
@@ -138,10 +142,12 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button13.setText("");
         button13.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button13.setFont(new Font("Comic Sans MS Bold", 48.0));
+        button13.setId("btn3");
         button13.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
                 setPlayerTurn(button13);
+                 
             }
             
         });
@@ -155,6 +161,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button12.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button12.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
         button12.setText("");
+        button12.setId("btn2");
         button12.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button12.setFont(new Font("Comic Sans MS Bold", 48.0));
         button12.setOpaqueInsets(new Insets(5.0, 5.0, 5.0, 0.0));
@@ -175,6 +182,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button31.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button31.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
         button31.setText("");
+        button31.setId("btn7");
         button31.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button31.setFont(new Font("Comic Sans MS Bold", 48.0));
         button31.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
@@ -195,6 +203,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button23.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button23.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
         button23.setText("");
+        button23.setId("btn6");
         button23.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button23.setFont(new Font("Comic Sans MS Bold", 48.0));
         button23.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
@@ -214,6 +223,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button22.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button22.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
         button22.setText("");
+        button22.setId("btn5");
         button22.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button22.setFont(new Font("Comic Sans MS Bold", 48.0));
         button22.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
@@ -233,6 +243,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button21.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button21.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
         button21.setText("");
+        button21.setId("btn4");
         button21.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         button21.setFont(new Font("Comic Sans MS Bold", 48.0));
         button21.setOpaqueInsets(new Insets(5.0, 5.0, 0.0, 0.0));
@@ -253,6 +264,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button33.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button33.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
         button33.setText("");
+        button33.setId("btn9");
         button33.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button33.setFont(new Font("Comic Sans MS Bold", 48.0));
         button33.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
@@ -272,6 +284,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button32.setStyle("-fx-background-color: FFDDE5; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         button32.getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
         button32.setText("");
+        button32.setId("btn8");
         button32.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         button32.setFont(new Font("Comic Sans MS Bold", 48.0));
         button32.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
@@ -442,30 +455,39 @@ public  class OnlineGameBoardBase extends AnchorPane {
         
         
         //store all buttons in the hash map to see which button associated to the enemy
-        buttn = new HashMap();
+        btn = new HashMap();
 
-        buttn.put("btn1", button11);
-        buttn.put("btn2", button12);
-        buttn.put("btn3", button13);
-        buttn.put("btn4", button21);
-        buttn.put("btn5", button22);
-        buttn.put("btn6", button23);
-        buttn.put("btn7", button31);
-        buttn.put("btn8", button32);
-        buttn.put("btn9", button33);
+        btn.put("btn1", button11);
+        btn.put("btn2", button12);
+        btn.put("btn3", button13);
+        btn.put("btn4", button21);
+        btn.put("btn5", button22);
+        btn.put("btn6", button23);
+        btn.put("btn7", button31);
+        btn.put("btn8", button32);
+        btn.put("btn9", button33);
         
         System.out.println("my state: "+state);
         myTurn = state;
         opponentTurn = !state;
         gameState = true;
         if(state){
-            myTic = "X";
+            myTic = "X";               
             oppTic = "O";
         }else{
             myTic = "O";
             oppTic = "X";
         }
         System.out.println("my tic" +myTic);
+        
+        if(myTurn && myTic.equals("X")){
+            firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            imageView.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            
+        }else{
+            secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            imageView0.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+        }
         
         
         
@@ -480,12 +502,12 @@ public  class OnlineGameBoardBase extends AnchorPane {
                                 break;
                             }
                             switch(data){
-                               
                                 case "gameTic":
-                                    
+                                    opponentTurn();
                                     break;
                                 case "finalgameTic":
-                                    
+                                    opponentTurn();
+                                    reset();
                                     break;
 
                                 case "endGame":
@@ -527,7 +549,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     try {
         String enemySymbol = App.dis.readLine();
 
-        Button enemyBtn = buttn.get(enemySymbol); //btn => hashMap of 9 buttons
+        Button enemyBtn = btn.get(enemySymbol); //btn => hashMap of 9 buttons
 
         EventHandler<ActionEvent> opponentHandler = event -> {
             Button button = (Button) event.getSource();
@@ -574,10 +596,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
                 opponentTurn = true;
                 if(myTurn && myTic.equals("X")){
                     firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+                    button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
                 }else{
-                    secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");   
+                    secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);"); 
+                    button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
                 }
-                if(gameState){
+                 System.out.println("I pressed "+button.getId());
+                 System.out.println(gameState);
+                if(checkState()){
                     App.ps.println("finishgameTic###"+App.hash.get("email")+"###"+button.getId());
                 }else{
                     App.ps.println("gameTic###"+App.hash.get("email")+"###"+button.getId());
@@ -585,6 +611,158 @@ public  class OnlineGameBoardBase extends AnchorPane {
             }
             
         } 
+    }
+    
+    private void opponentTurn(){
+        try {
+            String oppPressed = App.dis.readLine();
+            System.out.println(oppPressed);
+            Button btnOpp = btn.get(oppPressed);
+            btnOpp.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Button button = (Button) event.getSource();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            button.setText(oppTic);
+                            System.out.println("myTic "+ oppTic);
+                            
+                            //checkState();
+                        }
+                    });
+                }
+            });
+            btnOpp.fire();
+            myTurn= true;
+            opponentTurn = false;
+            
+
+            
+        } catch (IOException ex) {
+            Logger.getLogger(OnlineGameBoardBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    private boolean checkState(){
+        System.out.println("checking state");
+        checkColumns();
+        checkRows();
+        checkDiagonal();
+        
+        if(!gameState){
+            App.ps.println("updateGameState###"+App.hash.get("email"));
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    
+                }
+            });
+            reset();
+            return true; // ended game
+            
+        }else if(isFullGrid()){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("It's adraw !!");
+                    
+                }                
+            });
+            reset();
+            return true;
+        }
+        return false;
+    }
+    
+    private void reset(){
+
+        App.ps.println("available###"+App.hash.get("email"));
+        thread.stop();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+               
+            }
+        });
+    }
+    
+    private void checkRows(){
+        if(button11.getText().equals(button12.getText()) && button12.getText().equals(button13.getText()) && !button11.getText().equals("")){
+            gameState = false;
+            if(button11.getText().equals(myTic)){
+                
+                updateScore();
+            }else{
+                System.out.println("opp win");
+            }
+        }
+        else if(button21.getText().equals(button22.getText()) && button22.getText().equals(button23.getText()) && !button21.getText().equals("")){
+            gameState = false;
+            if(button21.getText().equals(myTic)){
+               
+                updateScore();
+            }else{
+                System.out.println("opp won!");
+            }
+        }
+        else if(button31.getText().equals(button32.getText()) && button32.getText().equals(button33.getText()) && !button31.getText().equals("")){
+            gameState = false;
+            if(button31.getText().equals(myTic)){
+                updateScore();
+            }
+        }
+    }
+    
+    private void checkColumns(){
+        if(button11.getText().equals(button21.getText()) && button21.getText().equals(button31.getText()) && !button11.getText().equals("")){
+            if(button11.getText().equals(myTic)){
+               
+                updateScore();
+            }
+            gameState = false;
+        }
+        else if(button12.getText().equals(button22.getText()) && button22.getText().equals(button32.getText()) && !button12.getText().equals("")){
+            if(button12.getText().equals(myTic)){
+              
+                updateScore();
+            }
+            gameState = false;
+        }
+        else if(button13.getText().equals(button23.getText()) && button23.getText().equals(button33.getText()) && !button13.getText().equals("")){
+            if(button13.getText().equals(myTic)){
+               updateScore();
+            }
+            gameState = false;
+        }
+    }
+    
+    private void checkDiagonal(){
+        if(button11.getText().equals(button22.getText()) && button22.getText().equals(button33.getText()) && !button11.getText().equals("")){
+            if(button11.getText().equals(myTic)){
+              
+                updateScore();
+            }
+            gameState = false;
+        }
+        else if(button13.getText().equals(button22.getText()) && button22.getText().equals(button31.getText()) && !button13.getText().equals("")){
+            if(button13.getText().equals(myTic)){
+              
+                updateScore();
+            }
+            gameState = false;
+        }
+    }
+    
+    private boolean isFullGrid(){
+        if(!button11.getText().equals("") && !button12.getText().equals("") && !button13.getText().equals("") && !button21.getText().equals("")
+                && !button22.getText().equals("") && !button23.getText().equals("")&& !button31.getText().equals("")
+                && !button32.getText().equals("") && !button33.getText().equals("")){
+                return true;
+        }else{
+            return false;
+        }
     }
     
     
