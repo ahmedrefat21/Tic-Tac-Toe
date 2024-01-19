@@ -46,13 +46,13 @@ public  class OnlineGameBoardBase extends AnchorPane {
     protected final Button exitButton1;
     protected final ImageView recordImage;
     private Thread thread;
-    boolean myTurn,opponentTurn,gameState=true;
+    boolean myTurn,opponentTurn,gameState=false;
     private String myTic,oppTic;
     boolean enemyTurn ;
     private int Score;
     private HashMap<String, Button> buttn;
 
-    public OnlineGameBoardBase(Stage stage , String player2 , int score) {
+    public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
 
         imageView = new ImageView();
         imageView0 = new ImageView();
@@ -454,6 +454,19 @@ public  class OnlineGameBoardBase extends AnchorPane {
         buttn.put("btn8", button32);
         buttn.put("btn9", button33);
         
+        System.out.println("my state: "+state);
+        myTurn = state;
+        opponentTurn = !state;
+        gameState = true;
+        if(state){
+            myTic = "X";
+            oppTic = "O";
+        }else{
+            myTic = "O";
+            oppTic = "X";
+        }
+        System.out.println("my tic" +myTic);
+        
         
         
         thread = new Thread(new Runnable() {
@@ -555,7 +568,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     public void setPlayerTurn(Button button){
         if(gameState && myTurn){
             if(button.getText().equals("")){
-                button.setText("X");
+                button.setText(myTic);
                 button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
                 myTurn = false;
                 opponentTurn = true;
