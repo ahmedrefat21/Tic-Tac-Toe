@@ -60,7 +60,8 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private Boolean display = false;
     private Timeline timelinewinner;
     private Timeline timelinelose;
-    Player playerOne, playerTwo;
+    private Timeline timelineldraw;
+
     
     public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
 
@@ -95,6 +96,12 @@ public  class OnlineGameBoardBase extends AnchorPane {
         
         timelinelose= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             Parent pane = new losevideoBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        timelineldraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new draw_videoBase(stage);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
@@ -692,8 +699,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                 @Override
                 public void run() {
                     System.out.println("It's adraw !!");
-                    
-                    
+                    timelineldraw.play();        
                 }                
             });
             reset();

@@ -61,7 +61,8 @@ public  class GameBase extends AnchorPane {
     boolean isfirstPlayerTurn = true;
     int counter =0;
    private Timeline timelinewinner;
-   private Timeline timelinelose;
+   private Timeline timelinedraw;
+    private Timeline timelinelose;
 
     boolean turn, fullBoardFlag;
     
@@ -103,7 +104,13 @@ public  class GameBase extends AnchorPane {
             stage.setScene(scene);
             stage.show();
         }));
-        timelinelose= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        timelinedraw= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new draw_videoBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        timelinelose=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             Parent pane = new losevideoBase(stage);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
@@ -425,7 +432,7 @@ public  class GameBase extends AnchorPane {
         setPlayerSymbol(button);
         button.setDisable(true);
         System.out.println(++counter);
-        checkIfGameIsOver();
+       // checkIfGameIsOver();
         button.setFocusTraversable(false);
         GameWinnerDetails gameWinner = checkWinner();
         if (counter < 9 && !gameWinner.someoneWon && challengeComputer && playerTurn == 1) {
@@ -704,16 +711,16 @@ public  class GameBase extends AnchorPane {
             }
             
             if ("XXX".equals(line)) {
-                
-                
+             timelinewinner.play();
                 return new GameWinnerDetails(true, true, buttons);
             } else if ("OOO".equals(line)) {
+                timelinelose.play();
                 return new GameWinnerDetails(true, false, buttons);
             }
         }
 
         if (counter == 9) {
-            timelinewinner.play();
+            timelinedraw.play();
             System.out.println(counter);
             return new GameWinnerDetails(false, false, null);
         }
@@ -723,28 +730,28 @@ public  class GameBase extends AnchorPane {
     
     
 
-    public void checkIfGameIsOver() {
-        GameWinnerDetails winnerDetails = checkWinner();
-        System.out.println("Winner details = " + winnerDetails);
-        if (winnerDetails != null) {
-            if (winnerDetails.someoneWon) {
-                if (winnerDetails.player1Won) {
-                    firstPlayerScoreText.setText(String.valueOf(player1Score));
-                    player1Score++;
-                    System.out.println("Player 1 score = " + player1Score);
-                } else {
-                    secondPlayerScoreText.setText(String.valueOf(player2Score));
-                    player2Score++;
-                    System.out.println("Player 2 score = " + player2Score);
-                }
-
-                highlightWinningButtons(winnerDetails.winningButtons);
-                disableButton();
-                timelinewinner.play();
-                fullBoardFlag = false;
-            }
-        }
-    }
+//    public void checkIfGameIsOver() {
+//        GameWinnerDetails winnerDetails = checkWinner();
+//        System.out.println("Winner details = " + winnerDetails);
+//        if (winnerDetails != null) {
+//            if (winnerDetails.someoneWon) {
+//                if (winnerDetails.player1Won) {
+//                    firstPlayerScoreText.setText(String.valueOf(player1Score));
+//                    player1Score++;
+//                    System.out.println("Player 1 score = " + player1Score);
+//                } else {
+//                    secondPlayerScoreText.setText(String.valueOf(player2Score));
+//                    player2Score++;
+//                    System.out.println("Player 2 score = " + player2Score);
+//                }
+//
+//                highlightWinningButtons(winnerDetails.winningButtons);
+//                disableButton();
+//                timelinewinner.play();
+//                fullBoardFlag = false;
+//            }
+//        }
+//    }
 
     private void highlightWinningButtons(Button[] buttons) {
         for (int i = 0; i < 3; i++) {
