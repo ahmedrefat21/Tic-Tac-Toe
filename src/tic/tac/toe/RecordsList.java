@@ -1,11 +1,19 @@
 package tic.tac.toe;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class RecordsList extends AnchorPane {
 
@@ -13,45 +21,32 @@ public class RecordsList extends AnchorPane {
     protected final AnchorPane anchorPane;
     protected final ImageView Record_Screen_Back_Button;
     protected final Text text;
-    protected final Text Record_Label_3;
-    protected final ImageView Play_Record_3;
-    protected final Line line;
-    protected final Text Record_Label_2;
-    protected final Text Record_Label_1;
-    protected final ImageView Play_Record_2;
-    protected final Line line0;
-    protected final ImageView Play_Record_1;
+    
+    protected final List<Recording> recordsList = new ArrayList<>();
+            
+    protected static final double RECORD_LABEL_START_OFFSET = 50.0;
 
-    public RecordsList() {
-
+    public RecordsList(Stage stage) {
         scrollPane = new ScrollPane();
         anchorPane = new AnchorPane();
         Record_Screen_Back_Button = new ImageView();
         text = new Text();
-        Record_Label_3 = new Text();
-        Play_Record_3 = new ImageView();
-        line = new Line();
-        Record_Label_2 = new Text();
-        Record_Label_1 = new Text();
-        Play_Record_2 = new ImageView();
-        line0 = new Line();
-        Play_Record_1 = new ImageView();
 
         setId("AnchorPane");
         setPrefHeight(480.0);
         setPrefWidth(740.0);
-        getStyleClass().add("record-box");
-        getStylesheets().add("/tic/tac/toe/css/RecordMenuScreen.css");
+        getStyleClass().add("records-box");
+        getStylesheets().add("/tic/tac/toe/css/recordslist.css");
 
         scrollPane.setPrefHeight(480.0);
         scrollPane.setPrefWidth(740.0);
+        //scrollPane.setFitToHeight(true);
 
         anchorPane.setMinHeight(0.0);
         anchorPane.setMinWidth(0.0);
-        anchorPane.setPrefHeight(480.0);
         anchorPane.setPrefWidth(743.0);
-        anchorPane.getStyleClass().add("record-box");
-        anchorPane.getStylesheets().add("/tic/tac/toe/css/RecordMenuScreen.css");
+        anchorPane.getStyleClass().add("records-box");
+        anchorPane.getStylesheets().add("/tic/tac/toe/css/recordslist.css");
 
         Record_Screen_Back_Button.setFitHeight(95.0);
         Record_Screen_Back_Button.setFitWidth(85.0);
@@ -59,84 +54,89 @@ public class RecordsList extends AnchorPane {
         Record_Screen_Back_Button.setLayoutY(28.0);
         Record_Screen_Back_Button.setPickOnBounds(true);
         Record_Screen_Back_Button.setPreserveRatio(true);
-        Record_Screen_Back_Button.setImage(new Image(getClass().getResource("../../../assets/images/back.png").toExternalForm()));
-
+        Record_Screen_Back_Button.setImage(new Image(getClass().getResource("/assets/images/back.png").toExternalForm()));
+        Record_Screen_Back_Button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                 Parent pane = new MainPageBase(stage);
+                stage.getScene().setRoot(pane);
+            }
+        });
         text.setLayoutX(151.0);
         text.setLayoutY(78.0);
         text.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         text.setStrokeWidth(0.0);
         text.getStyleClass().add("head-text");
         text.setText("Offline Game Records");
-
-        Record_Label_3.setLayoutX(32.0);
-        Record_Label_3.setLayoutY(421.0);
-        Record_Label_3.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        Record_Label_3.setStrokeWidth(0.0);
-        Record_Label_3.getStyleClass().add("players-name");
-        Record_Label_3.setText("Ahmed-Sarah-28-12-2023");
-
-        Play_Record_3.setFitHeight(68.0);
-        Play_Record_3.setFitWidth(68.0);
-        Play_Record_3.setLayoutX(598.0);
-        Play_Record_3.setLayoutY(375.0);
-        Play_Record_3.setPickOnBounds(true);
-        Play_Record_3.setPreserveRatio(true);
-        Play_Record_3.setImage(new Image(getClass().getResource("../../../assets/images/play-video.png").toExternalForm()));
-
-        line.setEndX(446.0);
-        line.setLayoutX(253.0);
-        line.setLayoutY(349.0);
-        line.setStartX(-226.0);
-        line.getStyleClass().add("lines");
-
-        Record_Label_2.setLayoutX(29.0);
-        Record_Label_2.setLayoutY(314.0);
-        Record_Label_2.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        Record_Label_2.setStrokeWidth(0.0);
-        Record_Label_2.getStyleClass().add("players-name");
-        Record_Label_2.setText("Ahmed-Mariam-28-12-2023");
-
-        Record_Label_1.setLayoutX(28.0);
-        Record_Label_1.setLayoutY(211.0);
-        Record_Label_1.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        Record_Label_1.setStrokeWidth(0.0);
-        Record_Label_1.getStyleClass().add("players-name");
-        Record_Label_1.setText("Ahmed-Mahdy-28-12-2023");
-
-        Play_Record_2.setFitHeight(77.0);
-        Play_Record_2.setFitWidth(68.0);
-        Play_Record_2.setLayoutX(598.0);
-        Play_Record_2.setLayoutY(268.0);
-        Play_Record_2.setPickOnBounds(true);
-        Play_Record_2.setPreserveRatio(true);
-        Play_Record_2.setImage(new Image(getClass().getResource("../../../assets/images/play-video.png").toExternalForm()));
-
-        line0.setEndX(447.0);
-        line0.setLayoutX(250.0);
-        line0.setLayoutY(250.0);
-        line0.setStartX(-221.0);
-        line0.getStyleClass().add("lines");
-
-        Play_Record_1.setFitHeight(68.0);
-        Play_Record_1.setFitWidth(68.0);
-        Play_Record_1.setLayoutX(598.0);
-        Play_Record_1.setLayoutY(165.0);
-        Play_Record_1.setPickOnBounds(true);
-        Play_Record_1.setPreserveRatio(true);
-        Play_Record_1.setImage(new Image(getClass().getResource("../../../assets/images/play-video.png").toExternalForm()));
         scrollPane.setContent(anchorPane);
 
         anchorPane.getChildren().add(Record_Screen_Back_Button);
         anchorPane.getChildren().add(text);
-        anchorPane.getChildren().add(Record_Label_3);
-        anchorPane.getChildren().add(Play_Record_3);
-        anchorPane.getChildren().add(line);
-        anchorPane.getChildren().add(Record_Label_2);
-        anchorPane.getChildren().add(Record_Label_1);
-        anchorPane.getChildren().add(Play_Record_2);
-        anchorPane.getChildren().add(line0);
-        anchorPane.getChildren().add(Play_Record_1);
         getChildren().add(scrollPane);
 
+        init(stage);
+    }
+    
+    private void init(Stage stage) {
+        String recordsPath = Config.getRecordsPath();
+        File directory = new File(recordsPath);
+
+        if (directory.isDirectory()) {
+           
+            File[] files = directory.listFiles();
+
+           
+            if (files != null && files.length > 0) {
+                System.out.println("Files in directory " + recordsPath + ":");
+                for (File file : files) {
+                    if (file.isFile()) {
+                        System.out.println(file.getName());
+                        recordsList.add(new Recording(file));
+                    }
+                }
+            } else {
+                System.out.println("No files found in directory " + recordsPath);
+            }
+        } else {
+            System.out.println(recordsPath + " is not a valid directory");
+        }
+        
+        for (int i = 0, l = recordsList.size(); i < l; ++i) {
+            Recording currentRecording = recordsList.get(i);
+            System.out.println("Current file = " + currentRecording.getTitle());
+            
+            Text recordLabel = new Text();
+            ImageView playButton = new ImageView();
+
+            recordLabel.setLayoutX(32.0);
+            recordLabel.setLayoutY(RECORD_LABEL_START_OFFSET + 150 * (i + 1));
+            recordLabel.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+            recordLabel.setStrokeWidth(0.0);
+            recordLabel.getStyleClass().add("record-name");
+            recordLabel.setText(currentRecording.getTitle());
+
+            playButton.setFitHeight(68.0);
+            playButton.setFitWidth(68.0);
+            playButton.setLayoutX(598.0);
+            playButton.setLayoutY(recordLabel.getLayoutY() - 40);
+            playButton.setPickOnBounds(true);
+            playButton.setPreserveRatio(true);
+            playButton.setImage(new Image(getClass().getResource("/assets/images/play-video (2) 1.png").toExternalForm()));
+            playButton.setOnMouseClicked((MouseEvent event) -> {
+                GameBase gameBase = new GameBase(stage, currentRecording);
+                stage.getScene().setRoot(gameBase);
+            });
+            
+            anchorPane.getChildren().add(recordLabel);
+            anchorPane.getChildren().add(playButton);
+
+            Line line = new Line();
+            line.setEndX(446.0);
+            line.setLayoutX(253.0);
+            line.setLayoutY(recordLabel.getLayoutY() + 70);
+            line.setStartX(-226.0);
+            line.getStyleClass().add("lins");
+            anchorPane.getChildren().add(line);
+        }
     }
 }
