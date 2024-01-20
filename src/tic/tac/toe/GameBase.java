@@ -1,11 +1,21 @@
 package tic.tac.toe;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -16,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -28,26 +39,26 @@ import javafx.util.Duration;
 
 public  class GameBase extends AnchorPane {
 
-    protected final ImageView imageView;
-    protected final ImageView imageView0;
-    protected final ImageView exitimage;
-    protected final Button button11;
-    protected final Button button13;
-    protected final Button button12;
-    protected final Button button31;
-    protected final Button button23;
-    protected final Button button22;
-    protected final Button button21;
-    protected final Button button33;
-    protected final Button button32;
-    protected final Text tacText;
-    protected final Text toeText;
-    protected final Text ticText;
-    protected final Text firstPlayerNameText;
-    protected final Text secondPlayerNameText;
-    protected final Text firstPlayerScoreText;
-    protected final Text secondPlayerScoreText;
-    protected final ImageView recordImage;
+    protected ImageView imageView;
+    protected ImageView imageView0;
+    protected ImageView exitimage;
+    protected Button button11;
+    protected Button button13;
+    protected Button button12;
+    protected Button button31;
+    protected Button button23;
+    protected Button button22;
+    protected Button button21;
+    protected Button button33;
+    protected Button button32;
+    protected Text tacText;
+    protected Text toeText;
+    protected Text ticText;
+    protected Text firstPlayerNameText;
+    protected Text secondPlayerNameText;
+    protected Text firstPlayerScoreText;
+    protected Text secondPlayerScoreText;
+    protected ImageView recordImage;
     protected Player firstPlayer, secondPlayer;
     private Button[][] buttons = new Button[3][3];
     private boolean isGameEnds = false;
@@ -62,14 +73,28 @@ public  class GameBase extends AnchorPane {
     int counter =0;
     Timeline timeline;
     boolean turn, fullBoardFlag;
+    boolean isRecording = false;
+    Recording currentRecording;
+    boolean isPlayingRecord = false;
+    
+    public GameBase(Stage s, Recording recording) {
+        this.currentRecording = recording;
+        this.isPlayingRecord = true;
+        init(s, recording.getPlayer1(), recording.getPlayer2());
+        
+    }
     
     public GameBase(Stage s, Player playerOne, Player playerTwo, Boolean challengeComputer, GameDifficulty difficulty) {
-        this(s, playerOne, playerTwo);
         this.challengeComputer = challengeComputer;
         this.difficulty = difficulty;
+        init(s, playerOne, playerTwo);
     }
 
     public GameBase(Stage s, Player playerOne, Player playerTwo) {
+        init(s, playerOne, playerTwo);
+    }
+    
+    private void init(Stage s, Player playerOne, Player playerTwo) {
         imageView = new ImageView();
         imageView0 = new ImageView();
         exitimage = new ImageView();
@@ -112,7 +137,7 @@ public  class GameBase extends AnchorPane {
         setStyle("-fx-background-color: #FDE8ED;");
         getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
 
-         String path="/assets/videos/winnerr.mp4";
+        String path="/assets/videos/winnerr.mp4";
         Media media = new Media(getClass().getResource(path).toExternalForm());  
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         
@@ -342,43 +367,49 @@ public  class GameBase extends AnchorPane {
         secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         secondPlayerNameText.setText("Sara");
         secondPlayerNameText.setFont(new Font("Comic Sans MS Bold", 24.0));
-        
-        AnchorPane.setBottomAnchor(firstPlayerScoreText, 206.0);
-        AnchorPane.setTopAnchor(firstPlayerScoreText, 207.0);
-        firstPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
-        firstPlayerScoreText.setId("firstPlayerNameText");
-        firstPlayerScoreText.setLayoutX(67.0);
-        firstPlayerScoreText.setLayoutY(260.0);
-        firstPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        firstPlayerScoreText.setStrokeWidth(0.0);
-        firstPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        firstPlayerScoreText.setText(player1Score+"");
-        firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
 
-        AnchorPane.setBottomAnchor(secondPlayerScoreText, 206.0);
-        AnchorPane.setTopAnchor(secondPlayerScoreText, 207.0);
-        secondPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
-        secondPlayerScoreText.setId("firstPlayerNameText");
-        secondPlayerScoreText.setLayoutX(655.0);
-        secondPlayerScoreText.setLayoutY(249.0);
-        secondPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        secondPlayerScoreText.setStrokeWidth(0.0);
-        secondPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        secondPlayerScoreText.setText(player2Score+"");
-        secondPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
+        if (!isPlayingRecord) {
+            AnchorPane.setBottomAnchor(firstPlayerScoreText, 206.0);
+            AnchorPane.setTopAnchor(firstPlayerScoreText, 207.0);
+            firstPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
+            firstPlayerScoreText.setId("firstPlayerNameText");
+            firstPlayerScoreText.setLayoutX(67.0);
+            firstPlayerScoreText.setLayoutY(260.0);
+            firstPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+            firstPlayerScoreText.setStrokeWidth(0.0);
+            firstPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            firstPlayerScoreText.setText(player1Score+"");
+            firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+            firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
 
-        AnchorPane.setBottomAnchor(recordImage, 14.0);
-        AnchorPane.setLeftAnchor(recordImage, 15.0);
-        AnchorPane.setTopAnchor(recordImage, 382.0);
-        recordImage.setFitHeight(83.0);
-        recordImage.setFitWidth(104.0);
-        recordImage.setLayoutX(15.0);
-        recordImage.setLayoutY(382.0);
-        recordImage.setPickOnBounds(true);
-        recordImage.setPreserveRatio(true);
-        recordImage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        recordImage.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
+            AnchorPane.setBottomAnchor(secondPlayerScoreText, 206.0);
+            AnchorPane.setTopAnchor(secondPlayerScoreText, 207.0);
+            secondPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
+            secondPlayerScoreText.setId("firstPlayerNameText");
+            secondPlayerScoreText.setLayoutX(655.0);
+            secondPlayerScoreText.setLayoutY(249.0);
+            secondPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+            secondPlayerScoreText.setStrokeWidth(0.0);
+            secondPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            secondPlayerScoreText.setText(player2Score+"");
+            secondPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
+
+            AnchorPane.setBottomAnchor(recordImage, 14.0);
+            AnchorPane.setLeftAnchor(recordImage, 15.0);
+            AnchorPane.setTopAnchor(recordImage, 382.0);
+            recordImage.setFitHeight(83.0);
+            recordImage.setFitWidth(104.0);
+            recordImage.setLayoutX(15.0);
+            recordImage.setLayoutY(382.0);
+            recordImage.setPickOnBounds(true);
+            recordImage.setPreserveRatio(true);
+            recordImage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            recordImage.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
+            recordImage.setOnMouseClicked((MouseEvent event) -> {
+                isRecording = true;
+                recordImage.setVisible(false);
+            });
+        }
 
         getChildren().add(imageView);
         getChildren().add(imageView0);
@@ -399,7 +430,10 @@ public  class GameBase extends AnchorPane {
         getChildren().add(secondPlayerNameText);
         getChildren().add(firstPlayerScoreText);
         getChildren().add(secondPlayerScoreText);
-        getChildren().add(recordImage);
+        
+        if (!isPlayingRecord) {
+            getChildren().add(recordImage);
+        }
 
         firstPlayerNameText.setText(playerOne.getUsername());
         secondPlayerNameText.setText(playerTwo.getUsername());
@@ -411,32 +445,91 @@ public  class GameBase extends AnchorPane {
             GameBase.player2Score = 0 ;
            mediaPlayer.stop();  
        });
+        
+        if (isPlayingRecord) {
+            System.out.println("WEEEEEEEEE ARE PLAYING A RECORD");
+            disableButton();
+            playRecording();
+        }
     }
 
     private void playMove(Button button) {
+        if (!isRecording)
+            recordImage.setVisible(false);
+        else if (!isPlayingRecord)
+            recordMove(button);
+
         setPlayerSymbol(button);
         button.setDisable(true);
         System.out.println(++counter);
         checkIfGameIsOver();
         button.setFocusTraversable(false);
-        GameWinnerDetails gameWinner = checkWinner();
-        if (counter < 9 && !gameWinner.someoneWon && challengeComputer && playerTurn == 1) {
-            int[] playComputer = playComputer();
+        if (shouldComputerPlay()) {
+            BoardCell playComputer = getComputerMove();
             System.out.println("Computer will play = " + playComputer);
-            playMove(getButton(playComputer[0], playComputer[1]));
+            playMove(getButton(playComputer.getX(), playComputer.getY()));
         }
     }
     
-    public int[] playComputer() {
+    private void recordMove(Button button) {
+        if (this.currentRecording == null)
+            this.currentRecording = new Recording(firstPlayer, secondPlayer, new Date(), "", new ArrayList<>());
+
+        this.currentRecording.addNewMove(getCellFromButton(button));
+    }
+    
+    private BoardCell getCellFromButton(Button button) {
+        int x = -1, y = -1;
+        if (button == button11) {
+            x = 0;
+            y = 0;
+        } else if (button == button12) {
+            x = 0;
+            y = 1;
+        } else if (button == button13) {
+            x = 0;
+            y = 2;
+        } else if (button == button21) {
+            x = 1;
+            y = 0;
+        } else if (button == button22) {
+            x = 1;
+            y = 1;
+        } else if (button == button23) {
+            x = 1;
+            y = 2;
+        } else if (button == button31) {
+            x = 2;
+            y = 0;
+        } else if (button == button32) {
+            x = 2;
+            y = 1;
+        } else if (button == button33) {
+            x = 2;
+            y = 2;
+        }
+        
+        return new BoardCell(x, y);
+    }
+    
+    private boolean shouldComputerPlay() {
+        GameWinnerDetails gameWinner = getWinnerDetails();
+        return counter < 9 &&
+                !gameWinner.someoneWon &&
+                challengeComputer &&
+                playerTurn == 1;
+    }
+    
+    public BoardCell getComputerMove() {
         switch (difficulty) {
             case EASY:
-                return findRandomMove();
+                return playRandom();
             case MEDIUM:
-                return findMediumMove();
+                return playMedium();
             case HARD:
-                return findBestMove();
+                return playHard();
             default:
-                return new int[]{};
+                return new BoardCell(-1, -1);
         }
     }
     
@@ -456,7 +549,7 @@ public  class GameBase extends AnchorPane {
     /**
      * Returns the flat index of the next empty random cell on the board
      */
-    private int[] findRandomMove() {
+    private BoardCell playRandom() {
         Random rand = new Random();
         int x, y;
 
@@ -465,7 +558,7 @@ public  class GameBase extends AnchorPane {
             y = rand.nextInt(3);
         } while (!isButtonEmpty(getButton(x, y)));
 
-        return new int[]{x, y};
+        return new BoardCell(x, y);
     }
     
     /**
@@ -473,11 +566,11 @@ public  class GameBase extends AnchorPane {
      * medium level (one time easy, one time hard)
      * Begins with a best move
      */
-    private int[] findMediumMove() {
+    private BoardCell playMedium() {
         if (counter % 2 == 0)
-            return findBestMove();
+            return playHard();
         else
-            return findRandomMove();
+            return playRandom();
     }
     
     /**
@@ -485,9 +578,9 @@ public  class GameBase extends AnchorPane {
      * the best move is either a move that will help the computer win, or will prevent the player from winning
      * this means that the computer will always try to win or draw the game (hard level)
      */
-    public int[] findBestMove() {
+    public BoardCell playHard() {
         int bestScore = Integer.MIN_VALUE;
-        int bestX = -1, bestY = -1;
+        BoardCell bestCell = new BoardCell(-1, -1);
 
         // Loop through all cells
         for (int row = 0; row < 3; row++) {
@@ -517,14 +610,13 @@ public  class GameBase extends AnchorPane {
                     */
                     if (moveScore > bestScore) {
                         bestScore = moveScore;
-                        bestX = row;
-                        bestY = column;
+                        bestCell = new BoardCell(row, column);
                     }
                 }
             }
         }
 
-        return new int[]{bestX, bestY};
+        return bestCell;
     }
     
     /**
@@ -538,12 +630,12 @@ public  class GameBase extends AnchorPane {
      * @return score of the winning player
      */
     private int minimax(boolean isMaximizing) {
-        int score = evaluate();
+        int score = getMoveScore();
 
         if (score == 10 || score == -10)
             return score;
 
-        if (!isMovesLeft())
+        if (!shouldGameEnd())
             return 0;
 
         if (isMaximizing) {
@@ -580,8 +672,8 @@ public  class GameBase extends AnchorPane {
     /**
      * Return a score based on the game winner.
      */
-    private int evaluate() {
-        GameWinnerDetails winnerDetails = checkWinner();
+    private int getMoveScore() {
+        GameWinnerDetails winnerDetails = getWinnerDetails();
 
         if (winnerDetails != null && winnerDetails.someoneWon)
             if (winnerDetails.player1Won)
@@ -595,15 +687,12 @@ public  class GameBase extends AnchorPane {
     /**
      * Checks if there is at least one more move in the game.
      */
-    private boolean isMovesLeft() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (isButtonEmpty(getButton(i, j))) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private boolean shouldGameEnd() {
+        boolean oneEmpty = false;
+        for (int i = 0; i < 9; ++i)
+            if (isButtonEmpty(getButton(i / 3, i % 3)))
+                oneEmpty = true;
+        return oneEmpty;
     }
     
     private boolean isButtonEmpty(Button button) {
@@ -630,7 +719,7 @@ public  class GameBase extends AnchorPane {
      * Checks if there is a game winner.
      * @return details for the winner player, including which side and which cells won them the game.
      */
-    private GameWinnerDetails checkWinner() {
+    private GameWinnerDetails getWinnerDetails() {
         String line = "";
         Button[] buttons = new Button[3];
         for (int i = 0; i < 8; ++i) {
@@ -696,8 +785,6 @@ public  class GameBase extends AnchorPane {
             }
             
             if ("XXX".equals(line)) {
-                
-                
                 return new GameWinnerDetails(true, true, buttons);
             } else if ("OOO".equals(line)) {
                 return new GameWinnerDetails(true, false, buttons);
@@ -705,8 +792,11 @@ public  class GameBase extends AnchorPane {
         }
 
         if (counter == 9) {
-            timeline.play();
             System.out.println(counter);
+            if (isRecording)
+                saveRecording();
+            if (!isPlayingRecord)
+                timeline.play();
             return new GameWinnerDetails(false, false, null);
         }
 
@@ -716,7 +806,7 @@ public  class GameBase extends AnchorPane {
     
 
     public void checkIfGameIsOver() {
-        GameWinnerDetails winnerDetails = checkWinner();
+        GameWinnerDetails winnerDetails = getWinnerDetails();
         System.out.println("Winner details = " + winnerDetails);
         if (winnerDetails != null) {
             if (winnerDetails.someoneWon) {
@@ -732,8 +822,11 @@ public  class GameBase extends AnchorPane {
 
                 highlightWinningButtons(winnerDetails.winningButtons);
                 disableButton();
-                timeline.play();
                 fullBoardFlag = false;
+                if (isRecording)
+                    saveRecording();
+                if (!isPlayingRecord)
+                    timeline.play();
             }
         }
     }
@@ -754,6 +847,58 @@ public  class GameBase extends AnchorPane {
         button31.setDisable(true);
         button32.setDisable(true);
         button33.setDisable(true);
+    }
+    
+    private void playRecording() {
+        List<BoardCell> moves = currentRecording.getMoves();
+        for (int i = 0, l = moves.size(); i < l; ++i) {
+            BoardCell currentMove = moves.get(i);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(i + 1), event -> {
+                Platform.runLater(() -> playMove(getButton(currentMove.getX(), currentMove.getY())));
+            }));
+            timeline.play();
+        }
+    }
+    
+    public static List<File> searchFiles(String directoryPath, String substring) {
+        List<File> matchingFiles = new ArrayList<>();
+
+        File directory = new File(directoryPath);
+        if (directory.isDirectory()) {
+            File[] files = directory.listFiles();
+
+            if (files != null) {
+                for (File file : files) {
+                    System.out.println("=======================================");
+                    System.out.println("Checking " + file.getName() + " against " + substring);
+                    if (file.isFile() && file.getName().contains(substring)) {
+                        matchingFiles.add(file);
+                    }
+                }
+            }
+        }
+
+        return matchingFiles;
+    }
+    
+    private void saveRecording() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        File recordsDirectory = new File(Config.getRecordsPath());
+        recordsDirectory.mkdirs();
+        String fileName = firstPlayer.getUsername() + "-" +
+                secondPlayer.getUsername() + "-" +
+                dateFormat.format(new Date());
+        List<File> previousFiles = searchFiles(Config.getRecordsPath(), fileName);
+        if (previousFiles.size() > 0) {
+            fileName = fileName + "(" + (previousFiles.size() + 1) + ")";
+        }
+        fileName = Config.getRecordsPath() + System.getProperty("file.separator") + fileName + ".txt";
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            output.writeObject(currentRecording);
+            System.out.println("Object written to file: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     
