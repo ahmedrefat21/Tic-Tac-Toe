@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -61,6 +62,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private Timeline timelinewinner;
     private Timeline timelinelose;
     private Timeline timelineldraw;
+    private MediaPlayer mediaPlayer ;
 
     
     public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
@@ -87,13 +89,13 @@ public  class OnlineGameBoardBase extends AnchorPane {
         exitimage = new ImageView();
         exitButton1 = new Button();
         recordImage = new ImageView();
-        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new resultFXMLBase(stage);
-            Scene scene = new Scene (pane);
-            stage.setScene(scene);
-            stage.show();
-        }));
-        
+//        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+//            Parent pane = new resultFXMLBase(stage);
+//            Scene scene = new Scene (pane);
+//            stage.setScene(scene);
+//            stage.show();
+//        }));
+//        
         timelinelose= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             Parent pane = new losevideoBase(stage);
             Scene scene = new Scene (pane);
@@ -480,7 +482,12 @@ public  class OnlineGameBoardBase extends AnchorPane {
         getChildren().add(exitButton);
         getChildren().add(exitButton1);
         
-        
+        exitimage.setOnMousePressed(e -> {
+            Parent pane = new MainPageBase(stage);
+            stage.getScene().setRoot(pane);
+            // 0 of scores
+           mediaPlayer.stop();  
+       });
         
         //store all buttons in the hash map to see which button associated to the enemy
         btn = new HashMap();

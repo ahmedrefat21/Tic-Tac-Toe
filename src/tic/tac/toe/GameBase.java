@@ -63,7 +63,7 @@ public  class GameBase extends AnchorPane {
    private Timeline timelinewinner;
    private Timeline timelinedraw;
     private Timeline timelinelose;
-
+ private MediaPlayer mediaPlayer ;
     boolean turn, fullBoardFlag;
     
     public GameBase(Stage s, Player playerOne, Player playerTwo, Boolean challengeComputer, GameDifficulty difficulty) {
@@ -99,7 +99,7 @@ public  class GameBase extends AnchorPane {
 
         stage= s;
         timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new resultFXMLBase(stage);
+            Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
@@ -127,9 +127,9 @@ public  class GameBase extends AnchorPane {
         setStyle("-fx-background-color: #FDE8ED;");
         getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
 
-         String path="/assets/videos/winnerr.mp4";
-        Media media = new Media(getClass().getResource(path).toExternalForm());  
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//         String path="/assets/videos/winnerr.mp4";
+//        Media media = new Media(getClass().getResource(path).toExternalForm());  
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
         
         
         AnchorPane.setBottomAnchor(imageView, 358.0);
