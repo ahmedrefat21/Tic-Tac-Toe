@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,6 +53,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     boolean enemyTurn ;
     private int Score;
     private HashMap<String, Button> btn;
+    private Preferences pref ;
 
     public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
 
@@ -422,6 +424,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         exitButton1.setPrefWidth(114.0);
         exitButton1.setStyle("-fx-background-color: #FDE8ED;");
         exitButton1.getStylesheets().add("/tic/tac/toe/loginfxml.css");
+        
 
         recordImage.setFitHeight(83.0);
         recordImage.setFitWidth(104.0);
@@ -453,7 +456,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         getChildren().add(exitButton1);
         
         
-        
+        pref =Preferences.userNodeForPackage(OnlineGameBoardBase.class);
         //store all buttons in the hash map to see which button associated to the enemy
         btn = new HashMap();
 
@@ -498,11 +501,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
                     do{
                         try{
                             String data = App.dis.readLine();
+                            System.out.println("Reaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddddddd");
                             if(data.equals("null")){
+                                System.out.println("nulllllllllllllllllllllllllllllllllllllllllllllllllllll");
                                 break;
                             }
                             switch(data){
                                 case "gameTic":
+                                    System.out.println("gammmmmmmmmmmmmmmmmeeeeeeeetttttttttttttiiiiiiiiccccccccc");
                                     opponentTurn();
                                     break;
                                 case "finalgameTic":
@@ -596,10 +602,10 @@ public  class OnlineGameBoardBase extends AnchorPane {
                 opponentTurn = true;
                 if(myTurn && myTic.equals("X")){
                     firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-                    button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
+                    //button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
                 }else{
                     secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);"); 
-                    button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
+                    //button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
                 }
                  System.out.println("I pressed "+button.getId());
                  System.out.println(gameState);
@@ -616,6 +622,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private void opponentTurn(){
         try {
             String oppPressed = App.dis.readLine();
+            System.out.println("oppppppppppppppppressssssssssseeeeeeeeeedddd");
             System.out.println(oppPressed);
             Button btnOpp = btn.get(oppPressed);
             btnOpp.setOnAction(new EventHandler<ActionEvent>() {
@@ -626,6 +633,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                         @Override
                         public void run() {
                             button.setText(oppTic);
+                            button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
                             System.out.println("myTic "+ oppTic);
                             
                             //checkState();
@@ -652,6 +660,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         checkDiagonal();
         
         if(!gameState){
+            
             App.ps.println("updateGameState###"+App.hash.get("email"));
             Platform.runLater(new Runnable() {
                 @Override
@@ -692,7 +701,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         if(button11.getText().equals(button12.getText()) && button12.getText().equals(button13.getText()) && !button11.getText().equals("")){
             gameState = false;
             if(button11.getText().equals(myTic)){
-                
+                highlightWinningButtons(button11, button12, button13);
                 updateScore();
             }else{
                 System.out.println("opp win");
@@ -701,7 +710,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         else if(button21.getText().equals(button22.getText()) && button22.getText().equals(button23.getText()) && !button21.getText().equals("")){
             gameState = false;
             if(button21.getText().equals(myTic)){
-               
+                highlightWinningButtons(button21, button22, button23);
                 updateScore();
             }else{
                 System.out.println("opp won!");
@@ -710,6 +719,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         else if(button31.getText().equals(button32.getText()) && button32.getText().equals(button33.getText()) && !button31.getText().equals("")){
             gameState = false;
             if(button31.getText().equals(myTic)){
+                highlightWinningButtons(button31, button32, button33);
                 updateScore();
             }
         }
@@ -718,20 +728,21 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private void checkColumns(){
         if(button11.getText().equals(button21.getText()) && button21.getText().equals(button31.getText()) && !button11.getText().equals("")){
             if(button11.getText().equals(myTic)){
-               
+                highlightWinningButtons(button11, button21, button31);
                 updateScore();
             }
             gameState = false;
         }
         else if(button12.getText().equals(button22.getText()) && button22.getText().equals(button32.getText()) && !button12.getText().equals("")){
             if(button12.getText().equals(myTic)){
-              
+                highlightWinningButtons(button12, button22, button32);
                 updateScore();
             }
             gameState = false;
         }
         else if(button13.getText().equals(button23.getText()) && button23.getText().equals(button33.getText()) && !button13.getText().equals("")){
             if(button13.getText().equals(myTic)){
+                highlightWinningButtons(button13, button23, button33);
                updateScore();
             }
             gameState = false;
@@ -741,14 +752,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private void checkDiagonal(){
         if(button11.getText().equals(button22.getText()) && button22.getText().equals(button33.getText()) && !button11.getText().equals("")){
             if(button11.getText().equals(myTic)){
-              
+                highlightWinningButtons(button11, button22, button33);
                 updateScore();
             }
             gameState = false;
         }
         else if(button13.getText().equals(button22.getText()) && button22.getText().equals(button31.getText()) && !button13.getText().equals("")){
             if(button13.getText().equals(myTic)){
-              
+                highlightWinningButtons(button13, button22, button31);
                 updateScore();
             }
             gameState = false;
@@ -763,6 +774,15 @@ public  class OnlineGameBoardBase extends AnchorPane {
         }else{
             return false;
         }
+    }
+    
+    
+    
+    private void highlightWinningButtons(Button button1,Button button2,Button button3) {
+        button1.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        button2.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        button3.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        
     }
     
     
