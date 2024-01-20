@@ -63,6 +63,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private Timeline timelinelose;
     private Timeline timelineldraw;
     private MediaPlayer mediaPlayer ;
+     protected Player firstPlayer, secondPlayer;
 
     
     public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
@@ -85,29 +86,30 @@ public  class OnlineGameBoardBase extends AnchorPane {
         secondPlayerNameText = new Text();
         firstPlayerScoreText = new Text();
         secondPlayerScoreText = new Text();
+      
         exitButton = new Button();
         exitimage = new ImageView();
         exitButton1 = new Button();
         recordImage = new ImageView();
-//        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-//            Parent pane = new resultFXMLBase(stage);
-//            Scene scene = new Scene (pane);
-//            stage.setScene(scene);
-//            stage.show();
-//        }));
-//        
-//        timelinelose= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-//            Parent pane = new losevideoBase(stage);
-//            Scene scene = new Scene (pane);
-//            stage.setScene(scene);
-//            stage.show();
-//        }));
-//        timelineldraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-//            Parent pane = new draw_videoBase(stage);
-//            Scene scene = new Scene (pane);
-//            stage.setScene(scene);
-//            stage.show();
-//        }));
+        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new OnlineWinnerBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        
+        timelinelose= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new OnlineLoseBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        timelineldraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new OnlinedrawBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -482,7 +484,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         getChildren().add(exitButton);
         getChildren().add(exitButton1);
         
-        exitimage.setOnMousePressed(e -> {
+       exitButton1.setOnMousePressed(e -> {
             Parent pane = new MainPageBase(stage);
             stage.getScene().setRoot(pane);
             // 0 of scores
