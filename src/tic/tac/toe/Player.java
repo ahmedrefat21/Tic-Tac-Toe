@@ -1,7 +1,9 @@
 
 package tic.tac.toe;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     private String username;
     private String email;
     private String password;
