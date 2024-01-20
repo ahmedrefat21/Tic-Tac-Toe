@@ -19,16 +19,23 @@ public  class losevideoBase extends AnchorPane {
     protected final Button backToMainButn;
     protected final MediaView mediaView;
     GameBase gameBase;
-    Player firstPlayer, secondPlayer;
+    Player PlayerOne, PlayerTwo;
     private Boolean challengeComputer = false;
     private GameDifficulty difficulty;
 
-    public losevideoBase(Stage stage) {
+     public losevideoBase(Stage stage, Player firstPlayer, Player secondPlayer, Boolean challengeComputer, GameDifficulty difficulty) {
+        this(stage, firstPlayer, secondPlayer);
+        this.challengeComputer = challengeComputer;
+        this.difficulty = difficulty;
+    }
+    public losevideoBase(Stage stage,Player firstPlayer, Player secondPlayer) {
 
         playAgainButton = new Button();
         backToMainButn = new Button();
         mediaView = new MediaView();
         Label RES = new Label();
+        PlayerOne= new Player();
+        PlayerTwo= new Player();
 
         setId("AnchorPane");
         setMinHeight(USE_PREF_SIZE);

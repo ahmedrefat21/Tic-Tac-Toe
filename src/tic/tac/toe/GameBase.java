@@ -105,13 +105,13 @@ public  class GameBase extends AnchorPane {
             stage.show();
         }));
         timelinedraw= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new draw_videoBase(stage);
+            Parent pane = new draw_videoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
         }));
         timelinelose=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new losevideoBase(stage);
+            Parent pane = new losevideoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();

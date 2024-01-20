@@ -96,18 +96,18 @@ public  class OnlineGameBoardBase extends AnchorPane {
 //            stage.show();
 //        }));
 //        
-        timelinelose= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new losevideoBase(stage);
-            Scene scene = new Scene (pane);
-            stage.setScene(scene);
-            stage.show();
-        }));
-        timelineldraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new draw_videoBase(stage);
-            Scene scene = new Scene (pane);
-            stage.setScene(scene);
-            stage.show();
-        }));
+//        timelinelose= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+//            Parent pane = new losevideoBase(stage);
+//            Scene scene = new Scene (pane);
+//            stage.setScene(scene);
+//            stage.show();
+//        }));
+//        timelineldraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+//            Parent pane = new draw_videoBase(stage);
+//            Scene scene = new Scene (pane);
+//            stage.setScene(scene);
+//            stage.show();
+//        }));
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);

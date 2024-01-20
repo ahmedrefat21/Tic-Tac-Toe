@@ -25,17 +25,24 @@ public  class draw_videoBase extends AnchorPane {
     protected final ImageView imageView;
     protected final MediaView mediaView;
     GameBase gameBase;
-     Player firstPlayer, secondPlayer;
-    
-    public draw_videoBase(Stage stage) {
+    Player PlayerOne, PlayerTwo;
+    private Boolean challengeComputer = false;
+    private GameDifficulty difficulty;
+  
+     public draw_videoBase(Stage stage, Player firstPlayer, Player secondPlayer, Boolean challengeComputer, GameDifficulty difficulty) {
+        this(stage, firstPlayer, secondPlayer);
+        this.challengeComputer = challengeComputer;
+        this.difficulty = difficulty;
+    }
+    public draw_videoBase(Stage stage,Player firstPlayer, Player secondPlayer) {
 
         palyagainbtn = new Button();
         mainmenubtn = new Button();
         RES = new Label();
         imageView = new ImageView();
         mediaView = new MediaView();
-        firstPlayer = new Player();
-        secondPlayer= new Player();
+        PlayerOne = new Player();
+        PlayerTwo= new Player();
         
   
         setId("AnchorPane");
@@ -120,7 +127,7 @@ public  class draw_videoBase extends AnchorPane {
             @Override
             public void handle(ActionEvent event) {
                 Parent pane;
-                pane = new GameBase(stage,firstPlayer, secondPlayer);
+                pane = new GameBase(stage,firstPlayer, secondPlayer,challengeComputer,difficulty);
                 stage.getScene().setRoot(pane);
                 mediaPlayer.stop();
             }
