@@ -494,15 +494,12 @@ public  class OnlineGameBoardBase extends AnchorPane {
         
 
        exitButton1.setOnMousePressed(e -> {
+           
+                      mediaPlayer.stop();  
 
-
-        exitimage.setOnMousePressed(e -> {
-
-            Parent pane = new MainPageBase(stage);
-            stage.getScene().setRoot(pane);
-            // 0 of scores
-           mediaPlayer.stop();  
        });
+
+
         
 
         
@@ -602,7 +599,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     
        
        
-    private void enemyTurn() {
+   /* private void enemyTurn() {
     try {
         String enemySymbol = App.dis.readLine();
 
@@ -626,7 +623,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     } catch (IOException ex) {
                System.out.println(ex);
     }
-}
+}*/
     
         private void updateScore(){ 
         Platform.runLater(new Runnable() {
