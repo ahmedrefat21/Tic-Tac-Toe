@@ -415,7 +415,7 @@ public  class ScoreScreenBase extends AnchorPane {
                         playerIMG.setFitWidth(70.0);
                         playerIMG.setPreserveRatio(true);
                         
-                        playerName = new Label(x.getUsername());
+                        playerName = new Label(x.getUsername() + "       "+ x.getScore());
                         playerName.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
                         playerName.setFont(new Font("Comic Sans MS Bold", 24.0));
                         playerName.setPrefHeight(35.0);
