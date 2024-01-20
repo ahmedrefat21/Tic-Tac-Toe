@@ -485,23 +485,32 @@ public  class ScoreScreenBase extends AnchorPane {
         });
     }
     
-    private void readOnlineList(String data){
-        //System.out.println("data :"+data+"\n");
-        token = new StringTokenizer(data, "###");
+    private void readOnlineList(String data) {
+    System.out.println("data: " + data + "\n");
+    String[] tokens = data.split("###");
+    if (tokens.length >= 5) {
         player = new Player();
-        player.setUsername(token.nextToken());
-        player.setEmail(token.nextToken());
-        player.setIsactive(Boolean.parseBoolean(token.nextToken()));
-        player.setIsplaying(Boolean.parseBoolean(token.nextToken()));
-        player.setScore(Integer.parseInt(token.nextToken()));
-        
+        player.setUsername(tokens[0]);
+        System.out.println(tokens[0]);
+        player.setEmail(tokens[1]);
+        System.out.println(tokens[1]);
+        player.setIsactive(Boolean.parseBoolean(tokens[2]));
+        System.out.println(tokens[2]);
+        player.setIsplaying(Boolean.parseBoolean(tokens[3]));
+        System.out.println(tokens[3]);
+        player.setScore(Integer.parseInt(tokens[4]));
+        System.out.println(tokens[4]);
+
         System.out.println(App.hash.get("email"));
         System.out.println(player.getEmail());
-        if(!App.hash.get("email").equals(player.getEmail())){
+        if (!App.hash.get("email").equals(player.getEmail())) {
             System.out.println("Add list");
             onlinePlayers.add(player);
         }
+    } else {
+        System.out.println("Invalid data format!" + data);
     }
+}
     
     private void startGame() throws IOException{
         Platform.runLater(new Runnable() {
