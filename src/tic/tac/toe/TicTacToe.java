@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class TicTacToe extends Application {
     
     public static Scene scene ;
-    resultFXMLBase base;
+    //resultFXMLBase base;
     @Override
     public void start(Stage stage) throws Exception {
         

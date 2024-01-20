@@ -60,7 +60,9 @@ public  class GameBase extends AnchorPane {
 
     boolean isfirstPlayerTurn = true;
     int counter =0;
-    Timeline timeline;
+   private Timeline timelinewinner;
+   private Timeline timelinelose;
+
     boolean turn, fullBoardFlag;
     
     public GameBase(Stage s, Player playerOne, Player playerTwo, Boolean challengeComputer, GameDifficulty difficulty) {
@@ -95,8 +97,14 @@ public  class GameBase extends AnchorPane {
         this.secondPlayer = playerTwo;
 
         stage= s;
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer, challengeComputer, difficulty);
+        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new resultFXMLBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        timelinelose= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new losevideoBase(stage);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
@@ -705,7 +713,7 @@ public  class GameBase extends AnchorPane {
         }
 
         if (counter == 9) {
-            timeline.play();
+            timelinewinner.play();
             System.out.println(counter);
             return new GameWinnerDetails(false, false, null);
         }
@@ -732,7 +740,7 @@ public  class GameBase extends AnchorPane {
 
                 highlightWinningButtons(winnerDetails.winningButtons);
                 disableButton();
-                timeline.play();
+                timelinewinner.play();
                 fullBoardFlag = false;
             }
         }

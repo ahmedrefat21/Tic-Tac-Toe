@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,23 +18,24 @@ public  class resultFXMLBase extends AnchorPane {
     protected final Button playAgainButton;
     protected final Button backToMainButn;
     protected final MediaView mediaView;
-    Player playerOne, playerTwo;
+    Player firstPlayer, secondPlayer;
     private Boolean challengeComputer = false;
     private GameDifficulty difficulty;
     GameBase gameBase;
 
-    public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer, Boolean challengeComputer, GameDifficulty difficulty) {
-        this(stage, firstPlayer, secondPlayer);
-        this.challengeComputer = challengeComputer;
-        this.difficulty = difficulty;
-    }
+//    public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer, Boolean challengeComputer, GameDifficulty difficulty) {
+//        this(stage, firstPlayer, secondPlayer);
+//        this.challengeComputer = challengeComputer;
+//        this.difficulty = difficulty;
+//    }
 
-    public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer)  {
+    public resultFXMLBase(Stage stage)  {
         playAgainButton = new Button();
         backToMainButn = new Button();
         mediaView = new MediaView();
-        playerOne = new Player();
-        playerTwo = new Player();
+        Label RES = new Label();
+        firstPlayer = new Player();
+        secondPlayer= new Player();
         setId("AnchorPane");
         setMinHeight(USE_PREF_SIZE);
         setMinWidth(USE_PREF_SIZE);
@@ -41,6 +43,7 @@ public  class resultFXMLBase extends AnchorPane {
         setPrefWidth(740.0);
         getStyleClass().add("mainFxmlClass");
         getStylesheets().add("/tic/tac/toe/resultfxml.css");
+       
 
         AnchorPane.setBottomAnchor(playAgainButton, 48.0);
         AnchorPane.setLeftAnchor(playAgainButton, 72.0);
@@ -72,41 +75,48 @@ public  class resultFXMLBase extends AnchorPane {
         backToMainButn.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         backToMainButn.setFont(new Font("Comic Sans MS Bold", 27.0));
 
+        RES.setLayoutX(273.0);
+        RES.setLayoutY(32.0);
+        RES.setPrefHeight(107.0);
+        RES.setPrefWidth(158.0);
+        RES.setText("Winner");
+        RES.setTextFill(javafx.scene.paint.Color.valueOf("#fbc04f"));
+        RES.setFont(new Font("Comic Sans MS Bold", 38.0));
         AnchorPane.setBottomAnchor(mediaView, 127.0);
         AnchorPane.setLeftAnchor(mediaView, 165.0);
         AnchorPane.setRightAnchor(mediaView, 175.0);
         AnchorPane.setTopAnchor(mediaView, 33.0);
+        
         String path="/assets/videos/winnerr.mp4";
         Media media = new Media(getClass().getResource(path).toExternalForm());  
         MediaPlayer mediaPlayer = new MediaPlayer(media); 
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setFitHeight(320.0);
         mediaView.setFitWidth(400.0);
-        mediaView.setLayoutX(165.0);
-        mediaView.setLayoutY(33.0);
+        mediaView.setLayoutX(185.0);
+        mediaView.setLayoutY(100.0);
         mediaPlayer.setAutoPlay(true); 
         getChildren().add(playAgainButton);
         getChildren().add(backToMainButn);
         getChildren().add(mediaView);
+        //getChildren().add(RES);
         
         
-         playAgainButton.setOnAction(new EventHandler<ActionEvent>() { //playAgain
+        
+         playAgainButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Parent pane;
-                pane = new GameBase(stage,firstPlayer, secondPlayer, challengeComputer, difficulty);
+                pane = new GameBase(stage,firstPlayer, secondPlayer);
                 stage.getScene().setRoot(pane);
                 mediaPlayer.stop();
             }
         });
         
         
-        backToMainButn.setOnAction(new EventHandler<ActionEvent>() { //back to main
+        backToMainButn.setOnAction(new EventHandler<ActionEvent>() { 
             @Override
-            public void handle(ActionEvent event) {
-//                playerOne.setScore(0);
-//                playerTwo.setScore(0);
-                
+            public void handle(ActionEvent event) {  
                 Parent pane = new MainPageBase(stage);
                 stage.getScene().setRoot(pane);
                 GameBase.player1Score = 0 ;  
