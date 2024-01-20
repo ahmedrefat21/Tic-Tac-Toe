@@ -60,7 +60,10 @@ public  class GameBase extends AnchorPane {
 
     boolean isfirstPlayerTurn = true;
     int counter =0;
-    Timeline timeline;
+   private Timeline timelinewinner;
+   private Timeline timelinedraw;
+    private Timeline timelinelose;
+ private MediaPlayer mediaPlayer ;
     boolean turn, fullBoardFlag;
     
     public GameBase(Stage s, Player playerOne, Player playerTwo, Boolean challengeComputer, GameDifficulty difficulty) {
@@ -95,8 +98,20 @@ public  class GameBase extends AnchorPane {
         this.secondPlayer = playerTwo;
 
         stage= s;
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer, challengeComputer, difficulty);
+        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        timelinedraw= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new draw_videoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        timelinelose=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new losevideoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
@@ -112,9 +127,9 @@ public  class GameBase extends AnchorPane {
         setStyle("-fx-background-color: #FDE8ED;");
         getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
 
-         String path="/assets/videos/winnerr.mp4";
-        Media media = new Media(getClass().getResource(path).toExternalForm());  
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//         String path="/assets/videos/winnerr.mp4";
+//        Media media = new Media(getClass().getResource(path).toExternalForm());  
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
         
         
         AnchorPane.setBottomAnchor(imageView, 358.0);
@@ -417,7 +432,7 @@ public  class GameBase extends AnchorPane {
         setPlayerSymbol(button);
         button.setDisable(true);
         System.out.println(++counter);
-        checkIfGameIsOver();
+       // checkIfGameIsOver();
         button.setFocusTraversable(false);
         GameWinnerDetails gameWinner = checkWinner();
         if (counter < 9 && !gameWinner.someoneWon && challengeComputer && playerTurn == 1) {
@@ -696,16 +711,16 @@ public  class GameBase extends AnchorPane {
             }
             
             if ("XXX".equals(line)) {
-                
-                
+             timelinewinner.play();
                 return new GameWinnerDetails(true, true, buttons);
             } else if ("OOO".equals(line)) {
+                timelinelose.play();
                 return new GameWinnerDetails(true, false, buttons);
             }
         }
 
         if (counter == 9) {
-            timeline.play();
+            timelinedraw.play();
             System.out.println(counter);
             return new GameWinnerDetails(false, false, null);
         }
@@ -715,28 +730,28 @@ public  class GameBase extends AnchorPane {
     
     
 
-    public void checkIfGameIsOver() {
-        GameWinnerDetails winnerDetails = checkWinner();
-        System.out.println("Winner details = " + winnerDetails);
-        if (winnerDetails != null) {
-            if (winnerDetails.someoneWon) {
-                if (winnerDetails.player1Won) {
-                    firstPlayerScoreText.setText(String.valueOf(player1Score));
-                    player1Score++;
-                    System.out.println("Player 1 score = " + player1Score);
-                } else {
-                    secondPlayerScoreText.setText(String.valueOf(player2Score));
-                    player2Score++;
-                    System.out.println("Player 2 score = " + player2Score);
-                }
-
-                highlightWinningButtons(winnerDetails.winningButtons);
-                disableButton();
-                timeline.play();
-                fullBoardFlag = false;
-            }
-        }
-    }
+//    public void checkIfGameIsOver() {
+//        GameWinnerDetails winnerDetails = checkWinner();
+//        System.out.println("Winner details = " + winnerDetails);
+//        if (winnerDetails != null) {
+//            if (winnerDetails.someoneWon) {
+//                if (winnerDetails.player1Won) {
+//                    firstPlayerScoreText.setText(String.valueOf(player1Score));
+//                    player1Score++;
+//                    System.out.println("Player 1 score = " + player1Score);
+//                } else {
+//                    secondPlayerScoreText.setText(String.valueOf(player2Score));
+//                    player2Score++;
+//                    System.out.println("Player 2 score = " + player2Score);
+//                }
+//
+//                highlightWinningButtons(winnerDetails.winningButtons);
+//                disableButton();
+//                timelinewinner.play();
+//                fullBoardFlag = false;
+//            }
+//        }
+//    }
 
     private void highlightWinningButtons(Button[] buttons) {
         for (int i = 0; i < 3; i++) {
