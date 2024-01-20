@@ -371,9 +371,7 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.setHeaderText(player2Username+" Wants to Play with You ?");
                 alert.getDialogPane().getButtonTypes().addAll(AcceptType,RejectType);
                 DialogPane dialog = alert.getDialogPane();              
-                //dialog.getStylesheets().add(
-                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                //dialog.getStyleClass().add("reqalert");
+
                 PauseTransition delay = new PauseTransition(Duration.seconds(10));
                 delay.setOnFinished(e -> alert.hide());
                 Optional<ButtonType> result = alert.showAndWait();
@@ -381,7 +379,7 @@ public  class ScoreScreenBase extends AnchorPane {
                     System.out.println("game on");
                     App.ps.println("accept###"+App.hash.get("email")+"###"+App.hash.get("username")+"###"+opponentMail);
                     System.out.println("staaaaaaaaaaaaaaaaaaaaaagggggggggggggggggeeeeeeeeeeeeeeeeeeee");
-                    showGame(false,player2Username);
+                    showGame(false,player2Username,player2Score);
                     
                 
                 }else {
@@ -517,15 +515,15 @@ public  class ScoreScreenBase extends AnchorPane {
         String sOpponentScore = App.dis.readLine();
         opponentScore = Integer.parseInt(sOpponentScore);
         System.out.println("player 2 accepted");
-        showGame(true,OpponentUsername);    
+        showGame(true,OpponentUsername, opponentScore);    
     }
     
-    private void showGame(boolean state, String name){
+    private void showGame(boolean state, String name, int score){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 
-                Parent pane = new OnlineGameBoardBase(stage , name , opponentScore , state);
+                Parent pane = new OnlineGameBoardBase(stage , name , score , state);
                 stage.getScene().setRoot(pane);  
                 System.out.println("my state: "+state);
                 
