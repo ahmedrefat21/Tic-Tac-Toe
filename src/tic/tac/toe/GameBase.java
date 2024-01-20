@@ -71,7 +71,9 @@ public  class GameBase extends AnchorPane {
 
     boolean isfirstPlayerTurn = true;
     int counter =0;
-    Timeline timeline;
+    Timeline timelinewinner;
+    Timeline timelinelose;
+    Timeline timelinedraw;
     boolean turn, fullBoardFlag;
     boolean isRecording = false;
     Recording currentRecording;
@@ -120,13 +122,24 @@ public  class GameBase extends AnchorPane {
         this.secondPlayer = playerTwo;
 
         stage= s;
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer, challengeComputer, difficulty);
+        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
         }));
-
+        timelinedraw= new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            Parent pane = new draw_videoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        timelinelose=new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            Parent pane = new losevideoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -452,6 +465,32 @@ public  class GameBase extends AnchorPane {
             playRecording();
         }
     }
+    
+    class BoardCell {
+        private int x;
+        private int y;
+        
+        BoardCell(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public void setY(int y) {
+            this.y = y;
+        }
+    }
 
     private void playMove(Button button) {
         if (!isRecording)
@@ -462,7 +501,7 @@ public  class GameBase extends AnchorPane {
         setPlayerSymbol(button);
         button.setDisable(true);
         System.out.println(++counter);
-        checkIfGameIsOver();
+       // checkIfGameIsOver();
         button.setFocusTraversable(false);
         if (shouldComputerPlay()) {
             BoardCell playComputer = getComputerMove();
@@ -471,6 +510,7 @@ public  class GameBase extends AnchorPane {
         }
     }
     
+
     private void recordMove(Button button) {
         if (this.currentRecording == null)
             this.currentRecording = new Recording(firstPlayer, secondPlayer, new Date(), "", new ArrayList<>());
@@ -781,17 +821,29 @@ public  class GameBase extends AnchorPane {
                     buttons = new Button[]{button13, button23, button33};
                     break;
                 default:
+                     disableButton();
                     return new GameWinnerDetails(false, false, null);
             }
-            
-            if ("XXX".equals(line)) {
+
+            if ("XXX".equals(line)) { 
+                player1Score++;
+                 timelinewinner.play();
+                  
                 return new GameWinnerDetails(true, true, buttons);
             } else if ("OOO".equals(line)) {
+               
+                 player2Score++;
+                 timelinelose.play();
+               
                 return new GameWinnerDetails(true, false, buttons);
             }
+           
+            
         }
 
         if (counter == 9) {
+
+            timelinedraw.play();
             System.out.println(counter);
             if (isRecording)
                 saveRecording();
@@ -804,6 +856,7 @@ public  class GameBase extends AnchorPane {
     }
     
     
+
 
     public void checkIfGameIsOver() {
         GameWinnerDetails winnerDetails = getWinnerDetails();
@@ -830,6 +883,7 @@ public  class GameBase extends AnchorPane {
             }
         }
     }
+
 
     private void highlightWinningButtons(Button[] buttons) {
         for (int i = 0; i < 3; i++) {

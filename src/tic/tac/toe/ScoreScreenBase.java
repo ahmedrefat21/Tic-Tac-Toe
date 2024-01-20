@@ -148,6 +148,12 @@ public  class ScoreScreenBase extends AnchorPane {
         backBtn.setPrefHeight(77.0);
         backBtn.setPrefWidth(85.0);
         backBtn.setStyle("-fx-background-color: #FDE8ED;");
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                logOut();
+            }
+        }); 
 
         imageView.setFitHeight(54.0);
         imageView.setFitWidth(85.0);
@@ -189,7 +195,7 @@ public  class ScoreScreenBase extends AnchorPane {
 
         scoreText.setLayoutX(71.0);
         scoreText.setLayoutY(18.0);
-       scoreText.setText("");
+        scoreText.setText("");
         scoreText.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         scoreText.setFont(new Font("Comic Sans MS Bold", 29.0));
 
@@ -357,6 +363,7 @@ public  class ScoreScreenBase extends AnchorPane {
         System.out.println("recieved request");
         token = new StringTokenizer(opponentData,"###");
         String opponentMail = token.nextToken();
+    
         player2Username = token.nextToken();
         String sOpponentScore = token.nextToken();
         player2Score = Integer.parseInt(sOpponentScore);
@@ -371,9 +378,7 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.setHeaderText(player2Username+" Wants to Play with You ?");
                 alert.getDialogPane().getButtonTypes().addAll(AcceptType,RejectType);
                 DialogPane dialog = alert.getDialogPane();              
-                //dialog.getStylesheets().add(
-                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                //dialog.getStyleClass().add("reqalert");
+
                 PauseTransition delay = new PauseTransition(Duration.seconds(10));
                 delay.setOnFinished(e -> alert.hide());
                 Optional<ButtonType> result = alert.showAndWait();
@@ -381,7 +386,7 @@ public  class ScoreScreenBase extends AnchorPane {
                     System.out.println("game on");
                     App.ps.println("accept###"+App.hash.get("email")+"###"+App.hash.get("username")+"###"+opponentMail);
                     System.out.println("staaaaaaaaaaaaaaaaaaaaaagggggggggggggggggeeeeeeeeeeeeeeeeeeee");
-                    showGame(false,player2Username);
+                    showGame(false,player2Username,player2Score);
                     
                 
                 }else {
@@ -409,7 +414,7 @@ public  class ScoreScreenBase extends AnchorPane {
                         playerIMG.setFitWidth(70.0);
                         playerIMG.setPreserveRatio(true);
                         
-                        playerName = new Label(x.getUsername());
+                        playerName = new Label(x.getUsername() + "       "+ x.getScore());
                         playerName.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
                         playerName.setFont(new Font("Comic Sans MS Bold", 24.0));
                         playerName.setPrefHeight(35.0);
@@ -487,6 +492,7 @@ public  class ScoreScreenBase extends AnchorPane {
         });
     }
     
+
     private void readOnlineList(String data){
         //System.out.println("data :"+data+"\n");
         token = new StringTokenizer(data, "###");
@@ -504,7 +510,6 @@ public  class ScoreScreenBase extends AnchorPane {
             onlinePlayers.add(player);
         }
     }
-    
     private void startGame() throws IOException{
         Platform.runLater(new Runnable() {
             @Override
@@ -517,18 +522,21 @@ public  class ScoreScreenBase extends AnchorPane {
         String sOpponentScore = App.dis.readLine();
         opponentScore = Integer.parseInt(sOpponentScore);
         System.out.println("player 2 accepted");
-        showGame(true,OpponentUsername);    
+
+        showGame(true,OpponentUsername, opponentScore);    
     }
     
-    private void showGame(boolean state, String name){
+    
+    
+    private void showGame(boolean state, String name , int score){
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 
-                Parent pane = new OnlineGameBoardBase(stage , name , opponentScore , state);
+                Parent pane = new OnlineGameBoardBase(stage , name , score , state);
                 stage.getScene().setRoot(pane);  
                 System.out.println("my state: "+state);
-                
                 System.out.println("letttttttttttttttttttttttttttttttttttttttttssssssssssssss"); 
                
                 
@@ -538,6 +546,28 @@ public  class ScoreScreenBase extends AnchorPane {
         
         
     }
+    
+    public void logOut(){
+
+        System.out.println("backToMainPage: called");
+        System.out.println("Emial " + App.hash.get("email"));
+        if(App.hash.get("email")!= null){
+               System.out.println("Send to server to logout");
+               App.ps.println("logout###"+App.hash.get("email"));
+               thread.stop();
+               try {
+                   App.socket.close();
+                   App.dis.close();
+                   App.ps.close();
+               } catch (IOException ex) {
+                   Logger.getLogger(ScoreScreenBase.class.getName()).log(Level.SEVERE, null, ex);
+               }   
+        }
+        Parent pane = new MainPageBase(stage);
+        stage.getScene().setRoot(pane);
+        
+    }
+    
     
     
      
