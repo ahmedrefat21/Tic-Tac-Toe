@@ -363,6 +363,7 @@ public  class ScoreScreenBase extends AnchorPane {
         System.out.println("recieved request");
         token = new StringTokenizer(opponentData,"###");
         String opponentMail = token.nextToken();
+    
         player2Username = token.nextToken();
         String sOpponentScore = token.nextToken();
         player2Score = Integer.parseInt(sOpponentScore);

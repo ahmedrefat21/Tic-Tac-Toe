@@ -60,10 +60,9 @@ public  class GameBase extends AnchorPane {
 
     boolean isfirstPlayerTurn = true;
     int counter =0;
-   private Timeline timelinewinner;
-   private Timeline timelinedraw;
-    private Timeline timelinelose;
- private MediaPlayer mediaPlayer ;
+    Timeline timelinewinner;
+    Timeline timelinelose;
+    Timeline timelinedraw;
     boolean turn, fullBoardFlag;
     
     public GameBase(Stage s, Player playerOne, Player playerTwo, Boolean challengeComputer, GameDifficulty difficulty) {
@@ -98,25 +97,24 @@ public  class GameBase extends AnchorPane {
         this.secondPlayer = playerTwo;
 
         stage= s;
-        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        timelinewinner= new Timeline(new KeyFrame(Duration.seconds(2), event -> {
             Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
         }));
-        timelinedraw= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        timelinedraw= new Timeline(new KeyFrame(Duration.seconds(2), event -> {
             Parent pane = new draw_videoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
         }));
-        timelinelose=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        timelinelose=new Timeline(new KeyFrame(Duration.seconds(2), event -> {
             Parent pane = new losevideoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
         }));
-
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -127,9 +125,9 @@ public  class GameBase extends AnchorPane {
         setStyle("-fx-background-color: #FDE8ED;");
         getStylesheets().add("/tic/tac/toe/css/GameScreen.css");
 
-//         String path="/assets/videos/winnerr.mp4";
-//        Media media = new Media(getClass().getResource(path).toExternalForm());  
-//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        String path="/assets/videos/winnerr.mp4";
+        Media media = new Media(getClass().getResource(path).toExternalForm());  
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
         
         
         AnchorPane.setBottomAnchor(imageView, 358.0);
@@ -427,6 +425,32 @@ public  class GameBase extends AnchorPane {
            mediaPlayer.stop();  
        });
     }
+    
+    class BoardCell {
+        private int x;
+        private int y;
+        
+        BoardCell(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public void setY(int y) {
+            this.y = y;
+        }
+    }
 
     private void playMove(Button button) {
         setPlayerSymbol(button);
@@ -434,24 +458,31 @@ public  class GameBase extends AnchorPane {
         System.out.println(++counter);
        // checkIfGameIsOver();
         button.setFocusTraversable(false);
-        GameWinnerDetails gameWinner = checkWinner();
-        if (counter < 9 && !gameWinner.someoneWon && challengeComputer && playerTurn == 1) {
-            int[] playComputer = playComputer();
+        if (shouldComputerPlay()) {
+            BoardCell playComputer = getComputerMove();
             System.out.println("Computer will play = " + playComputer);
-            playMove(getButton(playComputer[0], playComputer[1]));
+            playMove(getButton(playComputer.getX(), playComputer.getY()));
         }
     }
     
-    public int[] playComputer() {
+    private boolean shouldComputerPlay() {
+        GameWinnerDetails gameWinner = getWinnerDetails();
+        return counter < 9 &&
+                !gameWinner.someoneWon &&
+                challengeComputer &&
+                playerTurn == 1;
+    }
+    
+    public BoardCell getComputerMove() {
         switch (difficulty) {
             case EASY:
-                return findRandomMove();
+                return playRandom();
             case MEDIUM:
-                return findMediumMove();
+                return playMedium();
             case HARD:
-                return findBestMove();
+                return playHard();
             default:
-                return new int[]{};
+                return new BoardCell(-1, -1);
         }
     }
     
@@ -471,7 +502,7 @@ public  class GameBase extends AnchorPane {
     /**
      * Returns the flat index of the next empty random cell on the board
      */
-    private int[] findRandomMove() {
+    private BoardCell playRandom() {
         Random rand = new Random();
         int x, y;
 
@@ -480,7 +511,7 @@ public  class GameBase extends AnchorPane {
             y = rand.nextInt(3);
         } while (!isButtonEmpty(getButton(x, y)));
 
-        return new int[]{x, y};
+        return new BoardCell(x, y);
     }
     
     /**
@@ -488,11 +519,11 @@ public  class GameBase extends AnchorPane {
      * medium level (one time easy, one time hard)
      * Begins with a best move
      */
-    private int[] findMediumMove() {
+    private BoardCell playMedium() {
         if (counter % 2 == 0)
-            return findBestMove();
+            return playHard();
         else
-            return findRandomMove();
+            return playRandom();
     }
     
     /**
@@ -500,9 +531,9 @@ public  class GameBase extends AnchorPane {
      * the best move is either a move that will help the computer win, or will prevent the player from winning
      * this means that the computer will always try to win or draw the game (hard level)
      */
-    public int[] findBestMove() {
+    public BoardCell playHard() {
         int bestScore = Integer.MIN_VALUE;
-        int bestX = -1, bestY = -1;
+        BoardCell bestCell = new BoardCell(-1, -1);
 
         // Loop through all cells
         for (int row = 0; row < 3; row++) {
@@ -532,14 +563,13 @@ public  class GameBase extends AnchorPane {
                     */
                     if (moveScore > bestScore) {
                         bestScore = moveScore;
-                        bestX = row;
-                        bestY = column;
+                        bestCell = new BoardCell(row, column);
                     }
                 }
             }
         }
 
-        return new int[]{bestX, bestY};
+        return bestCell;
     }
     
     /**
@@ -553,12 +583,12 @@ public  class GameBase extends AnchorPane {
      * @return score of the winning player
      */
     private int minimax(boolean isMaximizing) {
-        int score = evaluate();
+        int score = getMoveScore();
 
         if (score == 10 || score == -10)
             return score;
 
-        if (!isMovesLeft())
+        if (!shouldGameEnd())
             return 0;
 
         if (isMaximizing) {
@@ -595,8 +625,8 @@ public  class GameBase extends AnchorPane {
     /**
      * Return a score based on the game winner.
      */
-    private int evaluate() {
-        GameWinnerDetails winnerDetails = checkWinner();
+    private int getMoveScore() {
+        GameWinnerDetails winnerDetails = getWinnerDetails();
 
         if (winnerDetails != null && winnerDetails.someoneWon)
             if (winnerDetails.player1Won)
@@ -610,15 +640,12 @@ public  class GameBase extends AnchorPane {
     /**
      * Checks if there is at least one more move in the game.
      */
-    private boolean isMovesLeft() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (isButtonEmpty(getButton(i, j))) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private boolean shouldGameEnd() {
+        boolean oneEmpty = false;
+        for (int i = 0; i < 9; ++i)
+            if (isButtonEmpty(getButton(i / 3, i % 3)))
+                oneEmpty = true;
+        return oneEmpty;
     }
     
     private boolean isButtonEmpty(Button button) {
@@ -645,7 +672,7 @@ public  class GameBase extends AnchorPane {
      * Checks if there is a game winner.
      * @return details for the winner player, including which side and which cells won them the game.
      */
-    private GameWinnerDetails checkWinner() {
+    private GameWinnerDetails getWinnerDetails() {
         String line = "";
         Button[] buttons = new Button[3];
         for (int i = 0; i < 8; ++i) {
@@ -707,16 +734,24 @@ public  class GameBase extends AnchorPane {
                     buttons = new Button[]{button13, button23, button33};
                     break;
                 default:
+                     disableButton();
                     return new GameWinnerDetails(false, false, null);
             }
             
-            if ("XXX".equals(line)) {
-             timelinewinner.play();
+            if ("XXX".equals(line)) { 
+                player1Score++;
+                 timelinewinner.play();
+                  
                 return new GameWinnerDetails(true, true, buttons);
             } else if ("OOO".equals(line)) {
-                timelinelose.play();
+               
+                 player2Score++;
+                 timelinelose.play();
+               
                 return new GameWinnerDetails(true, false, buttons);
             }
+           
+            
         }
 
         if (counter == 9) {
@@ -731,7 +766,7 @@ public  class GameBase extends AnchorPane {
     
 
 //    public void checkIfGameIsOver() {
-//        GameWinnerDetails winnerDetails = checkWinner();
+//        GameWinnerDetails winnerDetails = getWinnerDetails();
 //        System.out.println("Winner details = " + winnerDetails);
 //        if (winnerDetails != null) {
 //            if (winnerDetails.someoneWon) {

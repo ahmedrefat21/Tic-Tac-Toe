@@ -19,12 +19,15 @@ public  class resultFXMLBase extends AnchorPane {
     protected final Button backToMainButn;
     protected final MediaView mediaView;
     Player PlayerOne, PlayerTwo;
+    
     private Boolean challengeComputer = false;
     private GameDifficulty difficulty;
     GameBase gameBase;
-    String player2;
-    boolean state;
-    int score;
+    
+//     public resultFXMLBase(Stage stage,Player firstPlayer)  {
+//     
+//     
+//     }
     
 
     public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer, Boolean challengeComputer, GameDifficulty difficulty) {
