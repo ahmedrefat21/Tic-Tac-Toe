@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,6 +53,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     boolean enemyTurn ;
     private int Score;
     private HashMap<String, Button> btn;
+    private Preferences pref ;
 
     public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
 
@@ -422,6 +424,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         exitButton1.setPrefWidth(114.0);
         exitButton1.setStyle("-fx-background-color: #FDE8ED;");
         exitButton1.getStylesheets().add("/tic/tac/toe/loginfxml.css");
+        
 
         recordImage.setFitHeight(83.0);
         recordImage.setFitWidth(104.0);
@@ -453,7 +456,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         getChildren().add(exitButton1);
         
         
-        
+        pref =Preferences.userNodeForPackage(OnlineGameBoardBase.class);
         //store all buttons in the hash map to see which button associated to the enemy
         btn = new HashMap();
 
@@ -498,11 +501,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
                     do{
                         try{
                             String data = App.dis.readLine();
+                            System.out.println("Reaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddddddd");
                             if(data.equals("null")){
+                                System.out.println("nulllllllllllllllllllllllllllllllllllllllllllllllllllll");
                                 break;
                             }
                             switch(data){
                                 case "gameTic":
+                                    System.out.println("gammmmmmmmmmmmmmmmmeeeeeeeetttttttttttttiiiiiiiiccccccccc");
                                     opponentTurn();
                                     break;
                                 case "finalgameTic":
@@ -616,6 +622,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private void opponentTurn(){
         try {
             String oppPressed = App.dis.readLine();
+            System.out.println("oppppppppppppppppressssssssssseeeeeeeeeedddd");
             System.out.println(oppPressed);
             Button btnOpp = btn.get(oppPressed);
             btnOpp.setOnAction(new EventHandler<ActionEvent>() {
