@@ -1,14 +1,7 @@
 package tic.tac.toe;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.util.HashMap;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
@@ -46,10 +39,8 @@ public class LoginBase extends AnchorPane {
     int score;
     protected JFrame jFrame;
 
-
-
-
     public LoginBase(Stage stage) {
+
         imageView = new ImageView();
         imageView0 = new ImageView();
         loginButton = new Button();
@@ -90,12 +81,12 @@ public class LoginBase extends AnchorPane {
         imageView0.setPreserveRatio(true);
         imageView0.setImage(new Image(getClass().getResource("/assets/images/ticTacToe.png").toExternalForm()));
 
-        AnchorPane.setBottomAnchor(loginButton, 69.0);
+        AnchorPane.setBottomAnchor(loginButton, 70.0);
         AnchorPane.setLeftAnchor(loginButton, 281.0);
         AnchorPane.setRightAnchor(loginButton, 260.0);
-        AnchorPane.setTopAnchor(loginButton, 350.0);
+        AnchorPane.setTopAnchor(loginButton, 349.0);
         loginButton.setLayoutX(281.0);
-        loginButton.setLayoutY(350.0);
+        loginButton.setLayoutY(349.0);
         loginButton.setMnemonicParsing(false);
         loginButton.setPrefHeight(61.0);
         loginButton.setPrefWidth(199.0);
@@ -104,10 +95,6 @@ public class LoginBase extends AnchorPane {
         loginButton.setText("Login");
         loginButton.setTextFill(javafx.scene.paint.Color.valueOf("#fde8ed"));
         loginButton.setFont(new Font("Comic Sans MS Bold", 30.0));
-
-
-
-  
 
         AnchorPane.setBottomAnchor(label, 269.0);
         AnchorPane.setLeftAnchor(label, 140.0);
@@ -133,12 +120,12 @@ public class LoginBase extends AnchorPane {
         label0.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         label0.setFont(new Font("Comic Sans MS Bold", 26.0));
 
-        AnchorPane.setBottomAnchor(label1, 22.0);
+        AnchorPane.setBottomAnchor(label1, 13.0);
         AnchorPane.setLeftAnchor(label1, 203.0);
         AnchorPane.setRightAnchor(label1, 276.0);
-        AnchorPane.setTopAnchor(label1, 420.0);
+        AnchorPane.setTopAnchor(label1, 429.0);
         label1.setLayoutX(203.0);
-        label1.setLayoutY(420.0);
+        label1.setLayoutY(429.0);
         label1.setPrefHeight(38.0);
         label1.setPrefWidth(261.0);
         label1.setText("Don't have an account? ");
@@ -187,11 +174,15 @@ public class LoginBase extends AnchorPane {
             stage.getScene().setRoot(pane);
        });
 
-        signupButton.setLayoutX(457.0);
-        signupButton.setLayoutY(420.0);
+        AnchorPane.setBottomAnchor(signupButton, 14.0);
+        AnchorPane.setLeftAnchor(signupButton, 453.0);
+        AnchorPane.setRightAnchor(signupButton, 172.0);
+        AnchorPane.setTopAnchor(signupButton, 430.0);
+        signupButton.setLayoutX(453.0);
+        signupButton.setLayoutY(430.0);
         signupButton.setMnemonicParsing(false);
-        signupButton.setPrefHeight(46.0);
-        signupButton.setPrefWidth(99.0);
+        signupButton.setPrefHeight(37.0);
+        signupButton.setPrefWidth(115.0);
         signupButton.setStyle("-fx-background-color: #FDE8ED;");
         signupButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -199,21 +190,16 @@ public class LoginBase extends AnchorPane {
                 Parent pane = new SignUpBase(stage);
                 stage.getScene().setRoot(pane);
             }
-        }); 
+        });
 
         label2.setPrefHeight(32.0);
-        label2.setPrefWidth(99.0);
+        label2.setPrefWidth(118.0);
         label2.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         label2.setText("SignUp ");
         label2.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
-        label2.setFont(new Font("Comic Sans MS Bold", 22.0));
+        label2.setFont(new Font("Comic Sans MS Bold", 25.0));
         signupButton.setGraphic(label2);
 
-        
-   
-        
-        
-        
         getChildren().add(imageView);
         getChildren().add(imageView0);
         getChildren().add(loginButton);
@@ -225,8 +211,8 @@ public class LoginBase extends AnchorPane {
         getChildren().add(alertText);
         getChildren().add(backImage);
         getChildren().add(signupButton);
-
-                loginButton.setOnAction(new EventHandler<ActionEvent>() {
+        
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
         
@@ -369,26 +355,12 @@ public class LoginBase extends AnchorPane {
 
             }
          }
-            
 
-
-    
-
-    
-        
-        
-        
-        
-        
                   }
-        });   
-        
-    } 
-    
-    
+        });  
 
-            
-
+    }
 
    
+
 }

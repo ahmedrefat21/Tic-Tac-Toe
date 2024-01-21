@@ -719,7 +719,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                     if(display){
                         timelinewinner.play();
                     }else{
-                        highlightLoserButtons(button11, button12, button13);
+                        
                         timelinelose.play();
                     }
                 }
