@@ -308,6 +308,8 @@ public  class ScoreScreenBase extends AnchorPane {
                 while(true){
                     if(loaded){
                         System.out.println("playyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+                         System.out.println("play");
+                        
                         onlinePlayers.clear();
                     do{
 
