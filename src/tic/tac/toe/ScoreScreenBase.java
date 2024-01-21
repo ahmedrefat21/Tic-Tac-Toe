@@ -70,6 +70,7 @@ public  class ScoreScreenBase extends AnchorPane {
     private String player2Username ;
     private int player2Score;
     private int opponentScore;
+    public static int currentScore;
     Stage stage;
     
     
@@ -270,7 +271,8 @@ public  class ScoreScreenBase extends AnchorPane {
         
         emailText.setText(App.hash.get("email"));
         usernameText.setText(App.hash.get("username"));
-        scoreText.setText(App.hash.get("score")); 
+        currentScore =Integer.parseInt(App.hash.get("score"));
+        scoreText.setText(""+ currentScore); 
         System.out.println(App.hash.get("email"));
         System.out.println(App.hash.get("username"));
         System.out.println(App.hash.get("score"));
@@ -534,7 +536,7 @@ public  class ScoreScreenBase extends AnchorPane {
             @Override
             public void run() {
                 
-                Parent pane = new OnlineGameBoardBase(stage , name , score , state);
+                Parent pane = new OnlineGameBoardBase(stage , name , score , state ,currentScore);
                 stage.getScene().setRoot(pane);  
                 System.out.println("my state: "+state);
                 System.out.println("letttttttttttttttttttttttttttttttttttttttttssssssssssssss"); 

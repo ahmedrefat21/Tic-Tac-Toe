@@ -109,10 +109,7 @@ public  class OnlineLoseBase extends AnchorPane {
         playAgainButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Parent pane;
-                pane = new OnlineGameBoardBase(stage,player2,score, state);
-                stage.getScene().setRoot(pane);
-                mediaPlayer.stop();
+                
             }
         });
         
@@ -120,10 +117,9 @@ public  class OnlineLoseBase extends AnchorPane {
         backToMainButn.setOnAction(new EventHandler<ActionEvent>() { 
             @Override
             public void handle(ActionEvent event) {  
-                Parent pane = new MainPageBase(stage);
+                Parent pane = new ScoreScreenBase(stage);
                 stage.getScene().setRoot(pane);
-                GameBase.player1Score = 0 ;  
-                GameBase.player2Score = 0 ;
+               
                 mediaPlayer.stop();
 
             }

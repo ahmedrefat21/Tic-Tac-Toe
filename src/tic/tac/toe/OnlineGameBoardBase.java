@@ -67,13 +67,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private Timeline timelinelose;
     private Timeline timelineldraw;
     private MediaPlayer mediaPlayer ;
-     protected Player firstPlayer, secondPlayer;
+    protected Player firstPlayer, secondPlayer;
 
     private Preferences pref ;
+//    private int currentScore;
 
 
     
-    public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
+    public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state , int currentScore) {
 
         imageView = new ImageView();
         imageView0 = new ImageView();
@@ -412,7 +413,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         firstPlayerScoreText.setText("5");
         firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
-        int currentScore = Integer.parseInt(App.hash.get("score"));
+         currentScore = Integer.parseInt(App.hash.get("score"));
         firstPlayerScoreText.setText(""+currentScore);
 
         AnchorPane.setBottomAnchor(secondPlayerScoreText, 206.0);
@@ -630,13 +631,15 @@ public  class OnlineGameBoardBase extends AnchorPane {
             @Override
             public void run() {
                 try{
-                    Score += 1; //currentscore of the player
-                    App.hash.put("score", ""+Score);
+                    ScoreScreenBase.currentScore += 1; //currentscore of the player
+                    App.hash.put("score", ""+ScoreScreenBase.currentScore);
+                    System.out.println("score "+ScoreScreenBase.currentScore);
                 } catch(NumberFormatException ex){ 
 
                 }
-                firstPlayerScoreText.setText(""+Score); 
-                App.ps.println("updateScore###"+App.hash.get("email")+"###"+Score);
+                firstPlayerScoreText.setText(""+ScoreScreenBase.currentScore); 
+                System.out.println(ScoreScreenBase.currentScore);
+                App.ps.println("updateScore###"+App.hash.get("email")+"###"+ScoreScreenBase.currentScore);
             }
         });
     }
@@ -684,7 +687,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                             button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
                             System.out.println("myTic "+ oppTic);
                             
-                            //checkState();
+                            checkState();
                         }
                     });
                 }
@@ -716,6 +719,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                     if(display){
                         timelinewinner.play();
                     }else{
+                        highlightLoserButtons(button11, button12, button13);
                         timelinelose.play();
                     }
                 }
@@ -756,6 +760,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
 
                 display = true; 
                 highlightWinningButtons(button11, button12, button13);
+                
 
                 updateScore();
             }else{
@@ -861,6 +866,13 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button1.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
         button2.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
         button3.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        
+    }
+    
+    private void highlightLoserButtons(Button button1,Button button2,Button button3) {
+        button1.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        button2.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        button3.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25"); 
         
     }
     
