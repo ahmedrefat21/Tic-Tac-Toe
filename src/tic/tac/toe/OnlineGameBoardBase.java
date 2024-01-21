@@ -72,7 +72,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private Boolean display = false;
     private Timeline timelinewinner;
     private Timeline timelinelose;
-    private Timeline timelineldraw;
+    private Timeline timelineldraw, timelinelWithdraw;
     private MediaPlayer mediaPlayer ;
     protected Player firstPlayer, secondPlayer;
     protected JFrame jFrame;
@@ -122,6 +122,13 @@ public  class OnlineGameBoardBase extends AnchorPane {
         }));
         timelineldraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             Parent pane = new OnlinedrawBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+        
+            timelinelWithdraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new WithdrawBase(stage);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
@@ -577,18 +584,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
                                     
                                     break;
                                 case "withdraw":
-                                    System.out.println("withdraw");
                                     App.ps.println("available###"+App.hash.get("email"));
                                     Platform.runLater(() -> {
-                                        
-                                      JOptionPane.showMessageDialog(jFrame, "WITHDRAW", "ERROR", JOptionPane.ERROR_MESSAGE);              
-                                        updateScore();
-                                        
-                                     Parent pane = new ScoreScreenBase(stage);
-                                           stage.getScene().setRoot(pane);
-                                        
-                                        System.out.println("You opponent has withdrawed, you are the winner!!!");
-                                        thread.stop();
+                                     timelinelWithdraw.play();
+                                    // JOptionPane.showMessageDialog(jFrame, "WITHDRAW", "ERROR", JOptionPane.ERROR_MESSAGE);              
+                                       updateScore();
+                                       reset();
+
+                                       thread.stop();
                                     });
                                     break;
                                 default :
