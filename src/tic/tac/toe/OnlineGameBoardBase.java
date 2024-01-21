@@ -107,6 +107,15 @@ public  class OnlineGameBoardBase extends AnchorPane {
         exitimage = new ImageView();
         exitButton1 = new Button();
         recordImage = new ImageView();
+        
+              
+              timelinelWithdraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new WithdrawBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+              
         timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             Parent pane = new OnlineWinnerBase(stage);
             Scene scene = new Scene (pane);
@@ -127,12 +136,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
             stage.show();
         }));
         
-            timelinelWithdraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Parent pane = new WithdrawBase(stage);
-            Scene scene = new Scene (pane);
-            stage.setScene(scene);
-            stage.show();
-        }));
+
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
