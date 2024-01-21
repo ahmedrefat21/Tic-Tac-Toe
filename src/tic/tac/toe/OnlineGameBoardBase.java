@@ -21,6 +21,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,6 +32,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 public  class OnlineGameBoardBase extends AnchorPane {
 
@@ -61,6 +67,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     boolean enemyTurn ;
     private int Score;
     private HashMap<String, Button> btn;
+    private Alert alert;
 
     private Boolean display = false;
     private Timeline timelinewinner;
@@ -68,6 +75,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private Timeline timelineldraw;
     private MediaPlayer mediaPlayer ;
     protected Player firstPlayer, secondPlayer;
+    protected JFrame jFrame;
 
     private Preferences pref ;
 //    private int currentScore;
@@ -572,6 +580,13 @@ public  class OnlineGameBoardBase extends AnchorPane {
                                     System.out.println("withdraw");
                                     App.ps.println("available###"+App.hash.get("email"));
                                     Platform.runLater(() -> {
+                                        
+                                      JOptionPane.showMessageDialog(jFrame, "WITHDRAW", "ERROR", JOptionPane.ERROR_MESSAGE);              
+                                        updateScore();
+                                        
+                                     Parent pane = new ScoreScreenBase(stage);
+                                           stage.getScene().setRoot(pane);
+                                        
                                         System.out.println("You opponent has withdrawed, you are the winner!!!");
                                         thread.stop();
                                     });
