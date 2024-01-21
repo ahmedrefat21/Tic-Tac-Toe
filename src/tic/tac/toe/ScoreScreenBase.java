@@ -380,7 +380,9 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.setHeaderText(player2Username+" Wants to Play with You ?");
                 alert.getDialogPane().getButtonTypes().addAll(AcceptType,RejectType);
                 DialogPane dialog = alert.getDialogPane();              
-
+                 dialog.getStylesheets().add(
+                 getClass().getResource("/tic/tac/toe/alertPlayerScreen.css").toExternalForm());
+                 dialog.getStyleClass().add("pendingalert");
                 PauseTransition delay = new PauseTransition(Duration.seconds(10));
                 delay.setOnFinished(e -> alert.hide());
                 Optional<ButtonType> result = alert.showAndWait();
@@ -457,9 +459,9 @@ public  class ScoreScreenBase extends AnchorPane {
                                 alert.setHeaderText("Pending Request Please Wait");
                                 alert.getDialogPane().getButtonTypes().addAll(Yes);                     
                                 DialogPane dialogPane = alert.getDialogPane();
-                                //dialogPane.getStylesheets().add(
-                                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                                //dialogPane.getStyleClass().add("pendingalert");
+                                dialogPane.getStylesheets().add(
+                                getClass().getResource("/tic/tac/toe/alertPlayerScreen.css").toExternalForm());
+                                dialogPane.getStyleClass().add("pendingalert");
                                 PauseTransition delay = new PauseTransition(Duration.seconds(15));
                                 delay.setOnFinished(e -> alert.hide());
                                 alert.show();
@@ -486,9 +488,9 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.setHeaderText("Your Request has been Refused");
                 alert.getDialogPane().getButtonTypes().addAll(Yes);
                 DialogPane dialogPane = alert.getDialogPane();
-                //dialogPane.getStylesheets().add(
-                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                //dialogPane.getStyleClass().add("refalert");
+                dialogPane.getStylesheets().add(
+                getClass().getResource("/tic/tac/toe/alertPlayerScreen.css").toExternalForm());
+                dialogPane.getStyleClass().add("refalert");
                 alert.showAndWait();
             }
         });
