@@ -18,9 +18,8 @@ public  class OnlineWinnerBase extends AnchorPane {
     protected final Button playAgainButton;
     protected final Button backToMainButn;
     protected final MediaView mediaView;
-    protected final Button playAgainButton0;
-    protected final Button backToMainButn0;
-    protected final MediaView mediaView0;
+   
+    
     Player PlayerOne, PlayerTwo;
     OnlineGameBoardBase online;
      private int score;
@@ -33,9 +32,6 @@ public  class OnlineWinnerBase extends AnchorPane {
         playAgainButton = new Button();
         backToMainButn = new Button();
         mediaView = new MediaView();
-        playAgainButton0 = new Button();
-        backToMainButn0 = new Button();
-        mediaView0 = new MediaView();
         PlayerOne= new Player();
         PlayerTwo= new Player();
         //online.firstPlayerScoreText.getText("score");
@@ -99,40 +95,13 @@ public  class OnlineWinnerBase extends AnchorPane {
         mediaView.setLayoutX(165.0);
         mediaView.setLayoutY(33.0);
 
-        playAgainButton0.setLayoutX(82.0);
-        playAgainButton0.setLayoutY(379.0);
-        playAgainButton0.setMnemonicParsing(false);
-        playAgainButton0.setPrefHeight(63.0);
-        playAgainButton0.setPrefWidth(207.0);
-        playAgainButton0.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;");
-        playAgainButton0.getStylesheets().add("/tic/tac/toe/resultfxml.css");
-        playAgainButton0.setText("Play again");
-        playAgainButton0.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
-        playAgainButton0.setFont(new Font("Comic Sans MS Bold", 27.0));
-
-        backToMainButn0.setLayoutX(475.0);
-        backToMainButn0.setLayoutY(379.0);
-        backToMainButn0.setMnemonicParsing(false);
-        backToMainButn0.setPrefHeight(63.0);
-        backToMainButn0.setPrefWidth(200.0);
-        backToMainButn0.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;");
-        backToMainButn0.getStylesheets().add("/tic/tac/toe/resultfxml.css");
-        backToMainButn0.setText("Main menu");
-        backToMainButn0.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
-        backToMainButn0.setFont(new Font("Comic Sans MS Bold", 27.0));
-
-        mediaView0.setFitHeight(320.0);
-        mediaView0.setFitWidth(400.0);
-        mediaView0.setLayoutX(175.0);
-        mediaView0.setLayoutY(43.0);
+        
 
         anchorPane.getChildren().add(playAgainButton);
         anchorPane.getChildren().add(backToMainButn);
         anchorPane.getChildren().add(mediaView);
         getChildren().add(anchorPane);
-        getChildren().add(playAgainButton0);
-        getChildren().add(backToMainButn0);
-        getChildren().add(mediaView0);
+        
        
         
         playAgainButton.setOnAction(new EventHandler<ActionEvent>() {

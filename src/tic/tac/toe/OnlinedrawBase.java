@@ -18,7 +18,7 @@ public  class OnlinedrawBase extends AnchorPane {
     protected final Button playAgainButton;
     protected final Button backToMainButn;
     protected final MediaView mediaView;
-    protected final MediaView mediaView0;
+    
     Player PlayerOne, PlayerTwo;
         private int score;
         String player2 ;
@@ -30,7 +30,7 @@ public  class OnlinedrawBase extends AnchorPane {
         playAgainButton = new Button();
         backToMainButn = new Button();
         mediaView = new MediaView();
-        mediaView0 = new MediaView();
+        
         PlayerOne= new Player();
         PlayerTwo= new Player();
         
@@ -95,16 +95,13 @@ public  class OnlinedrawBase extends AnchorPane {
         mediaView.setLayoutX(165.0);
         mediaView.setLayoutY(33.0);
 
-        mediaView0.setFitHeight(320.0);
-        mediaView0.setFitWidth(400.0);
-        mediaView0.setLayoutX(175.0);
-        mediaView0.setLayoutY(43.0);
+        
 
         anchorPane.getChildren().add(playAgainButton);
         anchorPane.getChildren().add(backToMainButn);
         anchorPane.getChildren().add(mediaView);
         getChildren().add(anchorPane);
-        getChildren().add(mediaView0);
+       
 
         
           
