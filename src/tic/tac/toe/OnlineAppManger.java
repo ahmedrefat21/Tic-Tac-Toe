@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author ahmed
  */
-public class App {
+public class OnlineAppManger {
     static Socket socket;
     static DataInputStream dis;
     static PrintStream ps;
@@ -31,7 +31,7 @@ public class App {
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
         } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OnlineAppManger.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

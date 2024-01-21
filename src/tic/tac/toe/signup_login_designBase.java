@@ -21,7 +21,7 @@ public  class signup_login_designBase extends AnchorPane {
 
     public signup_login_designBase(Stage stage) {
         
-          App.start();
+          OnlineAppManger.start();
 
         arrowback = new ImageView();
         welcomeregister = new ImageView();

@@ -260,11 +260,11 @@ public class LoginBase extends AnchorPane {
                     public void run(){
                         try {
                                 System.out.println("SIGNIN");
-                                App.ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
+                                OnlineAppManger.ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
             
-                                App.ps.flush();
+                                OnlineAppManger.ps.flush();
 
-                            state = App.dis.readLine();
+                            state = OnlineAppManger.dis.readLine();
                             System.out.println(state);
                             token = new StringTokenizer(state,"###");
                             String receivedState = token.nextToken();
@@ -277,13 +277,13 @@ public class LoginBase extends AnchorPane {
                             switch(receivedState){
                                 case "Logged in successfully":
 //                                    score = Integer.parseInt(token.nextToken());
-                                    playerData = App.dis.readLine();
+                                    playerData = OnlineAppManger.dis.readLine();
                                     System.out.println("player data "+playerData);
                             
                                     StringTokenizer token2 = new StringTokenizer(playerData,"###");
-                                    App.hash.put("username", token2.nextToken());
-                                    App.hash.put("email",token2.nextToken());
-                                    App.hash.put("score", token2.nextToken());
+                                    OnlineAppManger.hash.put("username", token2.nextToken());
+                                    OnlineAppManger.hash.put("email",token2.nextToken());
+                                    OnlineAppManger.hash.put("score", token2.nextToken());
                                     //notification for successful logging in
                                       Parent pane = new ScoreScreenBase(stage);
                                          stage.getScene().setRoot(pane);

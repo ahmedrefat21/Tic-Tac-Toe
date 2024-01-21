@@ -398,7 +398,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         firstPlayerNameText.setStrokeWidth(0.0);
         firstPlayerNameText.setText("Refat");
         firstPlayerNameText.setFont(new Font("Comic Sans MS Bold", 48.0));
-        firstPlayerNameText.setText(App.hash.get("username"));
+        firstPlayerNameText.setText(OnlineAppManger.hash.get("username"));
         
 
         AnchorPane.setBottomAnchor(secondPlayerNameText, 291.0);
@@ -432,7 +432,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         firstPlayerScoreText.setText("5");
         firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
-         currentScore = Integer.parseInt(App.hash.get("score"));
+         currentScore = Integer.parseInt(OnlineAppManger.hash.get("score"));
         firstPlayerScoreText.setText(""+currentScore);
 
         AnchorPane.setBottomAnchor(secondPlayerScoreText, 206.0);
@@ -568,7 +568,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                 while(true){
                     do{
                         try{
-                            String data = App.dis.readLine();
+                            String data = OnlineAppManger.dis.readLine();
                             System.out.println("Reaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddddddd");
                             if(data.equals("null")){
                                 System.out.println("nulllllllllllllllllllllllllllllllllllllllllllllllllllll");
@@ -588,7 +588,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                                     
                                     break;
                                 case "withdraw":
-                                    App.ps.println("available###"+App.hash.get("email"));
+                                    OnlineAppManger.ps.println("available###"+OnlineAppManger.hash.get("email"));
                                     Platform.runLater(() -> {
                                      timelinelWithdraw.play();
                                     // JOptionPane.showMessageDialog(jFrame, "WITHDRAW", "ERROR", JOptionPane.ERROR_MESSAGE);              
@@ -654,14 +654,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
             public void run() {
                 try{
                     ScoreScreenBase.currentScore += 1; //currentscore of the player
-                    App.hash.put("score", ""+ScoreScreenBase.currentScore);
+                    OnlineAppManger.hash.put("score", ""+ScoreScreenBase.currentScore);
                     System.out.println("score "+ScoreScreenBase.currentScore);
                 } catch(NumberFormatException ex){ 
 
                 }
                 firstPlayerScoreText.setText(""+ScoreScreenBase.currentScore); 
                 System.out.println(ScoreScreenBase.currentScore);
-                App.ps.println("updateScore###"+App.hash.get("email")+"###"+ScoreScreenBase.currentScore);
+                OnlineAppManger.ps.println("updateScore###"+OnlineAppManger.hash.get("email")+"###"+ScoreScreenBase.currentScore);
             }
         });
     }
@@ -683,9 +683,9 @@ public  class OnlineGameBoardBase extends AnchorPane {
                  System.out.println("I pressed "+button.getId());
                  System.out.println(gameState);
                 if(checkState()){
-                    App.ps.println("finishgameTic###"+App.hash.get("email")+"###"+button.getId());
+                    OnlineAppManger.ps.println("finishgameTic###"+OnlineAppManger.hash.get("email")+"###"+button.getId());
                 }else{
-                    App.ps.println("gameTic###"+App.hash.get("email")+"###"+button.getId());
+                    OnlineAppManger.ps.println("gameTic###"+OnlineAppManger.hash.get("email")+"###"+button.getId());
                 }
             }
             
@@ -694,7 +694,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     
     private void opponentTurn(){
         try {
-            String oppPressed = App.dis.readLine();
+            String oppPressed = OnlineAppManger.dis.readLine();
             System.out.println("oppppppppppppppppressssssssssseeeeeeeeeedddd");
             System.out.println(oppPressed);
             Button btnOpp = btn.get(oppPressed);
@@ -734,7 +734,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         
         if(!gameState){
             
-            App.ps.println("updateGameState###"+App.hash.get("email"));
+            OnlineAppManger.ps.println("updateGameState###"+OnlineAppManger.hash.get("email"));
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -765,7 +765,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     
     private void reset(){
 
-        App.ps.println("available###"+App.hash.get("email"));
+        OnlineAppManger.ps.println("available###"+OnlineAppManger.hash.get("email"));
         thread.stop();
         Platform.runLater(new Runnable() {
             @Override
