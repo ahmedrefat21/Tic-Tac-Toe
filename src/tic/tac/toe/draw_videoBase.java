@@ -106,15 +106,7 @@ public  class draw_videoBase extends AnchorPane {
         RES.setTextFill(javafx.scene.paint.Color.valueOf("#fbc04f"));
         RES.setFont(new Font("Comic Sans MS Bold", 38.0));
 
-        AnchorPane.setBottomAnchor(imageView, 381.0);
-        AnchorPane.setLeftAnchor(imageView, 7.0);
-        AnchorPane.setRightAnchor(imageView, 653.87);
-        AnchorPane.setTopAnchor(imageView, 32.0);
-        imageView.setFitHeight(67.0);
-        imageView.setFitWidth(83.0);
-        imageView.setLayoutX(7.0);
-        imageView.setLayoutY(32.0);
-        imageView.setImage(new Image(getClass().getResource("/assets/images/back.png").toExternalForm()));
+        
 
         getChildren().add(palyagainbtn);
         getChildren().add(mainmenubtn);

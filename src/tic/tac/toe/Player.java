@@ -1,4 +1,3 @@
-
 package tic.tac.toe;
 
 import java.io.Serializable;

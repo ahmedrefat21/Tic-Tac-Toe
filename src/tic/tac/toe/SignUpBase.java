@@ -245,7 +245,7 @@ public  class SignUpBase extends AnchorPane {
 
                  }  
                  else{
-              App.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
+              OnlineAppManger.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
                  
         
           thread =   new Thread(){
@@ -253,7 +253,7 @@ public  class SignUpBase extends AnchorPane {
            public void run(){
                try {
                    try {
-                       state = App.dis.readLine();
+                       state = OnlineAppManger.dis.readLine();
                    } catch (IOException ex) {
                        Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
                    }
@@ -265,12 +265,12 @@ public  class SignUpBase extends AnchorPane {
                    switch(receivedState){
                        case "Registered Successfully":
                            System.out.println("asdfasdfasdfasdfas");
-                           playerData = App.dis.readLine();
+                           playerData = OnlineAppManger.dis.readLine();
                            System.out.println(playerData);
                            token = new StringTokenizer(playerData,"###");
-                           App.hash.put("username", token.nextToken());
-                          App.hash.put("email",token.nextToken());
-                           App.hash.put("score", "0");
+                           OnlineAppManger.hash.put("username", token.nextToken());
+                          OnlineAppManger.hash.put("email",token.nextToken());
+                           OnlineAppManger.hash.put("score", "0");
                            Parent pane = new ScoreScreenBase(stage);
                            stage.getScene().setRoot(pane);
                         break;

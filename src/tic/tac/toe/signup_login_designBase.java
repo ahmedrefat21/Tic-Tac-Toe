@@ -21,7 +21,7 @@ public  class signup_login_designBase extends AnchorPane {
 
     public signup_login_designBase(Stage stage) {
         
-          App.start();
+          OnlineAppManger.start();
 
         arrowback = new ImageView();
         welcomeregister = new ImageView();
@@ -45,7 +45,7 @@ public  class signup_login_designBase extends AnchorPane {
         arrowback.setLayoutY(8.0);
         arrowback.setImage(new Image(getClass().getResource("/assets/images/arrow_back.png").toExternalForm()));
         arrowback.setOnMousePressed(e -> {
-            Parent pane = new signup_login_designBase(stage);
+            Parent pane = new MainPageBase(stage);
             stage.getScene().setRoot(pane);
        });
 

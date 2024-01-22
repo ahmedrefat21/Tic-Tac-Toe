@@ -70,6 +70,7 @@ public  class ScoreScreenBase extends AnchorPane {
     private String player2Username ;
     private int player2Score;
     private int opponentScore;
+    public static int currentScore;
     Stage stage;
     
     
@@ -80,7 +81,7 @@ public  class ScoreScreenBase extends AnchorPane {
     public ScoreScreenBase(Stage stage) {
         this.stage=stage;
         loaded = true;
-        App.ps.println("playerlist");
+        OnlineAppManger.ps.println("playerlist");
 
         text = new Text();
         text0 = new Text();
@@ -268,12 +269,13 @@ public  class ScoreScreenBase extends AnchorPane {
         playersScrollPane.setContent(vBox);
 
         
-        emailText.setText(App.hash.get("email"));
-        usernameText.setText(App.hash.get("username"));
-        scoreText.setText(App.hash.get("score")); 
-        System.out.println(App.hash.get("email"));
-        System.out.println(App.hash.get("username"));
-        System.out.println(App.hash.get("score"));
+        emailText.setText(OnlineAppManger.hash.get("email"));
+        usernameText.setText(OnlineAppManger.hash.get("username"));
+        currentScore =Integer.parseInt(OnlineAppManger.hash.get("score"));
+        scoreText.setText(""+ currentScore); 
+        System.out.println(OnlineAppManger.hash.get("email"));
+        System.out.println(OnlineAppManger.hash.get("username"));
+        System.out.println(OnlineAppManger.hash.get("score"));
        
         
         
@@ -310,7 +312,7 @@ public  class ScoreScreenBase extends AnchorPane {
                     do{
 
                         try{
-                            String data = App.dis.readLine();
+                            String data = OnlineAppManger.dis.readLine();
                             if(data.equals("null")){
                                 break;
                             }
@@ -359,7 +361,7 @@ public  class ScoreScreenBase extends AnchorPane {
        
     
     private void alertRequestPlayer() throws IOException{
-        String opponentData = App.dis.readLine();
+        String opponentData = OnlineAppManger.dis.readLine();
         System.out.println("recieved request");
         token = new StringTokenizer(opponentData,"###");
         String opponentMail = token.nextToken();
@@ -378,13 +380,15 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.setHeaderText(player2Username+" Wants to Play with You ?");
                 alert.getDialogPane().getButtonTypes().addAll(AcceptType,RejectType);
                 DialogPane dialog = alert.getDialogPane();              
-
+                dialog.getStylesheets().add(
+                getClass().getResource("/tic/tac/toe/alertPlayerScreen.css").toExternalForm());
+                dialog.getStyleClass().add("pendingalert");
                 PauseTransition delay = new PauseTransition(Duration.seconds(10));
                 delay.setOnFinished(e -> alert.hide());
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == AcceptType){
                     System.out.println("game on");
-                    App.ps.println("accept###"+App.hash.get("email")+"###"+App.hash.get("username")+"###"+opponentMail);
+                    OnlineAppManger.ps.println("accept###"+OnlineAppManger.hash.get("email")+"###"+OnlineAppManger.hash.get("username")+"###"+opponentMail);
                     System.out.println("staaaaaaaaaaaaaaaaaaaaaagggggggggggggggggeeeeeeeeeeeeeeeeeeee");
                     showGame(false,player2Username,player2Score);
                     
@@ -392,7 +396,7 @@ public  class ScoreScreenBase extends AnchorPane {
                 }else {
                     // to players online screen
                     System.out.println("no first request");
-                    App.ps.println("decline###"+opponentMail);
+                    OnlineAppManger.ps.println("decline###"+opponentMail);
                 }
                 delay.play();
             }
@@ -448,16 +452,16 @@ public  class ScoreScreenBase extends AnchorPane {
                         inviteButton.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
-                                App.ps.println("request###"+inviteButton.getId()+"###"+emailText.getText()+"###"+usernameText.getText()+"###"+scoreText.getText());
+                                OnlineAppManger.ps.println("request###"+inviteButton.getId()+"###"+emailText.getText()+"###"+usernameText.getText()+"###"+scoreText.getText());
                                 ButtonType Yes = new ButtonType("Ok"); 
                                 alert = new Alert(Alert.AlertType.NONE);
                                 alert.setTitle("Request Playing");
                                 alert.setHeaderText("Pending Request Please Wait");
                                 alert.getDialogPane().getButtonTypes().addAll(Yes);                     
                                 DialogPane dialogPane = alert.getDialogPane();
-                                //dialogPane.getStylesheets().add(
-                                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                                //dialogPane.getStyleClass().add("pendingalert");
+                                dialogPane.getStylesheets().add(
+                                getClass().getResource("/tic/tac/toe/alertPlayerScreen.css").toExternalForm());
+                                dialogPane.getStyleClass().add("pendingalert");
                                 PauseTransition delay = new PauseTransition(Duration.seconds(15));
                                 delay.setOnFinished(e -> alert.hide());
                                 alert.show();
@@ -484,9 +488,9 @@ public  class ScoreScreenBase extends AnchorPane {
                 alert.setHeaderText("Your Request has been Refused");
                 alert.getDialogPane().getButtonTypes().addAll(Yes);
                 DialogPane dialogPane = alert.getDialogPane();
-                //dialogPane.getStylesheets().add(
-                //getClass().getResource("/alertPlayerScreen.css").toExternalForm());
-                //dialogPane.getStyleClass().add("refalert");
+                dialogPane.getStylesheets().add(
+                getClass().getResource("/tic/tac/toe/alertPlayerScreen.css").toExternalForm());
+                dialogPane.getStyleClass().add("refalert");
                 alert.showAndWait();
             }
         });
@@ -503,9 +507,9 @@ public  class ScoreScreenBase extends AnchorPane {
         player.setIsplaying(Boolean.parseBoolean(token.nextToken()));
         player.setScore(Integer.parseInt(token.nextToken()));
         
-        System.out.println(App.hash.get("email"));
+        System.out.println(OnlineAppManger.hash.get("email"));
         System.out.println(player.getEmail());
-        if(!App.hash.get("email").equals(player.getEmail())){
+        if(!OnlineAppManger.hash.get("email").equals(player.getEmail())){
             System.out.println("Add list");
             onlinePlayers.add(player);
         }
@@ -518,8 +522,8 @@ public  class ScoreScreenBase extends AnchorPane {
                     alert.close();
             }
         });
-        String OpponentUsername = App.dis.readLine();
-        String sOpponentScore = App.dis.readLine();
+        String OpponentUsername = OnlineAppManger.dis.readLine();
+        String sOpponentScore = OnlineAppManger.dis.readLine();
         opponentScore = Integer.parseInt(sOpponentScore);
         System.out.println("player 2 accepted");
 
@@ -534,7 +538,7 @@ public  class ScoreScreenBase extends AnchorPane {
             @Override
             public void run() {
                 
-                Parent pane = new OnlineGameBoardBase(stage , name , score , state);
+                Parent pane = new OnlineGameBoardBase(stage , name , score , state ,currentScore);
                 stage.getScene().setRoot(pane);  
                 System.out.println("my state: "+state);
                 System.out.println("letttttttttttttttttttttttttttttttttttttttttssssssssssssss"); 
@@ -550,15 +554,15 @@ public  class ScoreScreenBase extends AnchorPane {
     public void logOut(){
 
         System.out.println("backToMainPage: called");
-        System.out.println("Emial " + App.hash.get("email"));
-        if(App.hash.get("email")!= null){
+        System.out.println("Emial " + OnlineAppManger.hash.get("email"));
+        if(OnlineAppManger.hash.get("email")!= null){
                System.out.println("Send to server to logout");
-               App.ps.println("logout###"+App.hash.get("email"));
+               OnlineAppManger.ps.println("logout###"+OnlineAppManger.hash.get("email"));
                thread.stop();
                try {
-                   App.socket.close();
-                   App.dis.close();
-                   App.ps.close();
+                   OnlineAppManger.socket.close();
+                   OnlineAppManger.dis.close();
+                   OnlineAppManger.ps.close();
                } catch (IOException ex) {
                    Logger.getLogger(ScoreScreenBase.class.getName()).log(Level.SEVERE, null, ex);
                }   

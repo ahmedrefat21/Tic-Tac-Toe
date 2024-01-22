@@ -123,7 +123,7 @@ public  class GameBase extends AnchorPane {
 
         stage= s;
         timelinewinner= new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-            Parent pane = new resultFXMLBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
+            Parent pane = new WinnerVideoBase(stage,firstPlayer,secondPlayer,challengeComputer,difficulty);
             Scene scene = new Scene (pane);
             stage.setScene(scene);
             stage.show();
@@ -827,12 +827,14 @@ public  class GameBase extends AnchorPane {
 
             if ("XXX".equals(line)) { 
                 player1Score++;
+                highlightWinningButtons(buttons);
                  timelinewinner.play();
                   
                 return new GameWinnerDetails(true, true, buttons);
             } else if ("OOO".equals(line)) {
                
                  player2Score++;
+                 highlightWinningButtons(buttons);
                  timelinelose.play();
                
                 return new GameWinnerDetails(true, false, buttons);

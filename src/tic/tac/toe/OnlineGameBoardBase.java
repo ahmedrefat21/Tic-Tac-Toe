@@ -21,6 +21,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,6 +32,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 public  class OnlineGameBoardBase extends AnchorPane {
 
@@ -61,19 +67,22 @@ public  class OnlineGameBoardBase extends AnchorPane {
     boolean enemyTurn ;
     private int Score;
     private HashMap<String, Button> btn;
+    private Alert alert;
 
     private Boolean display = false;
     private Timeline timelinewinner;
     private Timeline timelinelose;
-    private Timeline timelineldraw;
+    private Timeline timelineldraw, timelinelWithdraw;
     private MediaPlayer mediaPlayer ;
-     protected Player firstPlayer, secondPlayer;
+    protected Player firstPlayer, secondPlayer;
+    protected JFrame jFrame;
 
     private Preferences pref ;
+//    private int currentScore;
 
 
     
-    public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state) {
+    public OnlineGameBoardBase(Stage stage , String player2 , int score , boolean state , int currentScore) {
 
         imageView = new ImageView();
         imageView0 = new ImageView();
@@ -98,6 +107,15 @@ public  class OnlineGameBoardBase extends AnchorPane {
         exitimage = new ImageView();
         exitButton1 = new Button();
         recordImage = new ImageView();
+        
+              
+              timelinelWithdraw=new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Parent pane = new WithdrawBase(stage);
+            Scene scene = new Scene (pane);
+            stage.setScene(scene);
+            stage.show();
+        }));
+              
         timelinewinner= new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             Parent pane = new OnlineWinnerBase(stage);
             Scene scene = new Scene (pane);
@@ -117,6 +135,8 @@ public  class OnlineGameBoardBase extends AnchorPane {
             stage.setScene(scene);
             stage.show();
         }));
+        
+
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -378,7 +398,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         firstPlayerNameText.setStrokeWidth(0.0);
         firstPlayerNameText.setText("Refat");
         firstPlayerNameText.setFont(new Font("Comic Sans MS Bold", 48.0));
-        firstPlayerNameText.setText(App.hash.get("username"));
+        firstPlayerNameText.setText(OnlineAppManger.hash.get("username"));
         
 
         AnchorPane.setBottomAnchor(secondPlayerNameText, 291.0);
@@ -412,7 +432,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
         firstPlayerScoreText.setText("5");
         firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
-        int currentScore = Integer.parseInt(App.hash.get("score"));
+         currentScore = Integer.parseInt(OnlineAppManger.hash.get("score"));
         firstPlayerScoreText.setText(""+currentScore);
 
         AnchorPane.setBottomAnchor(secondPlayerScoreText, 206.0);
@@ -548,7 +568,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                 while(true){
                     do{
                         try{
-                            String data = App.dis.readLine();
+                            String data = OnlineAppManger.dis.readLine();
                             System.out.println("Reaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddddddd");
                             if(data.equals("null")){
                                 System.out.println("nulllllllllllllllllllllllllllllllllllllllllllllllllllll");
@@ -568,11 +588,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
                                     
                                     break;
                                 case "withdraw":
-                                    System.out.println("withdraw");
-                                    App.ps.println("available###"+App.hash.get("email"));
+                                    OnlineAppManger.ps.println("available###"+OnlineAppManger.hash.get("email"));
                                     Platform.runLater(() -> {
-                                        System.out.println("You opponent has withdrawed, you are the winner!!!");
-                                        thread.stop();
+                                     timelinelWithdraw.play();
+                                    // JOptionPane.showMessageDialog(jFrame, "WITHDRAW", "ERROR", JOptionPane.ERROR_MESSAGE);              
+                                       updateScore();
+                                       reset();
+
+                                       thread.stop();
                                     });
                                     break;
                                 default :
@@ -630,13 +653,15 @@ public  class OnlineGameBoardBase extends AnchorPane {
             @Override
             public void run() {
                 try{
-                    Score += 1; //currentscore of the player
-                    App.hash.put("score", ""+Score);
+                    ScoreScreenBase.currentScore += 1; //currentscore of the player
+                    OnlineAppManger.hash.put("score", ""+ScoreScreenBase.currentScore);
+                    System.out.println("score "+ScoreScreenBase.currentScore);
                 } catch(NumberFormatException ex){ 
 
                 }
-                firstPlayerScoreText.setText(""+Score); 
-                App.ps.println("updateScore###"+App.hash.get("email")+"###"+Score);
+                firstPlayerScoreText.setText(""+ScoreScreenBase.currentScore); 
+                System.out.println(ScoreScreenBase.currentScore);
+                OnlineAppManger.ps.println("updateScore###"+OnlineAppManger.hash.get("email")+"###"+ScoreScreenBase.currentScore);
             }
         });
     }
@@ -658,9 +683,9 @@ public  class OnlineGameBoardBase extends AnchorPane {
                  System.out.println("I pressed "+button.getId());
                  System.out.println(gameState);
                 if(checkState()){
-                    App.ps.println("finishgameTic###"+App.hash.get("email")+"###"+button.getId());
+                    OnlineAppManger.ps.println("finishgameTic###"+OnlineAppManger.hash.get("email")+"###"+button.getId());
                 }else{
-                    App.ps.println("gameTic###"+App.hash.get("email")+"###"+button.getId());
+                    OnlineAppManger.ps.println("gameTic###"+OnlineAppManger.hash.get("email")+"###"+button.getId());
                 }
             }
             
@@ -669,7 +694,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     
     private void opponentTurn(){
         try {
-            String oppPressed = App.dis.readLine();
+            String oppPressed = OnlineAppManger.dis.readLine();
             System.out.println("oppppppppppppppppressssssssssseeeeeeeeeedddd");
             System.out.println(oppPressed);
             Button btnOpp = btn.get(oppPressed);
@@ -684,7 +709,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
                             button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
                             System.out.println("myTic "+ oppTic);
                             
-                            //checkState();
+                            checkState();
                         }
                     });
                 }
@@ -709,13 +734,14 @@ public  class OnlineGameBoardBase extends AnchorPane {
         
         if(!gameState){
             
-            App.ps.println("updateGameState###"+App.hash.get("email"));
+            OnlineAppManger.ps.println("updateGameState###"+OnlineAppManger.hash.get("email"));
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     if(display){
                         timelinewinner.play();
                     }else{
+                        
                         timelinelose.play();
                     }
                 }
@@ -739,7 +765,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
     
     private void reset(){
 
-        App.ps.println("available###"+App.hash.get("email"));
+        OnlineAppManger.ps.println("available###"+OnlineAppManger.hash.get("email"));
         thread.stop();
         Platform.runLater(new Runnable() {
             @Override
@@ -756,6 +782,7 @@ public  class OnlineGameBoardBase extends AnchorPane {
 
                 display = true; 
                 highlightWinningButtons(button11, button12, button13);
+                
 
                 updateScore();
             }else{
@@ -861,6 +888,13 @@ public  class OnlineGameBoardBase extends AnchorPane {
         button1.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
         button2.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
         button3.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        
+    }
+    
+    private void highlightLoserButtons(Button button1,Button button2,Button button3) {
+        button1.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        button2.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25");
+        button3.setStyle("-fx-background-color:#69BA6C;-fx-background-radius: 25"); 
         
     }
     

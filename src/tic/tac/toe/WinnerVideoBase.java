@@ -13,7 +13,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public  class resultFXMLBase extends AnchorPane {
+public  class WinnerVideoBase extends AnchorPane {
 
     protected final Button playAgainButton;
     protected final Button backToMainButn;
@@ -30,13 +30,13 @@ public  class resultFXMLBase extends AnchorPane {
 //     }
     
 
-    public resultFXMLBase(Stage stage, Player firstPlayer, Player secondPlayer, Boolean challengeComputer, GameDifficulty difficulty) {
+    public WinnerVideoBase(Stage stage, Player firstPlayer, Player secondPlayer, Boolean challengeComputer, GameDifficulty difficulty) {
         this(stage, firstPlayer, secondPlayer);
         this.challengeComputer = challengeComputer;
         this.difficulty = difficulty;
     }
 
-    public resultFXMLBase(Stage stage,Player firstPlayer, Player secondPlayer)  {
+    public WinnerVideoBase(Stage stage,Player firstPlayer, Player secondPlayer)  {
         playAgainButton = new Button();
         backToMainButn = new Button();
         mediaView = new MediaView();
