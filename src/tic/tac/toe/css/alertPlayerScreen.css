@@ -1,0 +1,73 @@
+.reqalert{
+    -fx-background-color:#fde8ed;
+     -fx-padding: 20 20 20 20;  
+}
+
+.reqalert:header  *.header-panel{
+    -fx-background-color:#fde8ed;
+}
+
+.reqalert:header *.header-panel *.label{
+    -fx-text-fill: #f22853;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size:25px;
+    -fx-text-alignment:center;
+    
+}
+
+.reqalert > *.button-bar *.button{
+    -fx-background-color: #F22853;
+    -fx-text-fill: #FFFDF5;
+    -fx-font-family: "Comic Sans MS";
+    -fx-pref-width:140px;
+    -fx-pref-height:40px;
+    -fx-cursor:hand;
+    -fx-background-radius :  45 45 45 45;
+}
+.refalert{
+     -fx-background-color:#fde8ed;
+     -fx-padding: 20 20 20 20;  
+    
+}
+.refalert:header *.header-panel *.label{
+    -fx-text-fill: #f22853;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size:25px;
+    -fx-text-alignment:center;
+    
+}
+.refalert:header  *.header-panel{
+    -fx-background-color:#fde8ed;
+}
+.refalert> *.button-bar *.button{
+    -fx-background-color: #F22853;
+    -fx-text-fill: #FFFDF5;
+    -fx-font-family: "Comic Sans MS";
+    -fx-pref-width:140px;
+    -fx-pref-height:40px;
+    -fx-cursor:hand;
+    -fx-background-radius :  45 45 45 45;
+}
+.pendingalert{
+    -fx-background-color:#fde8ed;
+     -fx-padding: 20 20 20 20;  
+}
+.pendingalert:header  *.header-panel{
+     -fx-background-color:#fde8ed;
+}
+.pendingalert:header *.header-panel *.label{
+    -fx-text-fill: #f22853;
+    -fx-font-size:25px;
+    -fx-font-family: "Comic Sans MS";
+    -fx-text-alignment:center;
+    
+}
+.pendingalert> *.button-bar *.button{
+    -fx-background-color: #F22853;
+    -fx-text-fill: #FFFDF5;
+    -fx-font-family: "Comic Sans MS";
+    -fx-pref-width:140px;
+    -fx-pref-height:40px;
+    -fx-cursor:hand;
+    -fx-background-radius :  45 45 45 45;
+}
