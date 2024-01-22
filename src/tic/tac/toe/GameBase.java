@@ -465,43 +465,17 @@ public  class GameBase extends AnchorPane {
             playRecording();
         }
     }
-    
-    class BoardCell {
-        private int x;
-        private int y;
-        
-        BoardCell(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public void setX(int x) {
-            this.x = x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public void setY(int y) {
-            this.y = y;
-        }
-    }
 
     private void playMove(Button button) {
         if (!isRecording)
             recordImage.setVisible(false);
-        else if (!isPlayingRecord)
+        else if (isRecording && !isPlayingRecord)
             recordMove(button);
 
         setPlayerSymbol(button);
         button.setDisable(true);
         System.out.println(++counter);
-       // checkIfGameIsOver();
+        checkIfGameIsOver();
         button.setFocusTraversable(false);
         if (shouldComputerPlay()) {
             BoardCell playComputer = getComputerMove();
@@ -826,16 +800,16 @@ public  class GameBase extends AnchorPane {
             }
 
             if ("XXX".equals(line)) { 
-                player1Score++;
-                highlightWinningButtons(buttons);
-                 timelinewinner.play();
+//                player1Score++;
+//                highlightWinningButtons(buttons);
+//                 timelinewinner.play();
                   
                 return new GameWinnerDetails(true, true, buttons);
             } else if ("OOO".equals(line)) {
                
-                 player2Score++;
-                 highlightWinningButtons(buttons);
-                 timelinelose.play();
+//                 player2Score++;
+//                 highlightWinningButtons(buttons);
+//                 timelinelose.play();
                
                 return new GameWinnerDetails(true, false, buttons);
             }
@@ -845,12 +819,12 @@ public  class GameBase extends AnchorPane {
 
         if (counter == 9) {
 
-            timelinedraw.play();
+
             System.out.println(counter);
             if (isRecording)
                 saveRecording();
             if (!isPlayingRecord)
-                timeline.play();
+                timelinedraw.play();
             return new GameWinnerDetails(false, false, null);
         }
 
@@ -865,7 +839,9 @@ public  class GameBase extends AnchorPane {
         System.out.println("Winner details = " + winnerDetails);
         if (winnerDetails != null) {
             if (winnerDetails.someoneWon) {
+                boolean player1Won = false;
                 if (winnerDetails.player1Won) {
+                    player1Won = true;
                     firstPlayerScoreText.setText(String.valueOf(player1Score));
                     player1Score++;
                     System.out.println("Player 1 score = " + player1Score);
@@ -880,8 +856,13 @@ public  class GameBase extends AnchorPane {
                 fullBoardFlag = false;
                 if (isRecording)
                     saveRecording();
-                if (!isPlayingRecord)
-                    timeline.play();
+                if (!isPlayingRecord) {
+                    if (player1Won) {
+                        timelinewinner.play();
+                    } else {
+                        timelinelose.play();
+                    }
+                }
             }
         }
     }

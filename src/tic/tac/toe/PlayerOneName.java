@@ -78,7 +78,9 @@ public class PlayerOneName extends AnchorPane {
         startButton.setPadding(new Insets(0.0, 10.0, 10.0, 10.0));
         startButton.setFont(new Font("Comic Sans MS Bold", 30.0));
         startButton.setOnAction((ActionEvent event) -> {
-            String playerOneName = playerOneTextField.getText();
+            String playerOneName = playerOneTextField.getText().trim();
+            if (playerOneName.isEmpty())
+                return;
             Player playerOne = new Player(playerOneName);
             Player computerPlayer = new Player("Computer");
             Parent pane = new GameBase(stage, playerOne, computerPlayer, true, difficulty);
