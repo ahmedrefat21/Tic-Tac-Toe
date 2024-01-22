@@ -215,11 +215,7 @@ public class LoginBase extends AnchorPane {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-        
-           
-         
-            String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-            Pattern pattern = Pattern.compile(regex);     
+            Pattern pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");     
             Matcher matcher = pattern.matcher(emailTextField.getText());
             String userName = emailTextField.getText().trim();
             String email = emailTextField.getText().trim();
@@ -233,131 +229,94 @@ public class LoginBase extends AnchorPane {
                 
             }else{
              
-         
+                if(emailTextField.getText().equals("")){
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                         JOptionPane.showMessageDialog(jFrame, "Please enter your email", "ERROR", JOptionPane.ERROR_MESSAGE);                    }
+                    });
 
-            if(emailTextField.getText().equals("")){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                     JOptionPane.showMessageDialog(jFrame, "Please enter your email", "ERROR", JOptionPane.ERROR_MESSAGE);                    }
-                });
-                
-            } else if(passwordTextField.getText().equals("")){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                    JOptionPane.showMessageDialog(jFrame, "Please enter your password", "ERROR", JOptionPane.ERROR_MESSAGE);                    }
-                });
-                
-            }else{
-                
-                System.out.println("LOOOOOOOOOOOGIIIIIIIIINNNNNNNNNNN");
+                } else if(passwordTextField.getText().equals("")){
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                        JOptionPane.showMessageDialog(jFrame, "Please enter your password", "ERROR", JOptionPane.ERROR_MESSAGE);                    }
+                    });
 
-              thread =  new Thread(){
-                   // HashMap<String, String> hash = new HashMap<>(); 
-                    String state,playerData;
-                    @Override
-                    public void run(){
-                        try {
-                                System.out.println("SIGNIN");
-                                OnlineAppManger.ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
-            
-                                OnlineAppManger.ps.flush();
-
-                            state = OnlineAppManger.dis.readLine();
-                            System.out.println(state);
-                            token = new StringTokenizer(state,"###");
-                            String receivedState = token.nextToken();
-                                                        System.out.println(receivedState);
-
-                            System.out.println("sign in page "+receivedState);
-                            
-                            
-                            
-                            switch(receivedState){
-                                case "Logged in successfully":
-//                                    score = Integer.parseInt(token.nextToken());
-                                    playerData = OnlineAppManger.dis.readLine();
-                                    System.out.println("player data "+playerData);
-                            
-                                    StringTokenizer token2 = new StringTokenizer(playerData,"###");
-                                    OnlineAppManger.hash.put("username", token2.nextToken());
-                                    OnlineAppManger.hash.put("email",token2.nextToken());
-                                    OnlineAppManger.hash.put("score", token2.nextToken());
-                                    //notification for successful logging in
-                                      Parent pane = new ScoreScreenBase(stage);
-                                         stage.getScene().setRoot(pane);
-             
-                                    
-                                     Platform.runLater(()->{
-                                         thread.stop();
-                                      });
-                                    break;
-                                case "This Email is alreay sign-in":
-                                    System.out.println("already sign in before run later");
-                                    Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);
-
-                                         //   alertText.setText(receivedState);
-                                        }
-                                    });                             
-                                    break;
-                                case "Email is incorrect":
-                                    Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
+                }else{
+                    thread =  new Thread(){
+                        String state,playerData;
+                        @Override
+                        public void run(){
+                            try {
+                                    OnlineAppManger.ps.println("SignIn###"+emailTextField.getText()+"###"+passwordTextField.getText());
+                                    OnlineAppManger.ps.flush();
+                                    state = OnlineAppManger.dis.readLine();
+                                    token = new StringTokenizer(state,"###");
+                                    String receivedState = token.nextToken();
+                                switch(receivedState){
+                                    case "Logged in successfully":
+    //                                    
+                                        playerData = OnlineAppManger.dis.readLine();
+                                        StringTokenizer token2 = new StringTokenizer(playerData,"###");
+                                        OnlineAppManger.hash.put("username", token2.nextToken());
+                                        OnlineAppManger.hash.put("email",token2.nextToken());
+                                        OnlineAppManger.hash.put("score", token2.nextToken());
+                                        Parent pane = new ScoreScreenBase(stage);
+                                        stage.getScene().setRoot(pane);
+                                         Platform.runLater(()->{
+                                             thread.stop();
+                                          });
+                                        break;
+                                    case "This Email is alreay sign-in":
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);
+                                            }
+                                        });                             
+                                        break;
+                                    case "Email is incorrect":
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
+                                              });                              
+                                        break;
+                                    case "Password is incorrect":
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
                                             JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
-                                          });                              
-                                    break;
-                                case "Password is incorrect":
-                                    Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
+                                        });                                 
+                                        break;
+                                    case "Connection issue, please try again later":
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
                                         JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
-                                    });                                 
-                                    break;
-                                case "Connection issue, please try again later":
-                                    Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
-                                    }); 
-                                    break;
-                                default :
-                                    Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                    JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
-                                    });
+                                        }); 
+                                        break;
+                                    default :
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                        JOptionPane.showMessageDialog(jFrame, receivedState, "ERROR", JOptionPane.ERROR_MESSAGE);                                        }
+                                        });
+                                }
+
+                            } catch (IOException ex) {
+                               ex.printStackTrace();
                             }
-
-                        } catch (IOException ex) {
-                            Platform.runLater(() -> {
-                                /*try {
-                                    AskDialog  serverIssueAlert  = new AskDialog();
-                                    serverIssueAlert.serverIssueAlert("There is issue in connection game page will be closed");
-                                    thread.stop();
-                                    socket.close();
-                                    dis.close();
-                                    ps.close();
-                                } catch (IOException ex1) {
-                                    Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex1);
-                                }*/
-
-                                });
-                            
                         }
-                    }
-                };   
-              thread.start();
+                    };   
+                  thread.start();
 
+                }
             }
-         }
 
-                  }
-        });  
+        }
+    });  
 
     }
 
