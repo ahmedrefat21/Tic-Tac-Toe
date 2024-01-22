@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -27,6 +28,7 @@ public class MainPageBase extends AnchorPane {
     protected final Button localButton;
     protected final Button onlineButton;
     protected final Button compButton;
+    protected final ImageView recordsList;
 
     public MainPageBase(Stage stage) {
 
@@ -41,6 +43,7 @@ public class MainPageBase extends AnchorPane {
         localButton = new Button();
         onlineButton = new Button();
         compButton = new Button();
+        recordsList = new ImageView();
 
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -174,6 +177,18 @@ public class MainPageBase extends AnchorPane {
         compButton.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         compButton.setFont(new Font("Comic Sans MS Bold", 26.0));
 
+        AnchorPane.setBottomAnchor(recordsList, 14.0);
+        AnchorPane.setLeftAnchor(recordsList, ((stage.getScene().getWidth() / 2)-60));
+        AnchorPane.setTopAnchor(recordsList, 382.0);
+        recordsList.setFitHeight(83.0);
+        recordsList.setFitWidth(0.0);
+        recordsList.setLayoutX(155.0);
+        recordsList.setLayoutY(382.0);
+        recordsList.setPickOnBounds(true);
+        recordsList.setPreserveRatio(true);
+        recordsList.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,0,0);");
+        recordsList.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
+
         getChildren().add(imageView);
         getChildren().add(aboutImage);
         getChildren().add(computerRectangle);
@@ -186,6 +201,7 @@ public class MainPageBase extends AnchorPane {
         getChildren().add(localButton);
         getChildren().add(onlineButton);
         getChildren().add(compButton);
+        getChildren().add(recordsList);
         
              localButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -211,7 +227,15 @@ public class MainPageBase extends AnchorPane {
              stage.getScene().setRoot(pane);
               
     }
-});       
+});   
+           
+        recordsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                RecordsList recordsList = new RecordsList(stage);
+                stage.getScene().setRoot(recordsList);
+            }
+        }); 
 
 
     }

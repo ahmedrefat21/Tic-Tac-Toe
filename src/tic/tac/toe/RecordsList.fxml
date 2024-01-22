@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="740.0" styleClass="record-box" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane prefHeight="480.0" prefWidth="740.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="743.0" styleClass="records-box" stylesheets="@css/recordslist.css">
+               <children>
+                  <ImageView fx:id="Record_Screen_Back_Button" fitHeight="95.0" fitWidth="85.0" layoutX="25.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/back.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="151.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="head-text" text="Offline Game Records" />
+                  <Text fx:id="Record_Label_3" layoutX="32.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="record-name" text="Ahmed-Sarah-28-12-2023" />
+                  <ImageView fx:id="Play_Record_3" fitHeight="68.0" fitWidth="68.0" layoutX="598.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/play-video%20(2)%201.png" />
+                     </image>
+                  </ImageView>
+                  <Line endX="446.0" layoutX="253.0" layoutY="349.0" startX="-226.0" styleClass="lins" />
+                  <Text fx:id="Record_Label_2" layoutX="29.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="record-name" text="Ahmed-Mariam-28-12-2023" />
+                  <Text fx:id="Record_Label_1" layoutX="28.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="record-name" text="Ahmed-Mahdy-28-12-2023" />
+                  <ImageView fx:id="Play_Record_2" fitHeight="77.0" fitWidth="68.0" layoutX="598.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/play-video%20(2)%201.png" />
+                     </image>
+                  </ImageView>
+                  <Line endX="447.0" layoutX="250.0" layoutY="250.0" startX="-221.0" styleClass="lins" />
+                  <ImageView fx:id="Play_Record_1" fitHeight="68.0" fitWidth="68.0" layoutX="598.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/play-video%20(2)%201.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

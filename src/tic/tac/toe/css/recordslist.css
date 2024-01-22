@@ -1,0 +1,21 @@
+.records-box{
+    -fx-background-color:#FDE8ED; 
+}
+.head-text{
+    
+    -fx-fill:#F9D459; 
+    -fx-font:50px "Comic Sans MS";
+    -fx-font-weight: bold; 
+ 
+}
+.record-name{
+    -fx-fill:#F9D459; 
+    -fx-font: 26px "Comic Sans MS";
+    -fx-font-weight: bold;    
+}
+
+.lins{
+    -fx-background-color:#FDE8ED;
+    -fx-stroke: red;
+    
+}

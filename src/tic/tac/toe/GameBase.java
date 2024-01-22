@@ -1,11 +1,21 @@
 package tic.tac.toe;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -16,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -28,26 +39,26 @@ import javafx.util.Duration;
 
 public  class GameBase extends AnchorPane {
 
-    protected final ImageView imageView;
-    protected final ImageView imageView0;
-    protected final ImageView exitimage;
-    protected final Button button11;
-    protected final Button button13;
-    protected final Button button12;
-    protected final Button button31;
-    protected final Button button23;
-    protected final Button button22;
-    protected final Button button21;
-    protected final Button button33;
-    protected final Button button32;
-    protected final Text tacText;
-    protected final Text toeText;
-    protected final Text ticText;
-    protected final Text firstPlayerNameText;
-    protected final Text secondPlayerNameText;
-    protected final Text firstPlayerScoreText;
-    protected final Text secondPlayerScoreText;
-    protected final ImageView recordImage;
+    protected ImageView imageView;
+    protected ImageView imageView0;
+    protected ImageView exitimage;
+    protected Button button11;
+    protected Button button13;
+    protected Button button12;
+    protected Button button31;
+    protected Button button23;
+    protected Button button22;
+    protected Button button21;
+    protected Button button33;
+    protected Button button32;
+    protected Text tacText;
+    protected Text toeText;
+    protected Text ticText;
+    protected Text firstPlayerNameText;
+    protected Text secondPlayerNameText;
+    protected Text firstPlayerScoreText;
+    protected Text secondPlayerScoreText;
+    protected ImageView recordImage;
     protected Player firstPlayer, secondPlayer;
     private Button[][] buttons = new Button[3][3];
     private boolean isGameEnds = false;
@@ -64,14 +75,28 @@ public  class GameBase extends AnchorPane {
     Timeline timelinelose;
     Timeline timelinedraw;
     boolean turn, fullBoardFlag;
+    boolean isRecording = false;
+    Recording currentRecording;
+    boolean isPlayingRecord = false;
+    
+    public GameBase(Stage s, Recording recording) {
+        this.currentRecording = recording;
+        this.isPlayingRecord = true;
+        init(s, recording.getPlayer1(), recording.getPlayer2());
+        
+    }
     
     public GameBase(Stage s, Player playerOne, Player playerTwo, Boolean challengeComputer, GameDifficulty difficulty) {
-        this(s, playerOne, playerTwo);
         this.challengeComputer = challengeComputer;
         this.difficulty = difficulty;
+        init(s, playerOne, playerTwo);
     }
 
     public GameBase(Stage s, Player playerOne, Player playerTwo) {
+        init(s, playerOne, playerTwo);
+    }
+    
+    private void init(Stage s, Player playerOne, Player playerTwo) {
         imageView = new ImageView();
         imageView0 = new ImageView();
         exitimage = new ImageView();
@@ -355,43 +380,49 @@ public  class GameBase extends AnchorPane {
         secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         secondPlayerNameText.setText("Sara");
         secondPlayerNameText.setFont(new Font("Comic Sans MS Bold", 24.0));
-        
-        AnchorPane.setBottomAnchor(firstPlayerScoreText, 206.0);
-        AnchorPane.setTopAnchor(firstPlayerScoreText, 207.0);
-        firstPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
-        firstPlayerScoreText.setId("firstPlayerNameText");
-        firstPlayerScoreText.setLayoutX(67.0);
-        firstPlayerScoreText.setLayoutY(260.0);
-        firstPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        firstPlayerScoreText.setStrokeWidth(0.0);
-        firstPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        firstPlayerScoreText.setText(player1Score+"");
-        firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
 
-        AnchorPane.setBottomAnchor(secondPlayerScoreText, 206.0);
-        AnchorPane.setTopAnchor(secondPlayerScoreText, 207.0);
-        secondPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
-        secondPlayerScoreText.setId("firstPlayerNameText");
-        secondPlayerScoreText.setLayoutX(655.0);
-        secondPlayerScoreText.setLayoutY(249.0);
-        secondPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
-        secondPlayerScoreText.setStrokeWidth(0.0);
-        secondPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        secondPlayerScoreText.setText(player2Score+"");
-        secondPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
+        if (!isPlayingRecord) {
+            AnchorPane.setBottomAnchor(firstPlayerScoreText, 206.0);
+            AnchorPane.setTopAnchor(firstPlayerScoreText, 207.0);
+            firstPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#f22853"));
+            firstPlayerScoreText.setId("firstPlayerNameText");
+            firstPlayerScoreText.setLayoutX(67.0);
+            firstPlayerScoreText.setLayoutY(260.0);
+            firstPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+            firstPlayerScoreText.setStrokeWidth(0.0);
+            firstPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            firstPlayerScoreText.setText(player1Score+"");
+            firstPlayerScoreText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+            firstPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
 
-        AnchorPane.setBottomAnchor(recordImage, 14.0);
-        AnchorPane.setLeftAnchor(recordImage, 15.0);
-        AnchorPane.setTopAnchor(recordImage, 382.0);
-        recordImage.setFitHeight(83.0);
-        recordImage.setFitWidth(104.0);
-        recordImage.setLayoutX(15.0);
-        recordImage.setLayoutY(382.0);
-        recordImage.setPickOnBounds(true);
-        recordImage.setPreserveRatio(true);
-        recordImage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        recordImage.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
+            AnchorPane.setBottomAnchor(secondPlayerScoreText, 206.0);
+            AnchorPane.setTopAnchor(secondPlayerScoreText, 207.0);
+            secondPlayerScoreText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
+            secondPlayerScoreText.setId("firstPlayerNameText");
+            secondPlayerScoreText.setLayoutX(655.0);
+            secondPlayerScoreText.setLayoutY(249.0);
+            secondPlayerScoreText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
+            secondPlayerScoreText.setStrokeWidth(0.0);
+            secondPlayerScoreText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            secondPlayerScoreText.setText(player2Score+"");
+            secondPlayerScoreText.setFont(new Font("Comic Sans MS Bold", 48.0));
+
+            AnchorPane.setBottomAnchor(recordImage, 14.0);
+            AnchorPane.setLeftAnchor(recordImage, 15.0);
+            AnchorPane.setTopAnchor(recordImage, 382.0);
+            recordImage.setFitHeight(83.0);
+            recordImage.setFitWidth(104.0);
+            recordImage.setLayoutX(15.0);
+            recordImage.setLayoutY(382.0);
+            recordImage.setPickOnBounds(true);
+            recordImage.setPreserveRatio(true);
+            recordImage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
+            recordImage.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
+            recordImage.setOnMouseClicked((MouseEvent event) -> {
+                isRecording = true;
+                recordImage.setVisible(false);
+            });
+        }
 
         getChildren().add(imageView);
         getChildren().add(imageView0);
@@ -412,7 +443,10 @@ public  class GameBase extends AnchorPane {
         getChildren().add(secondPlayerNameText);
         getChildren().add(firstPlayerScoreText);
         getChildren().add(secondPlayerScoreText);
-        getChildren().add(recordImage);
+        
+        if (!isPlayingRecord) {
+            getChildren().add(recordImage);
+        }
 
         firstPlayerNameText.setText(playerOne.getUsername());
         secondPlayerNameText.setText(playerTwo.getUsername());
@@ -424,45 +458,72 @@ public  class GameBase extends AnchorPane {
             GameBase.player2Score = 0 ;
            mediaPlayer.stop();  
        });
-    }
-    
-    class BoardCell {
-        private int x;
-        private int y;
         
-        BoardCell(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public void setX(int x) {
-            this.x = x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public void setY(int y) {
-            this.y = y;
+        if (isPlayingRecord) {
+            System.out.println("WEEEEEEEEE ARE PLAYING A RECORD");
+            disableButton();
+            playRecording();
         }
     }
 
     private void playMove(Button button) {
+        if (!isRecording)
+            recordImage.setVisible(false);
+        else if (isRecording && !isPlayingRecord)
+            recordMove(button);
+
         setPlayerSymbol(button);
         button.setDisable(true);
         System.out.println(++counter);
-       // checkIfGameIsOver();
+        checkIfGameIsOver();
         button.setFocusTraversable(false);
         if (shouldComputerPlay()) {
             BoardCell playComputer = getComputerMove();
             System.out.println("Computer will play = " + playComputer);
             playMove(getButton(playComputer.getX(), playComputer.getY()));
         }
+    }
+    
+
+    private void recordMove(Button button) {
+        if (this.currentRecording == null)
+            this.currentRecording = new Recording(firstPlayer, secondPlayer, new Date(), "", new ArrayList<>());
+
+        this.currentRecording.addNewMove(getCellFromButton(button));
+    }
+    
+    private BoardCell getCellFromButton(Button button) {
+        int x = -1, y = -1;
+        if (button == button11) {
+            x = 0;
+            y = 0;
+        } else if (button == button12) {
+            x = 0;
+            y = 1;
+        } else if (button == button13) {
+            x = 0;
+            y = 2;
+        } else if (button == button21) {
+            x = 1;
+            y = 0;
+        } else if (button == button22) {
+            x = 1;
+            y = 1;
+        } else if (button == button23) {
+            x = 1;
+            y = 2;
+        } else if (button == button31) {
+            x = 2;
+            y = 0;
+        } else if (button == button32) {
+            x = 2;
+            y = 1;
+        } else if (button == button33) {
+            x = 2;
+            y = 2;
+        }
+        
+        return new BoardCell(x, y);
     }
     
     private boolean shouldComputerPlay() {
@@ -737,18 +798,18 @@ public  class GameBase extends AnchorPane {
                      disableButton();
                     return new GameWinnerDetails(false, false, null);
             }
-            
+
             if ("XXX".equals(line)) { 
-                player1Score++;
-                highlightWinningButtons(buttons);
-                 timelinewinner.play();
+//                player1Score++;
+//                highlightWinningButtons(buttons);
+//                 timelinewinner.play();
                   
                 return new GameWinnerDetails(true, true, buttons);
             } else if ("OOO".equals(line)) {
                
-                 player2Score++;
-                 highlightWinningButtons(buttons);
-                 timelinelose.play();
+//                 player2Score++;
+//                 highlightWinningButtons(buttons);
+//                 timelinelose.play();
                
                 return new GameWinnerDetails(true, false, buttons);
             }
@@ -757,8 +818,13 @@ public  class GameBase extends AnchorPane {
         }
 
         if (counter == 9) {
-            timelinedraw.play();
+
+
             System.out.println(counter);
+            if (isRecording)
+                saveRecording();
+            if (!isPlayingRecord)
+                timelinedraw.play();
             return new GameWinnerDetails(false, false, null);
         }
 
@@ -767,28 +833,40 @@ public  class GameBase extends AnchorPane {
     
     
 
-//    public void checkIfGameIsOver() {
-//        GameWinnerDetails winnerDetails = getWinnerDetails();
-//        System.out.println("Winner details = " + winnerDetails);
-//        if (winnerDetails != null) {
-//            if (winnerDetails.someoneWon) {
-//                if (winnerDetails.player1Won) {
-//                    firstPlayerScoreText.setText(String.valueOf(player1Score));
-//                    player1Score++;
-//                    System.out.println("Player 1 score = " + player1Score);
-//                } else {
-//                    secondPlayerScoreText.setText(String.valueOf(player2Score));
-//                    player2Score++;
-//                    System.out.println("Player 2 score = " + player2Score);
-//                }
-//
-//                highlightWinningButtons(winnerDetails.winningButtons);
-//                disableButton();
-//                timelinewinner.play();
-//                fullBoardFlag = false;
-//            }
-//        }
-//    }
+
+    public void checkIfGameIsOver() {
+        GameWinnerDetails winnerDetails = getWinnerDetails();
+        System.out.println("Winner details = " + winnerDetails);
+        if (winnerDetails != null) {
+            if (winnerDetails.someoneWon) {
+                boolean player1Won = false;
+                if (winnerDetails.player1Won) {
+                    player1Won = true;
+                    firstPlayerScoreText.setText(String.valueOf(player1Score));
+                    player1Score++;
+                    System.out.println("Player 1 score = " + player1Score);
+                } else {
+                    secondPlayerScoreText.setText(String.valueOf(player2Score));
+                    player2Score++;
+                    System.out.println("Player 2 score = " + player2Score);
+                }
+
+                highlightWinningButtons(winnerDetails.winningButtons);
+                disableButton();
+                fullBoardFlag = false;
+                if (isRecording)
+                    saveRecording();
+                if (!isPlayingRecord) {
+                    if (player1Won) {
+                        timelinewinner.play();
+                    } else {
+                        timelinelose.play();
+                    }
+                }
+            }
+        }
+    }
+
 
     private void highlightWinningButtons(Button[] buttons) {
         for (int i = 0; i < 3; i++) {
@@ -806,6 +884,58 @@ public  class GameBase extends AnchorPane {
         button31.setDisable(true);
         button32.setDisable(true);
         button33.setDisable(true);
+    }
+    
+    private void playRecording() {
+        List<BoardCell> moves = currentRecording.getMoves();
+        for (int i = 0, l = moves.size(); i < l; ++i) {
+            BoardCell currentMove = moves.get(i);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(i + 1), event -> {
+                Platform.runLater(() -> playMove(getButton(currentMove.getX(), currentMove.getY())));
+            }));
+            timeline.play();
+        }
+    }
+    
+    public static List<File> searchFiles(String directoryPath, String substring) {
+        List<File> matchingFiles = new ArrayList<>();
+
+        File directory = new File(directoryPath);
+        if (directory.isDirectory()) {
+            File[] files = directory.listFiles();
+
+            if (files != null) {
+                for (File file : files) {
+                    System.out.println("=======================================");
+                    System.out.println("Checking " + file.getName() + " against " + substring);
+                    if (file.isFile() && file.getName().contains(substring)) {
+                        matchingFiles.add(file);
+                    }
+                }
+            }
+        }
+
+        return matchingFiles;
+    }
+    
+    private void saveRecording() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        File recordsDirectory = new File(Config.getRecordsPath());
+        recordsDirectory.mkdirs();
+        String fileName = firstPlayer.getUsername() + "-" +
+                secondPlayer.getUsername() + "-" +
+                dateFormat.format(new Date());
+        List<File> previousFiles = searchFiles(Config.getRecordsPath(), fileName);
+        if (previousFiles.size() > 0) {
+            fileName = fileName + "(" + (previousFiles.size() + 1) + ")";
+        }
+        fileName = Config.getRecordsPath() + System.getProperty("file.separator") + fileName + ".txt";
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            output.writeObject(currentRecording);
+            System.out.println("Object written to file: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     
