@@ -224,77 +224,54 @@ public  class SignUpBase extends AnchorPane {
         SignUpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-           
-            
-          
-        
-        String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-        Pattern pattern = Pattern.compile(regex); 
-        Matcher matcher = pattern.matcher(emailTextField.getText());
-        String userName = usernameTextField.getText().trim();
-        String email = emailTextField.getText().trim();
-        String password = passTextField.getText().trim();
-        if(userName.isEmpty() || email.isEmpty() || password.isEmpty()   ){
-          JOptionPane.showMessageDialog(jFrame, "Please enter data the fields are required", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
-
-                 }else if(!matcher.matches()){
-                 JOptionPane.showMessageDialog(jFrame, "Email Format is False", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
-
-                 }else if(!passTextField.getText().equals(passTextField.getText())){
+                Pattern pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"); 
+                Matcher matcher = pattern.matcher(emailTextField.getText());
+                String userName = usernameTextField.getText().trim();
+                String email = emailTextField.getText().trim();
+                String password = passTextField.getText().trim();
+                if(userName.isEmpty() || email.isEmpty() || password.isEmpty()   ){
+                    JOptionPane.showMessageDialog(jFrame, "Please enter data the fields are required", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+                }else if(!matcher.matches()){
+                    JOptionPane.showMessageDialog(jFrame, "Email Format is False", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+                }else if(!passTextField.getText().equals(passTextField.getText())){
                     JOptionPane.showMessageDialog(jFrame, "Wrong password", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
-
-                 }  
-                 else{
-              OnlineAppManger.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
-                 
-        
-          thread =   new Thread(){
-           String state,playerData;
-           public void run(){
-               try {
-                   try {
-                       state = OnlineAppManger.dis.readLine();
-                   } catch (IOException ex) {
-                       Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-                   token = new StringTokenizer(state,"###");
-                   String receivedState = token.nextToken();
-                   System.out.println(receivedState);
-                   System.out.println(receivedState);
-                   
-                   switch(receivedState){
-                       case "Registered Successfully":
-                           System.out.println("asdfasdfasdfasdfas");
-                           playerData = OnlineAppManger.dis.readLine();
-                           System.out.println(playerData);
-                           token = new StringTokenizer(playerData,"###");
-                           OnlineAppManger.hash.put("username", token.nextToken());
-                          OnlineAppManger.hash.put("email",token.nextToken());
-                           OnlineAppManger.hash.put("score", "0");
-                           Parent pane = new ScoreScreenBase(stage);
-                           stage.getScene().setRoot(pane);
-                        break;
-                        case "already signed-up":
-                            JOptionPane.showMessageDialog(jFrame, "This email is already signed in", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
-                                    break;
-                   }
-                   
-
-                   
-               } catch (IOException ex) {
-                   Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
-               }
-          }
-    
-    };
-           thread.start();
-                  }
-    }
-        
-        
-      });   
-        
-        
+                }  
+                else{
+                    OnlineAppManger.ps.println("SignUp###"+usernameTextField.getText()+"###"+emailTextField.getText()+"###"+passTextField.getText());
+                    thread = new Thread(){
+                        String state,playerData;
+                        public void run(){
+                            try {
+                                try {
+                                    state = OnlineAppManger.dis.readLine();
+                                } catch (IOException ex) {
+                                    Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                token = new StringTokenizer(state,"###");
+                                String receivedState = token.nextToken();
+                                switch(receivedState){
+                                    case "Registered Successfully":
+                                        playerData = OnlineAppManger.dis.readLine();
+                                        token = new StringTokenizer(playerData,"###");
+                                        OnlineAppManger.hash.put("username", token.nextToken());
+                                        OnlineAppManger.hash.put("email",token.nextToken());
+                                        OnlineAppManger.hash.put("score", "0");
+                                        Parent pane = new ScoreScreenBase(stage);
+                                        stage.getScene().setRoot(pane);
+                                        break;
+                                    case "already signed-up":
+                                        JOptionPane.showMessageDialog(jFrame, "This email is already signed in", "ERROR", JOptionPane.ERROR_MESSAGE);                                     
+                                        break;
+                                }
+                            } catch (IOException ex) {
+                                Logger.getLogger(SignUpBase.class.getName()).log(Level.SEVERE, null, ex);
+                            }    
+                        }
+                    };
+                    thread.start();
+                }
+            }    
+        });      
     }
 }
 

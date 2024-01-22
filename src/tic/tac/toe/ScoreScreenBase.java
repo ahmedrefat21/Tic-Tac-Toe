@@ -60,16 +60,16 @@ public  class ScoreScreenBase extends AnchorPane {
     protected final ImageView playerImage;
     protected Label playerName;
     protected Button inviteButton;
-    private ArrayList<Player> onlinePlayers;
+    private ArrayList<Player> activePlayers;
     private ImageView playerIMG;
     private Alert alert;
     private Thread thread;
     private Boolean loaded = false;
     private Player player;
     private StringTokenizer token;
-    private String player2Username ;
+    private String playerTwoUsername ;
     private int player2Score;
-    private int opponentScore;
+    private int enemyScore;
     public static int currentScore;
     Stage stage;
     
@@ -299,52 +299,39 @@ public  class ScoreScreenBase extends AnchorPane {
         anchorPane2.getChildren().add(playersScrollPane);
         getChildren().add(anchorPane2);
 
-        onlinePlayers = new ArrayList();  
-        
-        //listOnlinePlayers();
+        activePlayers = new ArrayList();  
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(true){
                     if(loaded){
-                        System.out.println("playyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-                        onlinePlayers.clear();
+                        activePlayers.clear();
                     do{
-
                         try{
-                            String data = OnlineAppManger.dis.readLine();
-                            if(data.equals("null")){
+                            String playerData = OnlineAppManger.dis.readLine();
+                            if(playerData.equals("null")){
                                 break;
                             }
-                            switch(data){
+                            switch(playerData){
                                 case "requestPlaying":
-                                    System.out.println("request received "+data);
-                                    alertRequestPlayer();
+                                    alertInvitation();
                                     break;
                                 case "decline":
-                                    alertRefused();
+                                    invitationRefuse();
                                     break;
                                 case "gameOn":
-                                    System.out.println("gammmmmmmmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeeeeeee");
-                                    startGame();
-                                    System.out.println("onnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
-                                    
+                                    play();
                                     break;
-                                    
                                 case "close":
                                     thread.stop();
-                                    
                                 default :
-                                    System.out.println("default");
-                                    readOnlineList(data);
-                                   
+                                    readPlayersList(playerData);
                             }
                         } catch (IOException ex) {
                             thread.stop();
                         }
                     }while(true);
-                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                    listOnlinePlayers();
+                        onlinePlayersList();
                     try{
                             Thread.sleep(300);
                         }catch(InterruptedException ex){
@@ -360,24 +347,21 @@ public  class ScoreScreenBase extends AnchorPane {
        
        
     
-    private void alertRequestPlayer() throws IOException{
-        String opponentData = OnlineAppManger.dis.readLine();
-        System.out.println("recieved request");
-        token = new StringTokenizer(opponentData,"###");
-        String opponentMail = token.nextToken();
-    
-        player2Username = token.nextToken();
-        String sOpponentScore = token.nextToken();
-        player2Score = Integer.parseInt(sOpponentScore);
+    private void alertInvitation() throws IOException{
+        String playerTwoData = OnlineAppManger.dis.readLine();
+        token = new StringTokenizer(playerTwoData,"###");
+        String playerTwoEmail = token.nextToken();
+        playerTwoUsername = token.nextToken();
+        String playerTwoScore = token.nextToken();
+        player2Score = Integer.parseInt(playerTwoScore);
         Platform.runLater(new Runnable(){
             @Override
             public void run() {
-                System.out.println("recieved request run");
                 ButtonType AcceptType = new ButtonType("Accept");
                 ButtonType RejectType = new ButtonType("Reject", ButtonBar.ButtonData.CANCEL_CLOSE);             
                 alert = new Alert(Alert.AlertType.NONE);
                 alert.setTitle("Request Playing");
-                alert.setHeaderText(player2Username+" Wants to Play with You ?");
+                alert.setHeaderText(playerTwoUsername+" Wants to Play with You ?");
                 alert.getDialogPane().getButtonTypes().addAll(AcceptType,RejectType);
                 DialogPane dialog = alert.getDialogPane();              
                 dialog.getStylesheets().add(
@@ -387,38 +371,29 @@ public  class ScoreScreenBase extends AnchorPane {
                 delay.setOnFinished(e -> alert.hide());
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == AcceptType){
-                    System.out.println("game on");
-                    OnlineAppManger.ps.println("accept###"+OnlineAppManger.hash.get("email")+"###"+OnlineAppManger.hash.get("username")+"###"+opponentMail);
-                    System.out.println("staaaaaaaaaaaaaaaaaaaaaagggggggggggggggggeeeeeeeeeeeeeeeeeeee");
-                    showGame(false,player2Username,player2Score);
-                    
-                
+                    OnlineAppManger.ps.println("accept###"+OnlineAppManger.hash.get("email")+"###"+OnlineAppManger.hash.get("username")+"###"+playerTwoEmail);
+                    showBoard(false,playerTwoUsername,player2Score);
                 }else {
-                    // to players online screen
-                    System.out.println("no first request");
-                    OnlineAppManger.ps.println("decline###"+opponentMail);
+                    OnlineAppManger.ps.println("decline###"+playerTwoEmail);
                 }
                 delay.play();
             }
-
         });
     }
-    private void listOnlinePlayers(){
+    private void onlinePlayersList(){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-//                try {
                     playersScrollPane.setContent(null);
                     vBox.getChildren().clear();
                     
-                    for(Player x : onlinePlayers){
-                        System.out.println("inside for loop");
+                    for(Player player : activePlayers){
                         playerIMG = new ImageView(new Image(getClass().getResource("/assets/images/gamer1.png").toExternalForm()));
                         playerIMG.setFitHeight(42.0);
                         playerIMG.setFitWidth(70.0);
                         playerIMG.setPreserveRatio(true);
-                        
-                        playerName = new Label(x.getUsername() + "       "+ x.getScore());
+       
+                        playerName = new Label(player.getUsername() + "       "+ player.getScore());
                         playerName.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
                         playerName.setFont(new Font("Comic Sans MS Bold", 24.0));
                         playerName.setPrefHeight(35.0);
@@ -440,11 +415,9 @@ public  class ScoreScreenBase extends AnchorPane {
                         hBox = new HBox(playerIMG,playerName,inviteButton);
                         hBox.setPrefHeight(17.0);
                         hBox.setPrefWidth(461.0);
-                        
-                    
-                        
-                        inviteButton.setId(""+x.getEmail());
-                        if(x.isIsplaying()){
+                                      
+                        inviteButton.setId(""+player.getEmail());
+                        if(player.isIsplaying()){
                             hBox.setDisable(true);
                             inviteButton.setDisable(true);
                         }
@@ -471,12 +444,11 @@ public  class ScoreScreenBase extends AnchorPane {
                         vBox.getChildren().add(hBox);
                         playersScrollPane.setContent(vBox);
                     }
-                    onlinePlayers.clear();
-                
+                    activePlayers.clear();
             }
         });
     }
-    private void alertRefused(){
+    private void invitationRefuse(){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -497,8 +469,7 @@ public  class ScoreScreenBase extends AnchorPane {
     }
     
 
-    private void readOnlineList(String data){
-        //System.out.println("data :"+data+"\n");
+    private void readPlayersList(String data){
         token = new StringTokenizer(data, "###");
         player = new Player();
         player.setUsername(token.nextToken());
@@ -506,15 +477,11 @@ public  class ScoreScreenBase extends AnchorPane {
         player.setIsactive(Boolean.parseBoolean(token.nextToken()));
         player.setIsplaying(Boolean.parseBoolean(token.nextToken()));
         player.setScore(Integer.parseInt(token.nextToken()));
-        
-        System.out.println(OnlineAppManger.hash.get("email"));
-        System.out.println(player.getEmail());
         if(!OnlineAppManger.hash.get("email").equals(player.getEmail())){
-            System.out.println("Add list");
-            onlinePlayers.add(player);
+            activePlayers.add(player);
         }
     }
-    private void startGame() throws IOException{
+    private void play() throws IOException{
         Platform.runLater(new Runnable() {
             @Override
             public void run(){
@@ -522,29 +489,20 @@ public  class ScoreScreenBase extends AnchorPane {
                     alert.close();
             }
         });
-        String OpponentUsername = OnlineAppManger.dis.readLine();
-        String sOpponentScore = OnlineAppManger.dis.readLine();
-        opponentScore = Integer.parseInt(sOpponentScore);
-        System.out.println("player 2 accepted");
-
-        showGame(true,OpponentUsername, opponentScore);    
+        String playerTwoUsername = OnlineAppManger.dis.readLine();
+        String playerTwScore = OnlineAppManger.dis.readLine();
+        enemyScore = Integer.parseInt(playerTwScore);
+        showBoard(true,playerTwoUsername, enemyScore);    
     }
     
     
     
-    private void showGame(boolean state, String name , int score){
-
+    private void showBoard(boolean state, String name , int score){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
                 Parent pane = new OnlineGameBoardBase(stage , name , score , state ,currentScore);
-                stage.getScene().setRoot(pane);  
-                System.out.println("my state: "+state);
-                System.out.println("letttttttttttttttttttttttttttttttttttttttttssssssssssssss"); 
-               
-                
-                                  
+                stage.getScene().setRoot(pane);                     
             }
         });
         
@@ -552,11 +510,7 @@ public  class ScoreScreenBase extends AnchorPane {
     }
     
     public void logOut(){
-
-        System.out.println("backToMainPage: called");
-        System.out.println("Emial " + OnlineAppManger.hash.get("email"));
         if(OnlineAppManger.hash.get("email")!= null){
-               System.out.println("Send to server to logout");
                OnlineAppManger.ps.println("logout###"+OnlineAppManger.hash.get("email"));
                thread.stop();
                try {
@@ -571,8 +525,4 @@ public  class ScoreScreenBase extends AnchorPane {
         stage.getScene().setRoot(pane);
         
     }
-    
-    
-    
-     
 }
