@@ -1,7 +1,14 @@
 package tic.tac.toe;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,7 +75,9 @@ public  class OnlineGameBoardBase extends AnchorPane {
     private int Score;
     private HashMap<String, Button> btn;
     private Alert alert;
-
+    boolean isRecording = false;
+    Recording currentRecording;
+    
     private Boolean display = false;
     private Timeline timelinewinner;
     private Timeline timelinelose;
@@ -490,6 +499,13 @@ public  class OnlineGameBoardBase extends AnchorPane {
         recordImage.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         recordImage.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
         exitButton1.setGraphic(recordImage);
+        exitButton1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                isRecording = true;
+                exitButton1.setVisible(false);
+            }
+        });
 
         getChildren().add(imageView);
         getChildren().add(imageView0);
@@ -617,7 +633,8 @@ public  class OnlineGameBoardBase extends AnchorPane {
         thread.start();
         
         
-
+        firstPlayer = new Player(OnlineAppManger.hash.get("username"));
+        secondPlayer = new Player(player2);
     }
     
        
@@ -667,10 +684,15 @@ public  class OnlineGameBoardBase extends AnchorPane {
     }
 
     public void setPlayerTurn(Button button){
+        if (!isRecording) {
+            exitButton1.setVisible(false);
+        }
         if(gameState && myTurn){
             if(button.getText().equals("")){
                 button.setText(myTic);
                 button.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
+                if (isRecording)
+                    recordMove(button);
                 myTurn = false;
                 opponentTurn = true;
                 if(myTurn && myTic.equals("X")){
@@ -694,6 +716,9 @@ public  class OnlineGameBoardBase extends AnchorPane {
     
     private void opponentTurn(){
         try {
+            if (!isRecording) {
+                exitButton1.setVisible(false);
+            }
             String oppPressed = OnlineAppManger.dis.readLine();
             System.out.println("oppppppppppppppppressssssssssseeeeeeeeeedddd");
             System.out.println(oppPressed);
@@ -707,6 +732,8 @@ public  class OnlineGameBoardBase extends AnchorPane {
                         public void run() {
                             button.setText(oppTic);
                             button.setTextFill(javafx.scene.paint.Color.valueOf("#fcd015"));
+                            if (isRecording)
+                                recordMove(button);
                             System.out.println("myTic "+ oppTic);
                             
                             checkState();
@@ -744,6 +771,9 @@ public  class OnlineGameBoardBase extends AnchorPane {
                         
                         timelinelose.play();
                     }
+                    System.out.println("Game should be over (someone won) Are we recording? " + isRecording);
+                    if (isRecording)
+                        saveRecording();
                 }
             });
             reset();
@@ -754,7 +784,10 @@ public  class OnlineGameBoardBase extends AnchorPane {
                 @Override
                 public void run() {
                     System.out.println("It's adraw !!");
-                    timelineldraw.play();        
+                    timelineldraw.play();
+                    System.out.println("Game should be over (draw) Are we recording? " + isRecording);
+                    if (isRecording)
+                        saveRecording();
                 }                
             });
             reset();
@@ -900,7 +933,94 @@ public  class OnlineGameBoardBase extends AnchorPane {
     
     
     
+    public static List<File> searchFiles(String directoryPath, String username) {
+    List<File> matchingFiles = new ArrayList<>();
+
+    File directory = new File(directoryPath);
+    if (directory.isDirectory()) {
+        File[] files = directory.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                System.out.println("=======================================");
+                System.out.println("Checking " + file.getName() + " against " + username);
+                if (file.isFile() && file.getName().contains(username)) {
+                    matchingFiles.add(file);
+                }
+            }
+        }
+    }
+
+    return matchingFiles;
+}
     
+    private void saveRecording() {
+        System.out.println("Inside saveRecording()");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        File recordsDirectory = new File(Config.getRecordsPath());
+        recordsDirectory.mkdirs();
+        String fileName = firstPlayer.getUsername() + "-" +
+                secondPlayer.getUsername() + "-" +
+                dateFormat.format(new Date());
+        
+        List<File> matchFiles = searchFiles("directoryPath:", firstPlayer.getUsername());
+        for(File file : matchFiles ){
+        
+            System.out.println(file.getName());
+        }
+        
+        
+//        List<File> previousFiles = searchFiles(Config.getRecordsPath(), fileName);
+//        if (previousFiles.size() > 0) {
+//            fileName = fileName + "(" + (previousFiles.size() + 1) + ")";
+//        }
+        fileName = Config.getRecordsPath() + System.getProperty("file.separator") + fileName + ".txt";
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            output.writeObject(currentRecording);
+            System.out.println("Object written to file: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+     private void recordMove(Button button) {
+        if (this.currentRecording == null)
+            this.currentRecording = new Recording(firstPlayer, secondPlayer, new Date(), "", new ArrayList<>());
+
+        this.currentRecording.addNewMove(getCellFromButton(button));
+    }
     
+    private BoardCell getCellFromButton(Button button) {
+        int x = -1, y = -1;
+        if (button == button11) {
+            x = 0;
+            y = 0;
+        } else if (button == button12) {
+            x = 0;
+            y = 1;
+        } else if (button == button13) {
+            x = 0;
+            y = 2;
+        } else if (button == button21) {
+            x = 1;
+            y = 0;
+        } else if (button == button22) {
+            x = 1;
+            y = 1;
+        } else if (button == button23) {
+            x = 1;
+            y = 2;
+        } else if (button == button31) {
+            x = 2;
+            y = 0;
+        } else if (button == button32) {
+            x = 2;
+            y = 1;
+        } else if (button == button33) {
+            x = 2;
+            y = 2;
+        }
+        
+        return new BoardCell(x, y);
+    }
     
 }

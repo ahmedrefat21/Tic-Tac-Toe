@@ -162,6 +162,7 @@ public  class ScoreScreenBase extends AnchorPane {
         imageView.setPreserveRatio(true);
         imageView.setImage(new Image(getClass().getResource("/assets/images/back.png").toExternalForm()));
         backBtn.setGraphic(imageView);
+        
 
         watchRecordBtn.setLayoutX(626.0);
         watchRecordBtn.setLayoutY(21.0);
@@ -169,6 +170,13 @@ public  class ScoreScreenBase extends AnchorPane {
         watchRecordBtn.setPrefHeight(77.0);
         watchRecordBtn.setPrefWidth(85.0);
         watchRecordBtn.setStyle("-fx-background-color: #FDE8ED;");
+        watchRecordBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                 RecordsList recordsList = new RecordsList(stage);
+                stage.getScene().setRoot(recordsList);
+            }
+        });
 
         imageView0.setFitHeight(54.0);
         imageView0.setFitWidth(67.0);
