@@ -109,7 +109,7 @@ public class LevelScreenBase extends AnchorPane {
     private void startGame(Stage stage, GameDifficulty difficulty) {
         playerOne.setUsername("playerOne");
         computer.setUsername("computer");
-        Parent pane = new PlayerOneName(stage, difficulty);
+        Parent pane = new PlayerOneNameBase(stage, difficulty);
         stage.getScene().setRoot(pane);
         System.out.println("welcome to the computer game");
     }

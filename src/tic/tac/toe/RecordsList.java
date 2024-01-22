@@ -40,6 +40,7 @@ public class RecordsList extends AnchorPane {
 
         scrollPane.setPrefHeight(480.0);
         scrollPane.setPrefWidth(740.0);
+        scrollPane.setStyle("-fx-background: FFDDE5; -fx-border-color:#FDE8ED;");
         //scrollPane.setFitToHeight(true);
 
         anchorPane.setMinHeight(0.0);

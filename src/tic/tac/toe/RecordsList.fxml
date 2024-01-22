@@ -7,11 +7,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="740.0" styleClass="record-box" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="740.0" style="-fx-background-color: #FDE8ED;" styleClass="record-box" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane prefHeight="480.0" prefWidth="740.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="743.0" styleClass="records-box" stylesheets="@css/recordslist.css">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="738.0" styleClass="records-box" stylesheets="@css/recordslist.css">
                <children>
                   <ImageView fx:id="Record_Screen_Back_Button" fitHeight="95.0" fitWidth="85.0" layoutX="25.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>

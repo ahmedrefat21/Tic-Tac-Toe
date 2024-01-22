@@ -367,19 +367,19 @@ public  class GameBase extends AnchorPane {
         firstPlayerNameText.setStrokeWidth(0.0);
         firstPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         firstPlayerNameText.setText("Refat");
-        firstPlayerNameText.setFont(new Font("Comic Sans MS Bold", 24.0));
+        firstPlayerNameText.setFont(new Font("Comic Sans MS Bold", 35.0));
 
         AnchorPane.setBottomAnchor(secondPlayerNameText, 291.0);
         AnchorPane.setTopAnchor(secondPlayerNameText, 122.0);
         secondPlayerNameText.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
         secondPlayerNameText.setId("firstPlayerNameText");
-        secondPlayerNameText.setLayoutX(620.0);
+        secondPlayerNameText.setLayoutX(590.0);
         secondPlayerNameText.setLayoutY(175.0);
         secondPlayerNameText.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         secondPlayerNameText.setStrokeWidth(0.0);
         secondPlayerNameText.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         secondPlayerNameText.setText("Sara");
-        secondPlayerNameText.setFont(new Font("Comic Sans MS Bold", 24.0));
+        secondPlayerNameText.setFont(new Font("Comic Sans MS Bold", 35.0));
 
         if (!isPlayingRecord) {
             AnchorPane.setBottomAnchor(firstPlayerScoreText, 206.0);
@@ -560,9 +560,7 @@ public  class GameBase extends AnchorPane {
         else return null;
     }
     
-    /**
-     * Returns the flat index of the next empty random cell on the board
-     */
+    
     private BoardCell playRandom() {
         Random rand = new Random();
         int x, y;
@@ -575,11 +573,7 @@ public  class GameBase extends AnchorPane {
         return new BoardCell(x, y);
     }
     
-    /**
-     * Returns the flat index of a random move or a best move in turns
-     * medium level (one time easy, one time hard)
-     * Begins with a best move
-     */
+    
     private BoardCell playMedium() {
         if (counter % 2 == 0)
             return playHard();
@@ -587,41 +581,19 @@ public  class GameBase extends AnchorPane {
             return playRandom();
     }
     
-    /**
-     * Return the flat index of the best move that the computer can take
-     * the best move is either a move that will help the computer win, or will prevent the player from winning
-     * this means that the computer will always try to win or draw the game (hard level)
-     */
+    
     public BoardCell playHard() {
         int bestScore = Integer.MIN_VALUE;
         BoardCell bestCell = new BoardCell(-1, -1);
 
-        // Loop through all cells
+        
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
-                // Get the button by row and column coordinates
                 Button button = getButton(row, column);
-
-                // Check if the cell is empty
                 if (isButtonEmpty(button)) {
-                    /*
-                    We make the computer simulate a hypothetical game, 
-                    calculating all possible moves in both its direction and the player's direction
-                    to achieve the best outcome or the best position to play.
-                    */
-                    button.setText("O");
-                    /*
-                    Here, the computer accumulates a sum to calculate the hypothetical steps it has taken,
-                    whether in its favor or not, it increases its own total accordingly and
-                    If the steps are in favor of the player, it subtracts the corresponding sum.
-                    */         
+                    button.setText("O");        
                     int moveScore = minimax(false);
-                    // After completing the simulation process, it returns all the cells it used to be empty.
                     button.setText(" ");
-                    /*
-                     Here, we choose the highest sum obtained during the simulation process to
-                    ensure the best outcome for winning or drawing with the least estimation.
-                    */
                     if (moveScore > bestScore) {
                         bestScore = moveScore;
                         bestCell = new BoardCell(row, column);
@@ -633,16 +605,7 @@ public  class GameBase extends AnchorPane {
         return bestCell;
     }
     
-    /**
-     * MiniMax algorithm is used when we have two players in a game
-     * and we want to calculate the score of a simulation on the board.
-     * The simulation maximizes possible score for a player and minimizes it for
-     * the other, then returns this score representing either a win for the
-     * maximized player or a win for the minimized player.
-     * @param isMaximizing are we maximizing score for player 1 (the computer in case of our game)
-     * or minimizing it for player 2 (the human player)
-     * @return score of the winning player
-     */
+    
     private int minimax(boolean isMaximizing) {
         int score = getMoveScore();
 
@@ -683,9 +646,7 @@ public  class GameBase extends AnchorPane {
         }
     }
     
-    /**
-     * Return a score based on the game winner.
-     */
+    
     private int getMoveScore() {
         GameWinnerDetails winnerDetails = getWinnerDetails();
 
@@ -698,9 +659,7 @@ public  class GameBase extends AnchorPane {
         return 0;
     }
     
-    /**
-     * Checks if there is at least one more move in the game.
-     */
+    
     private boolean shouldGameEnd() {
         boolean oneEmpty = false;
         for (int i = 0; i < 9; ++i)
@@ -729,68 +688,41 @@ public  class GameBase extends AnchorPane {
         }
     }
 
-    /**
-     * Checks if there is a game winner.
-     * @return details for the winner player, including which side and which cells won them the game.
-     */
+    
     private GameWinnerDetails getWinnerDetails() {
         String line = "";
         Button[] buttons = new Button[3];
         for (int i = 0; i < 8; ++i) {
             switch (i) {
                 case 0:
-                    // 11 12 13
-                    
-                    
                     line = button11.getText() + button12.getText() + button13.getText();
                     buttons = new Button[]{button11, button12, button13};
                     break;
                 case 1:
-                    
-                    // 21 22 23
-                    
                     line = button21.getText() + button22.getText() + button23.getText();
                     buttons = new Button[]{button21, button22, button23};
                     break;
                 case 2:
-                     
-                    
-                    // 31 32 33
                     line = button31.getText() + button32.getText() + button33.getText();
                     buttons = new Button[]{button31, button32, button33};
                     break;
                 case 3:
-                    // 11       
-                    //    22   
-                    //       33
                     line = button11.getText() + button22.getText() + button33.getText();
                     buttons = new Button[]{button11, button22, button33};
                     break;
-                case 4:
-                    //       13 
-                    //    22   
-                    // 31      
+                case 4:      
                     line = button13.getText() + button22.getText() + button31.getText();
                     buttons = new Button[]{button13, button22, button31};
                     break;
                 case 5:
-                    // 11  
-                    // 21 
-                    // 31 
                     line = button11.getText() + button21.getText() + button31.getText();
                     buttons = new Button[]{button11, button21, button31};
                     break;
                 case 6:
-                    //    12 
-                    //    22
-                    //    32 
                     line = button12.getText() + button22.getText() + button32.getText();
                     buttons = new Button[]{button12, button22, button32};
                     break;
                 case 7:
-                    //       13 
-                    //       23
-                    //       33
                     line = button13.getText() + button23.getText() + button33.getText();
                     buttons = new Button[]{button13, button23, button33};
                     break;
@@ -939,10 +871,6 @@ public  class GameBase extends AnchorPane {
     }
     
     
-    /**
-     * Describes if someone won, and some details about them.
-     * Includes which side won, and which buttons won them the game.
-     */
     class GameWinnerDetails {
         public boolean someoneWon;
         public boolean player1Won;

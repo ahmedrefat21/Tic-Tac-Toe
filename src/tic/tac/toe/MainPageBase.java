@@ -6,19 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 
 public class MainPageBase extends AnchorPane {
 
-
     protected final ImageView imageView;
-    protected final ImageView aboutImage;
     protected final Rectangle computerRectangle;
     protected final ImageView imageView0;
     protected final Rectangle localRectangle;
@@ -28,12 +23,13 @@ public class MainPageBase extends AnchorPane {
     protected final Button localButton;
     protected final Button onlineButton;
     protected final Button compButton;
-    protected final ImageView recordsList;
+    protected final Rectangle localRectangle1;
+    protected final Button RecordsButton;
+    protected final ImageView imageView3;
 
     public MainPageBase(Stage stage) {
 
         imageView = new ImageView();
-        aboutImage = new ImageView();
         computerRectangle = new Rectangle();
         imageView0 = new ImageView();
         localRectangle = new Rectangle();
@@ -43,7 +39,9 @@ public class MainPageBase extends AnchorPane {
         localButton = new Button();
         onlineButton = new Button();
         compButton = new Button();
-        recordsList = new ImageView();
+        localRectangle1 = new Rectangle();
+        RecordsButton = new Button();
+        imageView3 = new ImageView();
 
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -60,13 +58,7 @@ public class MainPageBase extends AnchorPane {
         imageView.setPreserveRatio(true);
         imageView.setImage(new Image(getClass().getResource("/assets/images/mainBackground.png").toExternalForm()));
 
-        aboutImage.setFitHeight(104.0);
-        aboutImage.setFitWidth(115.0);
-        aboutImage.setLayoutX(622.0);
-        aboutImage.setLayoutY(14.0);
-        aboutImage.setPickOnBounds(true);
-        aboutImage.setPreserveRatio(true);
-        aboutImage.setImage(new Image(getClass().getResource("/assets/images/about.png").toExternalForm()));
+        
 
         AnchorPane.setBottomAnchor(computerRectangle, 119.0);
         AnchorPane.setLeftAnchor(computerRectangle, 60.0);
@@ -101,7 +93,6 @@ public class MainPageBase extends AnchorPane {
         localRectangle.setHeight(176.0);
         localRectangle.setLayoutX(275.0);
         localRectangle.setLayoutY(185.0);
-        
         localRectangle.setStroke(javafx.scene.paint.Color.TRANSPARENT);
         localRectangle.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         localRectangle.setWidth(190.0);
@@ -177,69 +168,85 @@ public class MainPageBase extends AnchorPane {
         compButton.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         compButton.setFont(new Font("Comic Sans MS Bold", 26.0));
 
-        AnchorPane.setBottomAnchor(recordsList, 14.0);
-        AnchorPane.setLeftAnchor(recordsList, ((stage.getScene().getWidth() / 2)-60));
-        AnchorPane.setTopAnchor(recordsList, 382.0);
-        recordsList.setFitHeight(83.0);
-        recordsList.setFitWidth(0.0);
-        recordsList.setLayoutX(155.0);
-        recordsList.setLayoutY(382.0);
-        recordsList.setPickOnBounds(true);
-        recordsList.setPreserveRatio(true);
-        recordsList.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,0,0);");
-        recordsList.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
+        localRectangle1.setArcHeight(50.0);
+        localRectangle1.setArcWidth(50.0);
+        localRectangle1.setFill(javafx.scene.paint.Color.valueOf("#fcd015"));
+        localRectangle1.setHeight(82.0);
+        localRectangle1.setLayoutX(253.0);
+        localRectangle1.setLayoutY(375.0);
+        localRectangle1.setStroke(javafx.scene.paint.Color.TRANSPARENT);
+        localRectangle1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
+        localRectangle1.setWidth(233.0);
+
+        RecordsButton.setLayoutX(263.0);
+        RecordsButton.setLayoutY(385.0);
+        RecordsButton.setMnemonicParsing(false);
+        RecordsButton.setPrefHeight(62.0);
+        RecordsButton.setPrefWidth(132.0);
+        RecordsButton.setStyle("-fx-background-radius: 40px;");
+        RecordsButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
+        RecordsButton.setText("Records");
+        RecordsButton.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
+        RecordsButton.setFont(new Font("Comic Sans MS Bold", 24.0));
+
+        imageView3.setFitHeight(59.0);
+        imageView3.setFitWidth(82.0);
+        imageView3.setLayoutX(393.0);
+        imageView3.setLayoutY(387.0);
+        imageView3.setPickOnBounds(true);
+        imageView3.setPreserveRatio(true);
+        imageView3.setImage(new Image(getClass().getResource("/assets/images/recording.png").toExternalForm()));
 
         getChildren().add(imageView);
-        getChildren().add(aboutImage);
         getChildren().add(computerRectangle);
         getChildren().add(imageView0);
         getChildren().add(localRectangle);
         getChildren().add(onlineRectangle);
         getChildren().add(imageView1);
         getChildren().add(imageView2);
-
         getChildren().add(localButton);
         getChildren().add(onlineButton);
         getChildren().add(compButton);
-        getChildren().add(recordsList);
+        getChildren().add(localRectangle1);
+        getChildren().add(RecordsButton);
+        getChildren().add(imageView3);
         
-             localButton.setOnAction(new EventHandler<ActionEvent>() {
+        
+        localButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
              Parent pane = new PlayerNameBase(stage) {};
-             stage.getScene().setRoot(pane);
-              
-    }
-}); 
-            compButton.setOnAction(new EventHandler<ActionEvent>() {
+             stage.getScene().setRoot(pane);              
+            }
+        }); 
+        compButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-             Parent pane = new LevelScreenBase(stage) {};
-             stage.getScene().setRoot(pane);
-              
-    }
-});       
+                Parent pane = new LevelScreenBase(stage) {};
+                stage.getScene().setRoot(pane);
+            }
+        });       
                
-           onlineButton.setOnAction(new EventHandler<ActionEvent>() {
+        onlineButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-             Parent pane = new signup_login_designBase(stage) {};
-             stage.getScene().setRoot(pane);
-              
-    }
-});   
-           
-        recordsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                Parent pane = new signup_login_designBase(stage) {};
+                stage.getScene().setRoot(pane);
+            }
+        }); 
+        
+        RecordsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(ActionEvent event) {
                 RecordsList recordsList = new RecordsList(stage);
                 stage.getScene().setRoot(recordsList);
             }
         }); 
-
+           
 
     }
 
-  
+    
+
 
 }
