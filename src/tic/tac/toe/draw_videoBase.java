@@ -49,7 +49,7 @@ public  class draw_videoBase extends AnchorPane {
         setPrefHeight(480.0);
         setPrefWidth(740.0);
         getStyleClass().add("mainFxmlClass");
-        getStylesheets().add("/tic/tac/toe/draw_video.css");
+        getStylesheets().add("/tic/tac/toe/css/draw_video.css");
 
         AnchorPane.setBottomAnchor(palyagainbtn, 46.0);
         AnchorPane.setLeftAnchor(palyagainbtn, 125.0);
@@ -63,7 +63,7 @@ public  class draw_videoBase extends AnchorPane {
        // palyagainbtn.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
         palyagainbtn.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;");
        
-        palyagainbtn.getStylesheets().add("/tic/tac/toe/draw_video.css");
+        palyagainbtn.getStylesheets().add("/tic/tac/toe/css/draw_video.css");
         palyagainbtn.setText("Play again");
         palyagainbtn.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         palyagainbtn.setFont(new Font("Comic Sans MS Bold", 27.0));
@@ -88,7 +88,7 @@ public  class draw_videoBase extends AnchorPane {
         mainmenubtn.setPrefWidth(202.0);
         mainmenubtn.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;");
       //  mainmenubtn.setStyle("-fx-effect: dropshadow(one-pass-box ,#BFBFC3,10,0.3,-5,5);");
-        mainmenubtn.getStylesheets().add("/tic/tac/toe/draw_video.css");
+        mainmenubtn.getStylesheets().add("/tic/tac/toe/css/draw_video.css");
         mainmenubtn.setText("Main menu");
         mainmenubtn.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         mainmenubtn.setFont(new Font("Comic Sans MS Bold", 27.0));

@@ -26,7 +26,7 @@ public  class splash_screenBase extends AnchorPane {
         setPrefWidth(740.0);
         setStyle("-fx-background-color: #f22853;");
         getStyleClass().add("mainFxmlClass");
-        getStylesheets().add("/tic/tac/toe/splash_screen.css");
+        getStylesheets().add("/tic/tac/toe/css/splash_screen.css");
 
         imageView.setFitHeight(488.0);
         imageView.setFitWidth(740.0);

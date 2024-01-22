@@ -37,7 +37,7 @@ public  class OnlineLoseBase extends AnchorPane {
         anchorPane.setPrefHeight(490.0);
         anchorPane.setPrefWidth(750.0);
         anchorPane.getStyleClass().add("mainFxmlClass");
-        anchorPane.getStylesheets().add("/tic/tac/toe/resultfxml.css");
+        anchorPane.getStylesheets().add("/tic/tac/toe/css/resultfxml.css");
 
         AnchorPane.setBottomAnchor(backToMainBtn, 12.0);
         AnchorPane.setLeftAnchor(backToMainBtn, 279.0);

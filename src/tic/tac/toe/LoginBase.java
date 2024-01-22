@@ -91,7 +91,7 @@ public class LoginBase extends AnchorPane {
         loginButton.setPrefHeight(61.0);
         loginButton.setPrefWidth(199.0);
         loginButton.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50; -fx-effect: dropshadow( one-pass-box  , #BFBFC3 , 10 ,0.4 , -7, 7 );");
-        loginButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
+        loginButton.getStylesheets().add("/tic/tac/toe/css/loginfxml.css");
         loginButton.setText("Login");
         loginButton.setTextFill(javafx.scene.paint.Color.valueOf("#fde8ed"));
         loginButton.setFont(new Font("Comic Sans MS Bold", 30.0));

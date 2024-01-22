@@ -143,7 +143,7 @@ public class MainPageBase extends AnchorPane {
         localButton.setPrefHeight(55.0);
         localButton.setPrefWidth(120.0);
         localButton.setStyle("-fx-background-radius: 40px;");
-        localButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
+        localButton.getStylesheets().add("/tic/tac/toe/css/loginfxml.css");
         localButton.setText("Local");
         localButton.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         localButton.setFont(new Font("Comic Sans MS Bold", 30.0));
@@ -153,7 +153,7 @@ public class MainPageBase extends AnchorPane {
         onlineButton.setMnemonicParsing(false);
         onlineButton.setPrefHeight(51.0);
         onlineButton.setPrefWidth(143.0);
-        onlineButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
+        onlineButton.getStylesheets().add("/tic/tac/toe/css/loginfxml.css");
         onlineButton.setText("Online");
         onlineButton.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         onlineButton.setFont(new Font("Comic Sans MS Bold", 28.0));
@@ -163,7 +163,7 @@ public class MainPageBase extends AnchorPane {
         compButton.setMnemonicParsing(false);
         compButton.setPrefHeight(55.0);
         compButton.setPrefWidth(157.0);
-        compButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
+        compButton.getStylesheets().add("/tic/tac/toe/css/loginfxml.css");
         compButton.setText("Computer");
         compButton.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         compButton.setFont(new Font("Comic Sans MS Bold", 26.0));
@@ -184,7 +184,7 @@ public class MainPageBase extends AnchorPane {
         RecordsButton.setPrefHeight(62.0);
         RecordsButton.setPrefWidth(132.0);
         RecordsButton.setStyle("-fx-background-radius: 40px;");
-        RecordsButton.getStylesheets().add("/tic/tac/toe/loginfxml.css");
+        RecordsButton.getStylesheets().add("/tic/tac/toe/css/loginfxml.css");
         RecordsButton.setText("Records");
         RecordsButton.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         RecordsButton.setFont(new Font("Comic Sans MS Bold", 24.0));

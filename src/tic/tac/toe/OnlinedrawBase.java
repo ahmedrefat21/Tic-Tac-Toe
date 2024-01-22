@@ -39,7 +39,7 @@ public class OnlinedrawBase extends AnchorPane {
         anchorPane.setPrefHeight(490.0);
         anchorPane.setPrefWidth(750.0);
         anchorPane.getStyleClass().add("mainFxmlClass");
-        anchorPane.getStylesheets().add("/tic/tac/toe/resultfxml.css");
+        anchorPane.getStylesheets().add("/tic/tac/toe/css/resultfxml.css");
 
         
         AnchorPane.setBottomAnchor(mediaView, 127.0);

@@ -43,7 +43,7 @@ public  class losevideoBase extends AnchorPane {
         setPrefHeight(480.0);
         setPrefWidth(740.0);
         getStyleClass().add("mainFxmlClass");
-        getStylesheets().add("/tic/tac/toe/resultfxml.css");
+        getStylesheets().add("/tic/tac/toe/css/resultfxml.css");
 
         AnchorPane.setBottomAnchor(playAgainButton, 48.0);
         AnchorPane.setLeftAnchor(playAgainButton, 72.0);
@@ -77,7 +77,7 @@ public  class losevideoBase extends AnchorPane {
         backToMainButn.setPrefHeight(63.0);
         backToMainButn.setPrefWidth(200.0);
         backToMainButn.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;");
-        backToMainButn.getStylesheets().add("/tic/tac/toe/resultfxml.css");
+        backToMainButn.getStylesheets().add("/tic/tac/toe/css/resultfxml.css");
         backToMainButn.setText("Main menu");
         backToMainButn.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         backToMainButn.setFont(new Font("Comic Sans MS Bold", 27.0));

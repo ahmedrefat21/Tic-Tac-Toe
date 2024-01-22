@@ -37,7 +37,7 @@ public  class signup_login_designBase extends AnchorPane {
         setPrefHeight(480.0);
         setPrefWidth(740.0);
         getStyleClass().add("root");
-        getStylesheets().add("/tic/tac/toe/signup_login_design.css");
+        getStylesheets().add("/tic/tac/toe/css/signup_login_design.css");
 
         arrowback.setFitHeight(108.0);
         arrowback.setFitWidth(112.0);

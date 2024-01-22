@@ -41,7 +41,7 @@ public  class WithdrawBase extends AnchorPane {
         anchorPane.setPrefHeight(480.0);
         anchorPane.setPrefWidth(740.0);
         anchorPane.getStyleClass().add("mainFxmlClass");
-        anchorPane.getStylesheets().add("/tic/tac/toe/resultfxml.css");
+        anchorPane.getStylesheets().add("/tic/tac/toe/css/resultfxml.css");
 
         AnchorPane.setBottomAnchor(mediaView, 113.0);
         AnchorPane.setLeftAnchor(mediaView, 165.0);
@@ -63,7 +63,7 @@ public  class WithdrawBase extends AnchorPane {
         backToMainButn.setPrefHeight(63.0);
         backToMainButn.setPrefWidth(200.0);
         backToMainButn.setStyle("-fx-border-radius: 50px; -fx-background-radius: 50;");
-        backToMainButn.getStylesheets().add("/tic/tac/toe/resultfxml.css");
+        backToMainButn.getStylesheets().add("/tic/tac/toe/css/resultfxml.css");
         backToMainButn.setText("Main menu");
         backToMainButn.setTextFill(javafx.scene.paint.Color.valueOf("#f22853"));
         backToMainButn.setFont(new Font("Comic Sans MS Bold", 27.0));
